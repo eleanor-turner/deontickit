@@ -5,11 +5,17 @@ from pathlib import Path
 
 from lark import Lark, Transformer
 
-def whole_sdl_ont(name, body):
-    '''Generates complete ontology including the seriality axiom.'''
+def whole_sdl_ont(name, body, sig):
+    '''Generates complete ontology including the seriality axiom.
     
+    Signature handling is a bit wonky.'''
+    
+    sig_decl = '\n'.join(['Class: ' + a for a in sig])
+                         
     url = f'http://bjp.org/{name}'
-    return f'''Prefix: dc: <http://purl.org/dc/elements/1.1/>
+    
+    return f'''Prefix: : <{url}#>
+Prefix: dc: <http://purl.org/dc/elements/1.1/>
 Prefix: owl: <http://www.w3.org/2002/07/owl#>
 Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -20,10 +26,12 @@ Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>
 
 Ontology: <{url}>
 
+{sig_decl}
 
 ObjectProperty: r
 
-Class owl:Thing SubClassOf: r some owl:Thing
+Class: owl:Thing SubClassOf: r some owl:Thing
+
 {body}
 '''
 
@@ -120,6 +128,7 @@ for con in flc:
 r = 'r'
 class OWLTransformer(Transformer):
     def __init__(self):
+        self.atomics = set()
         self.counter = 0
         
     def _ambig(self, n):
@@ -130,6 +139,7 @@ class OWLTransformer(Transformer):
 
     def atomic(self, a):
         (a,) = a
+        self.atomics.add(a)
         return a
         
     def NUMBER(self, n):
@@ -204,7 +214,10 @@ if __name__=='__main__':
     parser = Lark(g, parser='earley')
     tree = parser.parse(formulae)
     name = 'test' if not args.output else args.output.name
-    ont = whole_sdl_ont(name, '\n'.join(OWLTransformer().transform(tree)))
+    transformer = OWLTransformer()
+    axioms = '\n'.join(transformer.transform(tree))
+    sig = transformer.atomics
+    ont = whole_sdl_ont(name, axioms, sig)
     if not args.output:
         print(ont)
     else:
