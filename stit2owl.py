@@ -1,4 +1,10 @@
+import argparse
+import re
+
+from pathlib import Path
+
 from lark import Lark, Transformer
+
 g2= '''?start: worksheet
 worksheet: axioms
 axioms: axiom* 
@@ -181,10 +187,30 @@ class OWLTransformer(Transformer):
         
     def mlf(self, items):
         return f'Class: {items[0]} EquivalentTo:  {items[1]}'
-        
-import pprint 
 
-pp = pprint.PrettyPrinter(indent=4) 
-parser = Lark(g, parser='lalr')
-tree = parser.parse(text)
-print(OWLTransformer().transform(tree).pretty())
+
+if __name__=='__main__':
+    parser = argparse.ArgumentParser(description='Convert Modeldown files into OWL.')
+    parser.add_argument('source', type=Path,
+                    help='input file')
+    parser.add_argument('-o', '--output', type=Path, 
+                    help='input file')
+
+    args = parser.parse_args()
+    
+    g = Path('grammars/modal.g').read_text()
+    
+    s = args.source.read_text()
+    meta, formulae = re.split('---*', s)
+    print(meta)
+    print('----')
+    print(formulae)
+
+    print('----')    
+    if not args.output:
+        import pprint 
+        
+        pp = pprint.PrettyPrinter(indent=4) 
+        parser = Lark(g, parser='earley')
+        tree = parser.parse(formulae)
+        print(OWLTransformer().transform(tree).pretty())
