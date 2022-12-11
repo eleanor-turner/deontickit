@@ -1,5 +1,6 @@
 import argparse
 import re
+from pprint import pprint
 
 from pathlib import Path
 
@@ -133,6 +134,12 @@ class OWLTransformer(Transformer):
         self.atomics = set()
         self.roles = {r}
         self.counter = 0
+        self.flc = set()
+    
+    def to_flc(self, term):
+        self.flc.add(term)
+        self.flc.add(f'~{term}')
+        return term
         
     def _ambig(self, n):
         return n[-1]
@@ -143,22 +150,23 @@ class OWLTransformer(Transformer):
     def atomic(self, a):
         (a,) = a
         self.atomics.add(a)
-        return a
+        return self.to_flc(a)
+         
         
     def NUMBER(self, n):
         return n.value
-        
-    def conjunction(self, items):
-        return f'({items[0]} and {items[1]})'
     
     def negation(self, items):
         return f'(not {items[0]})'
+    
+    def conjunction(self, items):
+        return self.to_flc(f'({items[0]} and {items[1]})')
         
     def disjunction(self, items):
-        return f'({items[0]} or {items[1]})'
+        return self.to_flc(f'({items[0]} or {items[1]})')
 
     def implication(self, items):
-        return f'((not ({items[0]})) or ({items[1]}))'
+        return self.to_flc(f'((not ({items[0]})) or ({items[1]}))')
 
     def normalise_role_expression(self, items):
         if len(items) == 1:
@@ -176,11 +184,11 @@ class OWLTransformer(Transformer):
     
     def box(self, items):
         d, wff = self.normalise_role_expression(items)
-        return f'({d} only {wff})'
+        return self.to_flc(f'({d} only {wff})')
     
     def diamond(self, items):
         d, wff = self.normalise_role_expression(items)
-        return f'({d} some {wff})'
+        return self.to_flc(f'({d} some {wff})')
         
     def subclassof(self, items):
         self.counter += 1
@@ -224,6 +232,7 @@ if __name__=='__main__':
     axioms = '\n'.join(transformer.transform(tree))
     cnames = transformer.atomics - transformer.declared
     ont = whole_sdl_ont(name, axioms, cnames, transformer.roles)
+    pprint(transformer.flc)
     if not args.output:
         print(ont)
     else:
