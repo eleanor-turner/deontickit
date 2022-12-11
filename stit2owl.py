@@ -5,40 +5,28 @@ from pathlib import Path
 
 from lark import Lark, Transformer
 
-g2= '''?start: worksheet
-worksheet: axioms
-axioms: axiom* 
-?axiom: mlf | subclassof
+def whole_sdl_ont(name, body):
+    '''Generates complete ontology including the seriality axiom.'''
+    
+    url = f'http://bjp.org/{name}'
+    return f'''Prefix: dc: <http://purl.org/dc/elements/1.1/>
+Prefix: owl: <http://www.w3.org/2002/07/owl#>
+Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+Prefix: xml: <http://www.w3.org/XML/1998/namespace>
+Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>
 
-mlf: ((NAME? ":")? (implication "."))
 
-?implication: binary | implication  "->" (binary | unary)
-?binary : unary | disjunction
-     | conjunction
-disjunction: binary "v" unary
-conjunction: binary "&" unary
 
-?unary:  basic 
-    | box
-    | diamond
-    | negation
-negation: "~" unary
-box: "[" NUMBER? "]" unary
-diamond: "<" NUMBER? ">" unary
-?parenswff: "(" implication ")"
-?basic: atomic
-    | parenswff
-subclassof: implication "=>" implication "."
+Ontology: <{url}>
 
-atomic: NAME
 
-%import common.CNAME -> NAME
-%import common.NUMBER -> NUMBER
-%import common.WS_INLINE
+ObjectProperty: r
 
-%ignore WS_INLINE
-%import common.WS
-%ignore WS  ''' 
+Class owl:Thing SubClassOf: r some owl:Thing
+{body}
+'''
+
 g ='''?start: worksheet
 worksheet: axioms
 axioms: axiom* 
@@ -183,10 +171,15 @@ class OWLTransformer(Transformer):
         return f'''Class: RHS{self.counter} EquivalentTo:  {items[1]}
         Class: LHS{self.counter} EquivalentTo:  {items[0]} 
             SubClassOf:  RHS{self.counter}'''
-        
+    def axioms(self, items):
+        print(items)
+        return items
         
     def mlf(self, items):
         return f'Class: {items[0]} EquivalentTo:  {items[1]}'
+    
+    def equiv(self, items):
+        return f'Class: {items[0]} EquivalentTo:  {items[1]}'    
 
 
 if __name__=='__main__':
@@ -206,11 +199,13 @@ if __name__=='__main__':
     print('----')
     print(formulae)
 
-    print('----')    
+    print('----')  
+     
+    parser = Lark(g, parser='earley')
+    tree = parser.parse(formulae)
+    name = 'test' if not args.output else args.output.name
+    ont = whole_sdl_ont(name, '\n'.join(OWLTransformer().transform(tree)))
     if not args.output:
-        import pprint 
-        
-        pp = pprint.PrettyPrinter(indent=4) 
-        parser = Lark(g, parser='earley')
-        tree = parser.parse(formulae)
-        print(OWLTransformer().transform(tree).pretty())
+        print(ont)
+    else:
+        args.output.write_text(ont)
