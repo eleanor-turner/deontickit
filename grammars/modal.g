@@ -15,14 +15,15 @@ conjunction: binary "&" unary
     | diamond
     | negation
 negation: "~" unary
-box: "[" NUMBER? "]" unary
-diamond: "<" NUMBER? ">" unary
+box: "[" arole? "]" unary
+diamond: "<" arole? ">" unary
 ?parenswff: "(" implication ")"
 ?basic: atomic
     | parenswff
 subclassof: implication "=>" implication "."
 equiv: implication "=" implication "."
 atomic: NAME
+arole: NAME
 
 %import common.CNAME -> NAME
 %import common.NUMBER -> NUMBER

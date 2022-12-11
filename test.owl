@@ -1,0 +1,28 @@
+Prefix: : <http://bjp.org/test.owl#>
+Prefix: dc: <http://purl.org/dc/elements/1.1/>
+Prefix: owl: <http://www.w3.org/2002/07/owl#>
+Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+Prefix: xml: <http://www.w3.org/XML/1998/namespace>
+Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>
+
+
+
+Ontology: <http://bjp.org/test.owl>
+
+ObjectProperty: r
+
+Class: p
+Class: s
+
+Class: owl:Thing SubClassOf: r some owl:Thing
+
+Class: s1 EquivalentTo:  (r only (not s))
+Class: s2 EquivalentTo:  s
+Class: s3_narrow EquivalentTo:  ((not (s)) or ((r only p)))
+Class: s3_wide EquivalentTo:  (r only ((not (s)) or (p)))
+Class: s4_narrow EquivalentTo:  ((not ((not s))) or ((r only (not p))))
+Class: s4_wide EquivalentTo:  (r only ((not ((not s))) or ((not p))))
+Class: N1 EquivalentTo:  (((s1 and s2) and s3_narrow) and s4_wide)
+Class: N2 EquivalentTo:  (((s1 and s2) and s3_wide) and s4_wide)
+Class: N3 EquivalentTo:  (((s1 and s2) and s3_narrow) and s4_narrow)

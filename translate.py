@@ -5,12 +5,13 @@ from pathlib import Path
 
 from lark import Lark, Transformer
 
-def whole_sdl_ont(name, body, sig):
+def whole_sdl_ont(name, body, cnames, rnames):
     '''Generates complete ontology including the seriality axiom.
     
     Signature handling is a bit wonky.'''
     
-    sig_decl = '\n'.join(['Class: ' + a for a in sig])
+    r_decl = '\n'.join(['ObjectProperty: ' + a for a in rnames])
+    c_decl = '\n'.join(['Class: ' + a for a in cnames])
                          
     url = f'http://bjp.org/{name}'
     
@@ -26,9 +27,9 @@ Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>
 
 Ontology: <{url}>
 
-{sig_decl}
+{r_decl}
 
-ObjectProperty: r
+{c_decl}
 
 Class: owl:Thing SubClassOf: r some owl:Thing
 
@@ -54,14 +55,14 @@ mlf: ((NAME? ":")? (wff "."))
 subclassof: wff "=>" wff "."
 ?parenswff: "(" wff ")"
 negation: "~" wff
-box: "[" NUMBER? "]" wff
+box: "[" role? "]" wff
 implication: wff "->" wff
-diamond: "<" NUMBER? ">" wff
+diamond: "<" role? ">" wff
 
 disjunction: wff "v" wff
 conjunction: wff "&" wff
 atomic: NAME
-
+role: NAME
 %import common.CNAME -> NAME
 %import common.NUMBER -> NUMBER
 %import common.WS_INLINE
@@ -128,7 +129,9 @@ for con in flc:
 r = 'r'
 class OWLTransformer(Transformer):
     def __init__(self):
+        self.declared = set()
         self.atomics = set()
+        self.roles = {r}
         self.counter = 0
         
     def _ambig(self, n):
@@ -157,38 +160,45 @@ class OWLTransformer(Transformer):
     def implication(self, items):
         return f'((not ({items[0]})) or ({items[1]}))'
 
-    def box(self, items):
+    def normalise_role_expression(self, items):
         if len(items) == 1:
             d = r
             wff = items[0]
         else:
-            d = f'r_{items[0]}'
+            d = items[0]
+            try:
+                int(d)
+                d = f'r_{d}'
+            except:
+                pass
             wff = items[1]
+        return (d, wff)
+    
+    def box(self, items):
+        d, wff = self.normalise_role_expression(items)
         return f'({d} only {wff})'
     
     def diamond(self, items):
-        if len(items) == 1:
-            d = r
-            wff = items[0]
-        else:
-            d = f'r_{items[0]}'
-            wff = items[1]
+        d, wff = self.normalise_role_expression(items)
         return f'({d} some {wff})'
         
     def subclassof(self, items):
         self.counter += 1
-        
+        self.declared.add('RHS{self.counter}')
+        self.declared.add('LHS{self.counter}')  
         return f'''Class: RHS{self.counter} EquivalentTo:  {items[1]}
         Class: LHS{self.counter} EquivalentTo:  {items[0]} 
             SubClassOf:  RHS{self.counter}'''
+    
     def axioms(self, items):
-        print(items)
         return items
         
     def mlf(self, items):
+        self.declared.add(items[0])
         return f'Class: {items[0]} EquivalentTo:  {items[1]}'
     
     def equiv(self, items):
+        self.declared.add(items[0])
         return f'Class: {items[0]} EquivalentTo:  {items[1]}'    
 
 
@@ -206,18 +216,14 @@ if __name__=='__main__':
     s = args.source.read_text()
     meta, formulae = re.split('---*', s)
     print(meta)
-    print('----')
-    print(formulae)
-
-    print('----')  
-     
+   
     parser = Lark(g, parser='earley')
     tree = parser.parse(formulae)
     name = 'test' if not args.output else args.output.name
     transformer = OWLTransformer()
     axioms = '\n'.join(transformer.transform(tree))
-    sig = transformer.atomics
-    ont = whole_sdl_ont(name, axioms, sig)
+    cnames = transformer.atomics - transformer.declared
+    ont = whole_sdl_ont(name, axioms, cnames, transformer.roles)
     if not args.output:
         print(ont)
     else:
