@@ -6,6 +6,28 @@ from pathlib import Path
 
 from lark import Lark, Transformer
 
+def ground_aaia(agents, flc) -> str:
+    schema = '<>(%(alpha)s) '
+    kagents = list()
+    kschema = list()
+    groundings = list()
+    # handle last agent...
+    for a in agents:
+        ka = f'<{a}>'
+        if kagents:
+            ka = f'=> {ka}({" & ".join(kagents)}).'
+        else:
+            ka = f'=> ({ka}(%(alpha)s)).'
+        kschema.append(schema + ka)
+        kagents.append(f'<{a}>(%(alpha)s)')
+    for f in flc:
+        for k in kschema:
+            groundings.append(k % {'alpha':f})
+    print(kagents)
+    print(kschema)
+    for g in groundings:
+        print(g)
+
 def whole_sdl_ont(name, body, cnames, rnames):
     '''Generates complete ontology including the seriality axiom.
     
@@ -232,7 +254,8 @@ if __name__=='__main__':
     axioms = '\n'.join(transformer.transform(tree))
     cnames = transformer.atomics - transformer.declared
     ont = whole_sdl_ont(name, axioms, cnames, transformer.roles)
-    pprint(transformer.flc)
+
+    print(ground_aaia({1,2,3}, transformer.flc))
     if not args.output:
         print(ont)
     else:
