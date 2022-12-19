@@ -7,6 +7,9 @@ from pathlib import Path
 from lark import Lark, Transformer
 
 def ground_aaia(agents, flc) -> str:
+    
+    if len(agents) <=1:
+        return ''
     schema = '<>(%(alpha)s) '
     kagents = list()
     kschema = list()
@@ -23,10 +26,7 @@ def ground_aaia(agents, flc) -> str:
     for f in flc:
         for k in kschema:
             groundings.append(k % {'alpha':f})
-    print(kagents)
-    print(kschema)
-    for g in groundings:
-        print(g)
+    return '\n'.join(groundings)
 
 def whole_sdl_ont(name, body, cnames, rnames):
     '''Generates complete ontology including the seriality axiom.
@@ -174,7 +174,10 @@ class OWLTransformer(Transformer):
         self.atomics.add(a)
         return self.to_flc(a)
          
-        
+    def arole(self, items):
+        self.roles.add(items[0])
+        return items[0]
+    
     def NUMBER(self, n):
         return n.value
     
@@ -238,6 +241,7 @@ if __name__=='__main__':
                     help='input file')
     parser.add_argument('-o', '--output', type=Path, 
                     help='input file')
+    parser.add_argument('-l', '--logic', type=str, help='name of logic (sdl, cstit)', default='sdl')
 
     args = parser.parse_args()
     
@@ -254,8 +258,13 @@ if __name__=='__main__':
     axioms = '\n'.join(transformer.transform(tree))
     cnames = transformer.atomics - transformer.declared
     ont = whole_sdl_ont(name, axioms, cnames, transformer.roles)
-
-    print(ground_aaia({1,2,3}, transformer.flc))
+    if args.logic == 'cstit':
+        print(transformer.roles)
+        grounding = ground_aaia(transformer.roles, transformer.flc)
+        gtree = parser.parse(grounding)
+        grounding = OWLTransformer().transform(gtree)
+        print(grounding)
+        ont += '\n' + '\n'.join(grounding)
     if not args.output:
         print(ont)
     else:

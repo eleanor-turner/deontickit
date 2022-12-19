@@ -1,0 +1,12 @@
+Name: cstit party
+Source:
+Comment: Modified from group stit example
+Logic: cstit
+Author: Bijan Parsia
+----
+s1: <1>[1](party & <1>[1]cake).
+s2: ~[1]bake.
+
+s1: <1>[1](party & <1>[2]cake).
+
+cake => bake.

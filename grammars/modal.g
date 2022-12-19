@@ -23,7 +23,7 @@ diamond: "<" arole? ">" unary
 subclassof: implication "=>" implication "."
 equiv: implication "=" implication "."
 atomic: NAME
-arole: NAME
+arole: NAME | NUMBER
 
 %import common.CNAME -> NAME
 %import common.NUMBER -> NUMBER
