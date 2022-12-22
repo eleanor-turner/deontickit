@@ -6,29 +6,101 @@ from pathlib import Path
 
 from lark import Lark, Transformer
 
-def ground_aaia(agents, flc) -> str:
+
+def s5(r):
+    return f'''    <SymmetricObjectProperty>
+        <ObjectProperty abbreviatedIRI=":{r}"/>
+    </SymmetricObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty abbreviatedIRI=":{r}"/>
+    </TransitiveObjectProperty>
+    <ReflexiveObjectProperty>
+        <ObjectProperty abbreviatedIRI=":{r}"/>
+    </ReflexiveObjectProperty>'''
+
+def ground_aaia(agents, flc) -> list:
+    '''Hacking an OWL/XML file To Be Imported'''
+    axioms = [s5('r')]
+    axioms.extend([s5(a) for a in agents])
+    if len(agents) == 1:
+        return axioms
     
-    if len(agents) <=1:
-        return ''
-    schema = '<>(%(alpha)s) '
+    lhs = '''
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                %(alpha)s
+            </ObjectSomeValuesFrom>
+    '''
     kagents = list()
     kschema = list()
     groundings = list()
     # handle last agent...
     for a in agents:
-        ka = f'<{a}>'
         if kagents:
-            ka = f'=> {ka}({" & ".join(kagents)}).'
+            body = '\n'.join(kagents)
+            con = f'''
+            <ObjectIntersectionOf>
+                {body}
+            </ObjectIntersectionOf>'''
         else:
-            ka = f'=> ({ka}(%(alpha)s)).'
-        kschema.append(schema + ka)
-        kagents.append(f'<{a}>(%(alpha)s)')
+            con = '%(alpha)s'
+            
+        krhs = f'''
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":{a}"/>
+                {con}
+            </ObjectSomeValuesFrom>
+    '''   
+        kschema.append(f'''
+        <SubClassOf>
+            {lhs}
+            {krhs}
+        </SubClassOf>
+        ''')
+        kagents.append(f'''
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":{a}"/>
+                %(alpha)s
+            </ObjectSomeValuesFrom>
+    ''')
     for f in flc:
         for k in kschema:
-            groundings.append(k % {'alpha':f})
-    return '\n'.join(groundings)
+            axioms.append(k % {'alpha':f})
+    return axioms
 
-def whole_sdl_ont(name, body, cnames, rnames):
+def owlxml_ont(name, body, cnames, rnames):
+    cdecls = list()
+    for c in cnames:
+        cdecls.append(f'''  <Declaration>
+        <Class abbreviatedIRI=":{c}"/>
+    </Declaration>''')
+    rdecls = list()
+    for r in rnames:
+        rdecls.append(f'''  <Declaration>
+        <ObjectProperty abbreviatedIRI=":{r}"/>
+    </Declaration>''')
+    n = '\n'
+    return f'''<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="{name}"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="{name}">
+    <Prefix name="" IRI="{name}#"/>
+    <Prefix name="dc" IRI="http://purl.org/dc/elements/1.1/"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    {n.join(cdecls)}
+    {n.join(rdecls)}
+    {n.join(body)}
+</Ontology>'''
+
+def whole_ont(name, body, cnames, rnames, imports=''):
     '''Generates complete ontology including the seriality axiom.
     
     Signature handling is a bit wonky.'''
@@ -49,6 +121,8 @@ Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>
 
 
 Ontology: <{url}>
+
+{imports}
 
 {r_decl}
 
@@ -136,20 +210,125 @@ s4nd: <>((<>[0]A) & ([1]A)) -> (<1>(([0]A) & ([1]A))).
 text = '''P1: <1>([1](party & <1>[1]cake)).
 cake => bake.
 P3: ~[1]bake.'''
-flc = ['A','~A',
-       '[]A', '[]~A',
-       '~[]A', '~[]~A',
-       '([]A) & ([]~A)',
-       '~(([]A) & ([]~A))']
 
-flcaxioms = [f'[]({c}) => <>({c}).' for c in flc]
-flcaxioms.append('T: ([]A) & ([]~A).')
-c = 0
-for con in flc:
-    c += 1
-    flcaxioms.append(f'FLC{c}: {con}.')
-#text =  '\n'.join(flcaxioms)
 r = 'r'
+class OWLXMLTransformer(Transformer):
+    def __init__(self):
+        self.declared = set()
+        self.atomics = set()
+        self.roles = {r}
+        self.counter = 0
+        self.flc = set()
+        self.r = '<ObjectProperty abbreviatedIRI=":r"/>'
+        
+    def to_flc(self, term):
+        self.flc.add(term)
+        self.flc.add(f'''
+        <ObjectComplementOf>
+            {term}
+        </ObjectComplementOf>{term}''')
+        return term
+        
+    def _ambig(self, n):
+        return n[-1]
+        
+    def NAME(self, n):
+        return n.value
+
+    def atomic(self, a):
+        (a,) = a
+        self.atomics.add(a)
+        return self.to_flc(f'<Class abbreviatedIRI=":{a}"/>')        
+     
+    def arole(self, items):
+        d = items[0]
+        try:
+            d = f'r_{int(d)}'
+        except:
+            pass
+        self.roles.add(d)
+        return f'<ObjectProperty abbreviatedIRI=":{d}"/>'
+
+    def NUMBER(self, n):
+        return n.value
+    
+    def negation(self, items):
+        return f'''
+        <ObjectComplementOf>
+            {items[0]}
+        </ObjectComplementOf>'''
+    
+    def conjunction(self, items):
+        return self.to_flc(f'''
+        <ObjectIntersectionOf>
+            {items[0]}
+            {items[1]}
+        </ObjectIntersectionOf>''')
+        
+    def disjunction(self, items):
+        return self.to_flc(f'''
+        <ObjectUnionOf>
+            {items[0]}
+            {items[1]}
+        </ObjectUnionOf>''')
+
+    def implication(self, items):
+        return self.to_flc(f'''
+    <ObjectUnionOf>
+        <ObjectComplementOf>
+            {items[0]}
+        </ObjectComplementOf>
+        {items[1]}
+    </ObjectUnionOf>''')
+    
+    def normalise_role_expression(self, items):
+        if len(items) == 1:
+            d = self.r
+            wff = items[0]
+        else:
+            d = items[0]
+            wff = items[1]
+        return (d, wff)
+    
+    def box(self, items):
+        d, wff = self.normalise_role_expression(items)
+        return self.to_flc(f'''
+    <ObjectAllValuesFrom>
+        {d}
+        {wff}
+    </ObjectAllValuesFrom>'''  )
+    
+    def diamond(self, items):
+        d, wff = self.normalise_role_expression(items)
+        return self.to_flc(
+        f'''<ObjectSomeValuesFrom>
+            {d}
+            {wff}
+        </ObjectSomeValuesFrom>''' )      
+    
+    def subclassof(self, items):
+        return f'''    <SubClassOf>
+        {items[0]} 
+        {items[1]}
+    </SubClassOf>'''
+    
+    def mlf(self, items):
+        return  f'''    <EquivalentClasses>
+            <Class abbreviatedIRI=":{items[0]}"/> 
+            {items[1]}
+        </EquivalentClasses>'''    
+    
+    def equiv(self, items):
+                return  f'''    <EquivalentClasses>
+            {items[0]} 
+            {items[1]}
+        </EquivalentClasses>''' 
+
+    def axioms(self, items):
+        return items
+        
+
+    
 class OWLTransformer(Transformer):
     def __init__(self):
         self.declared = set()
@@ -173,7 +352,7 @@ class OWLTransformer(Transformer):
         (a,) = a
         self.atomics.add(a)
         return self.to_flc(a)
-         
+    
     def arole(self, items):
         self.roles.add(items[0])
         return items[0]
@@ -254,17 +433,14 @@ if __name__=='__main__':
     parser = Lark(g, parser='earley')
     tree = parser.parse(formulae)
     name = 'test' if not args.output else args.output.name
-    transformer = OWLTransformer()
-    axioms = '\n'.join(transformer.transform(tree))
-    cnames = transformer.atomics - transformer.declared
-    ont = whole_sdl_ont(name, axioms, cnames, transformer.roles)
+    transformer = OWLXMLTransformer()
+    axioms = transformer.transform(tree)
     if args.logic == 'cstit':
-        print(transformer.roles)
         grounding = ground_aaia(transformer.roles, transformer.flc)
-        gtree = parser.parse(grounding)
-        grounding = OWLTransformer().transform(gtree)
-        print(grounding)
-        ont += '\n' + '\n'.join(grounding)
+        axioms.extend(grounding)
+    cnames = transformer.atomics - transformer.declared
+    ont = owlxml_ont(name, axioms, cnames, transformer.roles)
+
     if not args.output:
         print(ont)
     else:
