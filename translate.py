@@ -18,11 +18,19 @@ def s5(r):
         <ObjectProperty abbreviatedIRI=":{r}"/>
     </ReflexiveObjectProperty>'''
 
+def subprop(sub, sup):
+    return f'''
+<SubObjectPropertyOf>
+    <ObjectProperty abbreviatedIRI=":{sub}"/>
+    <ObjectProperty abbreviatedIRI=":{sup}"/>
+</SubObjectPropertyOf>'''
+
 def ground_aaia(agents, flc) -> list:
     '''Hacking an OWL/XML file To Be Imported'''
     axioms = [s5('r')]
     axioms.extend([s5(a) for a in agents])
     if len(agents) == 1:
+        axioms.append(subprop('r', list(agents)[0]))
         return axioms
     
     lhs = '''
@@ -36,6 +44,7 @@ def ground_aaia(agents, flc) -> list:
     groundings = list()
     # handle last agent...
     for a in agents:
+        axioms.append(subprop('r', a))
         if kagents:
             body = '\n'.join(kagents)
             con = f'''
@@ -212,22 +221,38 @@ cake => bake.
 P3: ~[1]bake.'''
 
 r = 'r'
+class ClassAtom:
+    def __init__(self, name):
+        self.name = name
+    
+    def xml(self):
+        return '<Class abbreviatedIRI=":{self.name}"/>'
+    
 class OWLXMLTransformer(Transformer):
     def __init__(self):
         self.declared = set()
         self.atomics = set()
-        self.roles = {r}
+        self.roles = set()
         self.counter = 0
         self.flc = set()
+        self.locflc = set()
         self.r = '<ObjectProperty abbreviatedIRI=":r"/>'
         
     def to_flc(self, term):
-        self.flc.add(term)
-        self.flc.add(f'''
+        self.locflc.add(term)
+        self.locflc.add(f'''
         <ObjectComplementOf>
             {term}
-        </ObjectComplementOf>{term}''')
+        </ObjectComplementOf>''')
         return term
+    
+    def drop_from_flc(self, term):
+        self.locflc.remove(term)
+        self.locflc.remove(f'''
+        <ObjectComplementOf>
+            {term}
+        </ObjectComplementOf>''')        
+            
         
     def _ambig(self, n):
         return n[-1]
@@ -306,20 +331,26 @@ class OWLXMLTransformer(Transformer):
             {wff}
         </ObjectSomeValuesFrom>''' )      
     
-    def subclassof(self, items):
-        return f'''    <SubClassOf>
-        {items[0]} 
-        {items[1]}
-    </SubClassOf>'''
-    
     def mlf(self, items):
+        #if items[0][0:6] == '<Class' and items[0] in self.locflc:
+        #    self.drop_from_flc(items[0])
+        self.flc.update(self.locflc)
+        self.locflc = set()
         return  f'''    <EquivalentClasses>
             <Class abbreviatedIRI=":{items[0]}"/> 
             {items[1]}
         </EquivalentClasses>'''    
     
+    def subclassof(self, items):
+        self.locflc = set()
+        return f'''    <SubClassOf>
+        {items[0]} 
+        {items[1]}
+    </SubClassOf>'''
+    
     def equiv(self, items):
-                return  f'''    <EquivalentClasses>
+        self.locflc = set()
+        return  f'''    <EquivalentClasses>
             {items[0]} 
             {items[1]}
         </EquivalentClasses>''' 
@@ -440,7 +471,6 @@ if __name__=='__main__':
         axioms.extend(grounding)
     cnames = transformer.atomics - transformer.declared
     ont = owlxml_ont(name, axioms, cnames, transformer.roles)
-
     if not args.output:
         print(ont)
     else:

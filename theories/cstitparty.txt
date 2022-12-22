@@ -4,14 +4,9 @@ Comment: Modified from group stit example
 Logic: cstit
 Author: Bijan Parsia
 ----
-s1: <1>[1](party & <1>[1]cake).
-s2: ~[1]bake.
+s1: <1>[1](party & <1>[1]cake) & ~[1]bake.
 
-s3: <1>[1](party & <1>[2]cake).
-s4: ~[2]bake.
+s3: <1>[1](party & <1>[2]cake) & ~[2]bake.
 
-N1 = s1 & s2.
-N2 = s2 & s3.
-N3 = s2 & s4.
 
 cake => bake.
