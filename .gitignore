@@ -1,5 +1,5 @@
 .DS_Store
-.properties
+*.properties
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
