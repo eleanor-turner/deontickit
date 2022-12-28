@@ -30,7 +30,7 @@ def ground_aaia(agents, flc) -> list:
     axioms = [s5('r')]
     axioms.extend([s5(a) for a in agents])
     if len(agents) == 1:
-        axioms.append(subprop('r', list(agents)[0]))
+        axioms.append(subprop(list(agents)[0], 'r'))
         return axioms
     
     lhs = '''
@@ -44,7 +44,7 @@ def ground_aaia(agents, flc) -> list:
     groundings = list()
     # handle last agent...
     for a in agents:
-        axioms.append(subprop('r', a))
+        axioms.append(subprop(a, 'r'))
         if kagents:
             body = '\n'.join(kagents)
             con = f'''
@@ -356,6 +356,7 @@ class OWLXMLTransformer(Transformer):
         </EquivalentClasses>''' 
 
     def axioms(self, items):
+        
         return items
         
 
@@ -434,6 +435,7 @@ class OWLTransformer(Transformer):
             SubClassOf:  RHS{self.counter}'''
     
     def axioms(self, items):
+
         return items
         
     def mlf(self, items):

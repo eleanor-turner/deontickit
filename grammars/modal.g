@@ -1,6 +1,6 @@
 ?start: worksheet
 ?worksheet: axioms
-?axioms: axiom* 
+axioms: axiom* 
 ?axiom: mlf | subclassof | equiv
 
 mlf: ((NAME? ":")? (implication "."))

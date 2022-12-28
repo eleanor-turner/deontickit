@@ -1,0 +1,12 @@
+Name: cstit party 2
+Source:
+Comment: Trying to violate AAIA
+Logic: cstit
+Author: Bijan Parsia
+----
+
+s1: [1]cake & <2>[2]~cake. 
+s2: [1]cake & [2]~cake. 
+s3: <>cake.
+s4: <1>cake.
+s5: <>cake & [1]~cake.

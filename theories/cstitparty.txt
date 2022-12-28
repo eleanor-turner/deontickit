@@ -6,7 +6,8 @@ Author: Bijan Parsia
 ----
 s1: <1>[1](party & <1>[1]cake) & ~[1]bake.
 
-s3: <1>[1](party & <1>[2]cake) & ~[2]bake.
+s2: <1>[1](party & <1>[2]cake) & ~[2]bake.
 
+s3: <1>[1](party & <1>[2]cake) & []~[2]bake.
 
 cake => bake.
