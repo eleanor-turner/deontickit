@@ -20,58 +20,73 @@ def s5(r):
 
 def subprop(sub, sup):
     return f'''
-<SubObjectPropertyOf>
-    <ObjectProperty abbreviatedIRI=":{sub}"/>
-    <ObjectProperty abbreviatedIRI=":{sup}"/>
-</SubObjectPropertyOf>'''
+        <SubObjectPropertyOf>
+            <ObjectProperty abbreviatedIRI=":{sub}"/>
+            <ObjectProperty abbreviatedIRI=":{sup}"/>
+        </SubObjectPropertyOf>'''
 
-def ground_aaia(agents, flc) -> list:
+def kconj(kagents):
+    if len(kagents) == 1:
+        return kagents[0]
+    else:
+        body = '\n'.join([o for a, o in kagents])
+        return f'''
+        <ObjectIntersectionOf>
+            {body}
+        </ObjectIntersectionOf>'''    
+
+def ground_aaia(agents: set, flc: set) -> list:
     '''Hacking an OWL/XML file To Be Imported'''
     axioms = [s5('r')]
     axioms.extend([s5(a) for a in agents])
+    axioms.extend([subprop(a, 'r') for a in agents])
     if len(agents) == 1:
-        axioms.append(subprop(list(agents)[0], 'r'))
         return axioms
     
+    
+    kschema = list()
     lhs = '''
             <ObjectSomeValuesFrom>
                 <ObjectProperty abbreviatedIRI=":r"/>
                 %(alpha)s
             </ObjectSomeValuesFrom>
     '''
-    kagents = list()
-    kschema = list()
-    groundings = list()
-    # handle last agent...
-    for a in agents:
-        axioms.append(subprop(a, 'r'))
-        if kagents:
-            body = '\n'.join(kagents)
-            con = f'''
-            <ObjectIntersectionOf>
-                {body}
-            </ObjectIntersectionOf>'''
-        else:
-            con = '%(alpha)s'
-            
-        krhs = f'''
+
+
+    # We always need at least two agents for a grounding
+    # (0<=i<k for k>=1, so minimum is 0 and 1)
+    # So we pop one agent to be the "seed" on the rhs
+    # and we pop another agent to be the kth agent
+
+    kth = agents.pop()
+    
+    #len(kagents) == k-1
+    kagents = [(a, f'''
             <ObjectSomeValuesFrom>
                 <ObjectProperty abbreviatedIRI=":{a}"/>
+                %(alpha)s
+            </ObjectSomeValuesFrom>
+    ''') for a in agents]
+    
+    
+    for a, _ in kagents:
+        con = kconj(kagents)
+        krhs = f'''
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":{kth}"/>
                 {con}
             </ObjectSomeValuesFrom>
-    '''   
+    '''  
         kschema.append(f'''
         <SubClassOf>
             {lhs}
             {krhs}
         </SubClassOf>
         ''')
-        kagents.append(f'''
-            <ObjectSomeValuesFrom>
-                <ObjectProperty abbreviatedIRI=":{a}"/>
-                %(alpha)s
-            </ObjectSomeValuesFrom>
-    ''')
+        kagents.pop(0)
+        kth = a
+        
+
     for f in flc:
         for k in kschema:
             axioms.append(k % {'alpha':f})
