@@ -1,0 +1,11 @@
+Name: Proof that AAIA implies AIA
+Source: Axioms for Deliberative stit
+Comment: Just checking some theorems...need to hand convert the cstit to dstit. I include some axiom schemas for fun. These are really boring :)
+Author: Bijan Parsia 
+----
+
+T1: ~(A & ~([alpha]A & ~[]A)).
+T3: ~([alpha](A v ~A) & ~[](A v ~A)).
+
+T4_rhs: [alpha]A & [alpha]B & <>~A & <>~B.
+T4_lhs: [alpha](A & B) & ~[](A & B).
