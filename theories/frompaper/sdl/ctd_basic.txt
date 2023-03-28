@@ -1,0 +1,10 @@
+Name: Contrary to Duty 1
+Source: Automated Reasoning in Deontic Logic, Ulrich Furbach1, Claudia Schon and Frieder Stolzenburg
+Comment: Formulating the Chilsom contrary to duty puzzle for SDL as in this paper, with s = X steals and p = X is punished. This follows the "basic" translation wherein each normative regime is converted into a conjunction and given a name from N1-N4.
+Logic: SDL
+Author: Bijan Parsia
+----
+N1: []~s & s & (s -> []p) & [](~s -> ~p).
+N2: []~s & s & [](s -> p) & [](~s -> ~p).
+N3: []~s & s & (s -> []p) & (~s -> []~p).
+N4: []~s & s & [](s -> p) & (~s -> []~p).
