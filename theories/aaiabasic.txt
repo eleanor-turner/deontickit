@@ -5,8 +5,8 @@ Logic: cstit
 Author: Bijan Parsia
 ----
 s1: [1]cake & <2>[2]~cake. 
-s2: [1]cake & [2]~cake. 
+s2: ~[]cake & [1][2]cake.
 s3: []cake.
 s4: [1][2]cake.
-s5: <>cake & [1]~cake.
-s6: ~[]cake & [1][2]cake.
+s5: ~([]cake) v [1][2]cake.
+s5: ~[1][2]cake v []cake.
