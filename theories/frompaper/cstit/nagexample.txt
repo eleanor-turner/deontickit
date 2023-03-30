@@ -1,0 +1,12 @@
+Name: A nagging example
+Source:
+Comment: An simple illustration of how nesting cstit might be indirect. s2 is unsatisfiable. s3 and s1 are equivalent and entail BijanMakesCakes.
+Logic: cstit
+Author: Bijan Parsia
+----
+BijanMakesCake = [bijan]cake.
+WilonaNagsBijan = [Wilona]BijanMakesCake.
+
+s1: WilonaNagsBijan.
+s2: ~[]cake & WilonaNagsBijan.
+s3: []cake.

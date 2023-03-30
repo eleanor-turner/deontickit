@@ -1,0 +1,12 @@
+Name: Proof that AAIA implies AIA
+Source: ALTERNATIVE AXIOMATICS AND COMPLEXITY OF DELIBERATIVE STIT THEORIES
+Comment: Can we generate a proof at AAIA1 -> AIA1
+Author: Bijan Parsia
+----
+RefutationAAIA2AIA: ~(<>[0]phi0 & <>[1]phi1 -> <>([0]phi0 & [1]phi1)). 
+
+AIALHS: <>[0]phi0 & <>[1]phi1.
+AIARHS: <>([0]phi0 & [1]phi1).
+
+DiamondLHS: <>p.
+DiamondRHS: <1><0>p.
