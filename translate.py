@@ -25,6 +25,27 @@ def subprop(sub, sup):
             <ObjectProperty abbreviatedIRI=":{sup}"/>
         </SubObjectPropertyOf>'''
 
+def disjoint(op1, op2):
+    return f'''
+        <DisjointObjectProperties>
+            <ObjectProperty abbreviatedIRI=":{op1}"/>
+            <ObjectProperty abbreviatedIRI=":{op2}"/>
+        </DisjointObjectProperties>'''
+
+def relexive_prop(op1, op2):
+    return f'''
+        <SubClassOf>
+            <Class abbreviatedIRI="owl:Thing"/>
+            <ObjectUnionOf>
+                <ObjectHasSelf>
+                    <ObjectProperty abbreviatedIRI=":{op1}"/>
+                </ObjectHasSelf>
+                <ObjectHasSelf>
+                    <ObjectProperty abbreviatedIRI=":{op2}"/>
+                </ObjectHasSelf>
+            </ObjectUnionOf>
+        </SubClassOf>'''
+
 def kconj(kagents):
     if len(kagents) == 1:
         return kagents[0]
@@ -33,7 +54,14 @@ def kconj(kagents):
         return f'''
         <ObjectIntersectionOf>
             {body}
-        </ObjectIntersectionOf>'''    
+        </ObjectIntersectionOf>'''   
+
+def ground_ctd(operators: set, flc: set) -> list:
+    axioms = [subprop(r, 'r') for r in operators]
+    if 'r_I' in operators and 'r_S' in operators:
+        axioms.extend([disjoint('r_I','r_S')])
+        axioms.extend([relexive_prop('r_I','r_S')])
+    return axioms
 
 def ground_aaia(agents: set, flc: set) -> list:
     '''Hacking an OWL/XML file To Be Imported'''
@@ -278,16 +306,7 @@ class OWLXMLTransformer(Transformer):
     def atomic(self, a):
         (a,) = a
         self.atomics.add(a)
-        return self.to_flc(f'<Class abbreviatedIRI=":{a}"/>')        
-     
-    def arole(self, items):
-        d = items[0]
-        try:
-            d = f'r_{int(d)}'
-        except:
-            pass
-        self.roles.add(d)
-        return f'<ObjectProperty abbreviatedIRI=":{d}"/>'
+        return self.to_flc(f'<Class abbreviatedIRI=":{a}"/>')
 
     def NUMBER(self, n):
         return n.value
@@ -320,6 +339,15 @@ class OWLXMLTransformer(Transformer):
         </ObjectComplementOf>
         {items[1]}
     </ObjectUnionOf>''')
+     
+    def arole(self, items):
+        d = items[0]
+        try:
+            d = f'r_{int(d)}'
+        except:
+            pass
+        self.roles.add(d)
+        return f'<ObjectProperty abbreviatedIRI=":{d}"/>'
     
     def normalise_role_expression(self, items):
         if len(items) == 1:
@@ -373,93 +401,63 @@ class OWLXMLTransformer(Transformer):
     def axioms(self, items):
         
         return items
-        
 
-    
-class OWLTransformer(Transformer):
+class OWLXMLCTDTransformer(OWLXMLTransformer):
     def __init__(self):
-        self.declared = set()
-        self.atomics = set()
-        self.roles = {r}
-        self.counter = 0
-        self.flc = set()
-    
-    def to_flc(self, term):
-        self.flc.add(term)
-        self.flc.add(f'~{term}')
-        return term
-        
-    def _ambig(self, n):
-        return n[-1]
-        
-    def NAME(self, n):
-        return n.value
-
-    def atomic(self, a):
-        (a,) = a
-        self.atomics.add(a)
-        return self.to_flc(a)
-    
+        super().__init__()
+     
     def arole(self, items):
-        self.roles.add(items[0])
-        return items[0]
-    
-    def NUMBER(self, n):
-        return n.value
-    
-    def negation(self, items):
-        return f'(not {items[0]})'
-    
-    def conjunction(self, items):
-        return self.to_flc(f'({items[0]} and {items[1]})')
-        
-    def disjunction(self, items):
-        return self.to_flc(f'({items[0]} or {items[1]})')
+        d = items[0]
+        assert d in ['I','S','Ought'], 'Permitted operators are [I], [S], [Ought]'
+        d = f'r_{d}'
+        self.roles.add(d)
+        return f'<ObjectProperty abbreviatedIRI=":{d}"/>'
 
-    def implication(self, items):
-        return self.to_flc(f'((not ({items[0]})) or ({items[1]}))')
-
+    def replace_ought_operator(self, wff):
+        O_I = self.arole(['I'])
+        P_S = self.arole(['S'])
+        return self.to_flc(f'''
+            <ObjectIntersectionOf>
+                <ObjectAllValuesFrom>
+                    {O_I}
+                    {wff}
+                </ObjectAllValuesFrom>
+                <ObjectSomeValuesFrom>
+                    {P_S}
+                    <ObjectComplementOf>
+                        {wff}
+                    </ObjectComplementOf>
+                </ObjectSomeValuesFrom>
+            </ObjectIntersectionOf>''')
+    
     def normalise_role_expression(self, items):
         if len(items) == 1:
-            d = r
+            d = self.r
             wff = items[0]
         else:
             d = items[0]
-            try:
-                int(d)
-                d = f'r_{d}'
-            except:
-                pass
             wff = items[1]
         return (d, wff)
     
     def box(self, items):
         d, wff = self.normalise_role_expression(items)
-        return self.to_flc(f'({d} only {wff})')
+        if 'r_Ought' in d:
+            replacement = self.replace_ought_operator(wff)
+            return replacement
+        return self.to_flc(f'''
+            <ObjectAllValuesFrom>
+                {d}
+                {wff}
+            </ObjectAllValuesFrom>'''  )
     
     def diamond(self, items):
         d, wff = self.normalise_role_expression(items)
-        return self.to_flc(f'({d} some {wff})')
-        
-    def subclassof(self, items):
-        self.counter += 1
-        self.declared.add('RHS{self.counter}')
-        self.declared.add('LHS{self.counter}')  
-        return f'''Class: RHS{self.counter} EquivalentTo:  {items[1]}
-        Class: LHS{self.counter} EquivalentTo:  {items[0]} 
-            SubClassOf:  RHS{self.counter}'''
-    
-    def axioms(self, items):
+        return self.to_flc(
+        f'''<ObjectSomeValuesFrom>
+            {d}
+            {wff}
+        </ObjectSomeValuesFrom>''' ) 
 
-        return items
-        
-    def mlf(self, items):
-        self.declared.add(items[0])
-        return f'Class: {items[0]} EquivalentTo:  {items[1]}'
-    
-    def equiv(self, items):
-        self.declared.add(items[0])
-        return f'Class: {items[0]} EquivalentTo:  {items[1]}'    
 
 
 if __name__=='__main__':
@@ -468,7 +466,7 @@ if __name__=='__main__':
                     help='input file')
     parser.add_argument('-o', '--output', type=Path, 
                     help='input file')
-    parser.add_argument('-l', '--logic', type=str, help='name of logic (sdl, cstit)', default='sdl')
+    parser.add_argument('-l', '--logic', type=str, help='name of logic (sdl, cstit, jp)', default='sdl')
 
     args = parser.parse_args()
     
@@ -485,6 +483,11 @@ if __name__=='__main__':
     axioms = transformer.transform(tree)
     if args.logic == 'cstit':
         grounding = ground_aaia(transformer.roles, transformer.flc)
+        axioms.extend(grounding)
+    elif args.logic == 'jp':
+        transformer = OWLXMLCTDTransformer()
+        axioms = transformer.transform(tree)
+        grounding = ground_ctd(transformer.roles, transformer.flc)
         axioms.extend(grounding)
     cnames = transformer.atomics - transformer.declared
     ont = owlxml_ont(name, axioms, cnames, transformer.roles)
