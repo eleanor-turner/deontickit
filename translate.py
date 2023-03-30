@@ -410,39 +410,52 @@ class OWLXMLCTDTransformer(OWLXMLTransformer):
         d = items[0]
         assert d in ['I','S','Ought'], 'Permitted operators are [I], [S], [Ought]'
         d = f'r_{d}'
-        self.roles.add(d)
+        if d == 'r_I' or d == 'r_S':
+            self.roles.add(d)
         return f'<ObjectProperty abbreviatedIRI=":{d}"/>'
 
-    def replace_ought_operator(self, wff):
-        O_I = self.arole(['I'])
-        P_S = self.arole(['S'])
-        return self.to_flc(f'''
-            <ObjectIntersectionOf>
-                <ObjectAllValuesFrom>
-                    {O_I}
-                    {wff}
-                </ObjectAllValuesFrom>
-                <ObjectSomeValuesFrom>
-                    {P_S}
-                    <ObjectComplementOf>
+    def replace_ought_operator(self, wff, box):
+        Ideal = self.arole(['I'])
+        Subideal = self.arole(['S'])
+        if box:
+            return self.to_flc(f'''
+                <ObjectIntersectionOf>
+                    <ObjectAllValuesFrom>
+                        {Ideal}
                         {wff}
-                    </ObjectComplementOf>
-                </ObjectSomeValuesFrom>
-            </ObjectIntersectionOf>''')
+                    </ObjectAllValuesFrom>
+                    <ObjectSomeValuesFrom>
+                        {Subideal}
+                        <ObjectComplementOf>
+                            {wff}
+                        </ObjectComplementOf>
+                    </ObjectSomeValuesFrom>
+                </ObjectIntersectionOf>''')
+        else:
+            return self.to_flc(f'''
+                <ObjectUnionOf>
+                    <ObjectSomeValuesFrom>
+                        {Ideal}
+                        {wff}
+                    </ObjectSomeValuesFrom>
+                    <ObjectAllValuesFrom>
+                        {Subideal}
+                        <ObjectComplementOf>
+                            {wff}
+                        </ObjectComplementOf>
+                    </ObjectAllValuesFrom>
+                </ObjectUnionOf>''')
     
     def normalise_role_expression(self, items):
-        if len(items) == 1:
-            d = self.r
-            wff = items[0]
-        else:
-            d = items[0]
-            wff = items[1]
+        assert len(items) > 1, 'Boxes and Diamonds cannot be empty'
+        d = items[0]
+        wff = items[1]
         return (d, wff)
     
     def box(self, items):
         d, wff = self.normalise_role_expression(items)
         if 'r_Ought' in d:
-            replacement = self.replace_ought_operator(wff)
+            replacement = self.replace_ought_operator(wff, box=True)
             return replacement
         return self.to_flc(f'''
             <ObjectAllValuesFrom>
@@ -452,6 +465,9 @@ class OWLXMLCTDTransformer(OWLXMLTransformer):
     
     def diamond(self, items):
         d, wff = self.normalise_role_expression(items)
+        if 'r_Ought' in d:
+            replacement = self.replace_ought_operator(wff, box=False)
+            return replacement
         return self.to_flc(
         f'''<ObjectSomeValuesFrom>
             {d}
