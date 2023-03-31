@@ -57,7 +57,7 @@ def kconj(kagents):
         </ObjectIntersectionOf>'''   
 
 def ground_ctd(operators: set, flc: set) -> list:
-    axioms = [subprop(r, 'r') for r in operators]
+    axioms = []
     if 'r_I' in operators and 'r_S' in operators:
         axioms.extend([disjoint('r_I','r_S')])
         axioms.extend([relexive_prop('r_I','r_S')])
