@@ -9,4 +9,5 @@ s8: [I]p & ~p -> <S>~p.
 s9: [I]p & [S]p -> p.
 s10: [I]p & ~p -> ([S]q -> q).
 s16: [Ought]p & ~p -> <S>[Ought]p.
+ImNotBonkers: [Ought]p.
 
