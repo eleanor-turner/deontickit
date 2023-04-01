@@ -505,6 +505,14 @@ if __name__=='__main__':
         axioms = transformer.transform(tree)
         grounding = ground_ctd(transformer.roles, transformer.flc)
         axioms.extend(grounding)
+    elif args.logic == 'sdl':
+        axioms.append('''<SubClassOf>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r"/>
+            <Class abbreviatedIRI="owl:Thing"/>
+        </ObjectSomeValuesFrom>
+</SubClassOf>''')
     cnames = transformer.atomics - transformer.declared
     ont = owlxml_ont(name, axioms, cnames, transformer.roles)
     if not args.output:
