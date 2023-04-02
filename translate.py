@@ -481,23 +481,37 @@ if __name__=='__main__':
     parser.add_argument('source', type=Path,
                     help='input file')
     parser.add_argument('-o', '--output', type=Path, 
-                    help='input file')
-    parser.add_argument('-l', '--logic', type=str, help='name of logic (sdl, cstit, jp)', default='sdl')
+                    help='output file (defaulst to input file stem + .owl')
+    parser.add_argument('-l', '--logic', type=str, help='name of logic (sdl, cstit, jp)')
 
     args = parser.parse_args()
+    
+    if not args.output:
+        args.output = args.source.with_suffix('.owl')
     
     g = Path('grammars/modal.g').read_text()
     
     s = args.source.read_text()
     meta, formulae = re.split('---*', s)
-    print(meta)
-   
+    meta = meta.strip().split('\n')
+    meta = {m[0].strip().lower():m[1].strip().lower() for m in [n.split(':') for n in meta]}
     parser = Lark(g, parser='earley')
     tree = parser.parse(formulae)
     name = 'test' if not args.output else args.output.name
-    transformer = OWLXMLTransformer()
-    axioms = transformer.transform(tree)
+    if not args.logic:
+        if 'logic' in meta.keys():
+            args.logic = meta['logic']
+        else:
+            print('No logic specified at command line or in file metadata, using SDL.')
+    else:
+        if 'logic' in meta.keys():
+            if meta['logic'] == args.logic:
+                print(f'You specified the logic ({args.logic}) in both file metadata and at the command line.')
+            else:
+                print(f'Overriding file metadata which specifies {meta["logic"]} for your command to use {args.logic}')
     if args.logic == 'cstit':
+        transformer = OWLXMLTransformer()
+        axioms = transformer.transform(tree)        
         grounding = ground_aaia(transformer.roles, transformer.flc)
         axioms.extend(grounding)
     elif args.logic == 'jp':
@@ -506,6 +520,8 @@ if __name__=='__main__':
         grounding = ground_ctd(transformer.roles, transformer.flc)
         axioms.extend(grounding)
     elif args.logic == 'sdl':
+        transformer = OWLXMLTransformer()
+        axioms = transformer.transform(tree)        
         axioms.append('''<SubClassOf>
         <Class abbreviatedIRI="owl:Thing"/>
         <ObjectSomeValuesFrom>
@@ -513,6 +529,8 @@ if __name__=='__main__':
             <Class abbreviatedIRI="owl:Thing"/>
         </ObjectSomeValuesFrom>
 </SubClassOf>''')
+    else:
+        print('I do not know how to translate {args.logic}.')
     cnames = transformer.atomics - transformer.declared
     ont = owlxml_ont(name, axioms, cnames, transformer.roles)
     if not args.output:
