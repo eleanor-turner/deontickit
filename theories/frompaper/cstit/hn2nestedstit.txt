@@ -1,0 +1,7 @@
+Name: Historical Necessity to nested stit
+Logic: cstit
+Author: Bijan Parsia
+----
+
+L2R: []cake -> [1][2]cake.
+R2L: [1][2]cake -> []cake.
