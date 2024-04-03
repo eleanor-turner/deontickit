@@ -32,7 +32,7 @@ def disjoint(op1, op2):
             <ObjectProperty abbreviatedIRI=":{op2}"/>
         </DisjointObjectProperties>'''
 
-def relexive_prop(op1, op2):
+def reflexive_prop(op1, op2):
     return f'''
         <SubClassOf>
             <Class abbreviatedIRI="owl:Thing"/>
@@ -60,7 +60,7 @@ def ground_ctd(operators: set, flc: set) -> list:
     axioms = []
     if 'r_I' in operators and 'r_S' in operators:
         axioms.extend([disjoint('r_I','r_S')])
-        axioms.extend([relexive_prop('r_I','r_S')])
+        axioms.extend([reflexive_prop('r_I','r_S')])
     return axioms
 
 def ground_aaia(agents: set, flc: set) -> list:

@@ -1,0 +1,18 @@
+Name: Contrary to Duty 1
+Source: Automated Reasoning in Deontic Logic, Ulrich Furbach1, Claudia Schon and Frieder Stolzenburg
+Comment: Formulating the Chilsom contrary to duty puzzle for SDL as in this paper, with s = X steals and p = X is punished.
+Logic: SDL
+Author: Bijan Parsia
+----
+N1: []~s.
+N2: s.
+N3_out: s -> []p.
+N3_in: [](s -> p).
+N4_out: ~s -> []~p.
+N4_in: [](~s -> ~p).
+
+
+SDL1 = N1 & N2 & N3_out & N4_in.
+SDL2 = N1 & N2 & N3_in & N4_in.
+SDL3 = N1 & N2 & N3_out & N4_out.
+SDL4 = N1 & N2 & N3_in & N4_out.

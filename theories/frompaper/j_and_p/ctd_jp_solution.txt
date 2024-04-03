@@ -1,0 +1,13 @@
+Name: ctd j_p
+Source:
+Comment: 
+Logic: jp
+Author: 
+----
+
+jp_1: [Ought]~s.
+jp_2: s.
+jp_3: [I](s -> [Ought]p) & [S](s -> [Ought]p).
+jp_4: [I](~s -> [Ought]~p) & [S](~s -> [Ought]~p).
+
+JP = jp_1 & jp_2 & jp_3 & jp_4.

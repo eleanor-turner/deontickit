@@ -1,0 +1,230 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="testsdl.xml"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="testsdl.xml">
+    <Prefix name="" IRI="testsdl.xml#"/>
+    <Prefix name="dc" IRI="http://purl.org/dc/elements/1.1/"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+      <Declaration>
+        <Class abbreviatedIRI=":N4"/>
+    </Declaration>
+  <Declaration>
+        <Class abbreviatedIRI=":N3"/>
+    </Declaration>
+  <Declaration>
+        <Class abbreviatedIRI=":s1"/>
+    </Declaration>
+  <Declaration>
+        <Class abbreviatedIRI=":s"/>
+    </Declaration>
+  <Declaration>
+        <Class abbreviatedIRI=":N1"/>
+    </Declaration>
+  <Declaration>
+        <Class abbreviatedIRI=":s3_nice"/>
+    </Declaration>
+  <Declaration>
+        <Class abbreviatedIRI=":N2"/>
+    </Declaration>
+  <Declaration>
+        <Class abbreviatedIRI=":N2_1"/>
+    </Declaration>
+  <Declaration>
+        <Class abbreviatedIRI=":p"/>
+    </Declaration>
+  <Declaration>
+        <Class abbreviatedIRI=":s2"/>
+    </Declaration>
+  <Declaration>
+        <Class abbreviatedIRI=":N3_1"/>
+    </Declaration>
+  <Declaration>
+        <Class abbreviatedIRI=":s4_bad"/>
+    </Declaration>
+  <Declaration>
+        <Class abbreviatedIRI=":s4_nice"/>
+    </Declaration>
+  <Declaration>
+        <Class abbreviatedIRI=":s3_bad"/>
+    </Declaration>
+    
+        <EquivalentClasses>
+            <Class abbreviatedIRI=":s1"/> 
+            
+    <ObjectAllValuesFrom>
+        <ObjectProperty abbreviatedIRI=":r"/>
+        
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":s"/>
+        </ObjectComplementOf>
+    </ObjectAllValuesFrom>
+        </EquivalentClasses>
+    <EquivalentClasses>
+            <Class abbreviatedIRI=":s2"/> 
+            <Class abbreviatedIRI=":s"/>
+        </EquivalentClasses>
+    <EquivalentClasses>
+            <Class abbreviatedIRI=":s3_nice"/> 
+            
+    <ObjectUnionOf>
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":s"/>
+        </ObjectComplementOf>
+        
+    <ObjectAllValuesFrom>
+        <ObjectProperty abbreviatedIRI=":r"/>
+        <Class abbreviatedIRI=":p"/>
+    </ObjectAllValuesFrom>
+    </ObjectUnionOf>
+        </EquivalentClasses>
+    <EquivalentClasses>
+            <Class abbreviatedIRI=":s3_bad"/> 
+            
+    <ObjectAllValuesFrom>
+        <ObjectProperty abbreviatedIRI=":r"/>
+        
+    <ObjectUnionOf>
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":s"/>
+        </ObjectComplementOf>
+        <Class abbreviatedIRI=":p"/>
+    </ObjectUnionOf>
+    </ObjectAllValuesFrom>
+        </EquivalentClasses>
+    <EquivalentClasses>
+            <Class abbreviatedIRI=":s4_nice"/> 
+            
+    <ObjectUnionOf>
+        <ObjectComplementOf>
+            
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":s"/>
+        </ObjectComplementOf>
+        </ObjectComplementOf>
+        
+    <ObjectAllValuesFrom>
+        <ObjectProperty abbreviatedIRI=":r"/>
+        
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectComplementOf>
+    </ObjectAllValuesFrom>
+    </ObjectUnionOf>
+        </EquivalentClasses>
+    <EquivalentClasses>
+            <Class abbreviatedIRI=":s4_bad"/> 
+            
+    <ObjectAllValuesFrom>
+        <ObjectProperty abbreviatedIRI=":r"/>
+        
+    <ObjectUnionOf>
+        <ObjectComplementOf>
+            
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":s"/>
+        </ObjectComplementOf>
+        </ObjectComplementOf>
+        
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectComplementOf>
+    </ObjectUnionOf>
+    </ObjectAllValuesFrom>
+        </EquivalentClasses>
+    <EquivalentClasses>
+            <Class abbreviatedIRI=":N1"/> 
+            
+        <ObjectIntersectionOf>
+            
+        <ObjectIntersectionOf>
+            
+        <ObjectIntersectionOf>
+            <Class abbreviatedIRI=":s1"/>
+            <Class abbreviatedIRI=":s2"/>
+        </ObjectIntersectionOf>
+            <Class abbreviatedIRI=":s3_nice"/>
+        </ObjectIntersectionOf>
+            <Class abbreviatedIRI=":s4_bad"/>
+        </ObjectIntersectionOf>
+        </EquivalentClasses>
+    <EquivalentClasses>
+            <Class abbreviatedIRI=":N2"/> 
+            
+        <ObjectIntersectionOf>
+            
+        <ObjectIntersectionOf>
+            
+        <ObjectIntersectionOf>
+            <Class abbreviatedIRI=":s1"/>
+            <Class abbreviatedIRI=":s2"/>
+        </ObjectIntersectionOf>
+            <Class abbreviatedIRI=":s3_bad"/>
+        </ObjectIntersectionOf>
+            <Class abbreviatedIRI=":s4_bad"/>
+        </ObjectIntersectionOf>
+        </EquivalentClasses>
+    <EquivalentClasses>
+            <Class abbreviatedIRI=":N2_1"/> 
+            
+        <ObjectIntersectionOf>
+            
+        <ObjectIntersectionOf>
+            <Class abbreviatedIRI=":s1"/>
+            <Class abbreviatedIRI=":s2"/>
+        </ObjectIntersectionOf>
+            <Class abbreviatedIRI=":s4_bad"/>
+        </ObjectIntersectionOf>
+        </EquivalentClasses>
+    <EquivalentClasses>
+            <Class abbreviatedIRI=":N3"/> 
+            
+        <ObjectIntersectionOf>
+            
+        <ObjectIntersectionOf>
+            
+        <ObjectIntersectionOf>
+            <Class abbreviatedIRI=":s1"/>
+            <Class abbreviatedIRI=":s2"/>
+        </ObjectIntersectionOf>
+            <Class abbreviatedIRI=":s3_nice"/>
+        </ObjectIntersectionOf>
+            <Class abbreviatedIRI=":s4_nice"/>
+        </ObjectIntersectionOf>
+        </EquivalentClasses>
+    <EquivalentClasses>
+            <Class abbreviatedIRI=":N3_1"/> 
+            
+        <ObjectIntersectionOf>
+            
+        <ObjectIntersectionOf>
+            <Class abbreviatedIRI=":s1"/>
+            <Class abbreviatedIRI=":s2"/>
+        </ObjectIntersectionOf>
+            <Class abbreviatedIRI=":s3_nice"/>
+        </ObjectIntersectionOf>
+        </EquivalentClasses>
+    <EquivalentClasses>
+            <Class abbreviatedIRI=":N4"/> 
+            
+        <ObjectIntersectionOf>
+            
+        <ObjectIntersectionOf>
+            
+        <ObjectIntersectionOf>
+            <Class abbreviatedIRI=":s1"/>
+            <Class abbreviatedIRI=":s2"/>
+        </ObjectIntersectionOf>
+            <Class abbreviatedIRI=":s3_bad"/>
+        </ObjectIntersectionOf>
+            <Class abbreviatedIRI=":s4_nice"/>
+        </ObjectIntersectionOf>
+        </EquivalentClasses>
+</Ontology>

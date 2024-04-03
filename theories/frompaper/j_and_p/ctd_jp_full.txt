@@ -1,0 +1,47 @@
+Name: ctd j_p
+Source:
+Comment: 
+Logic: jp
+Author: 
+----
+
+s8: [I]p & ~p -> <S>~p.
+s9: [I]p & [S]p -> p.
+s10: [I]p & ~p -> ([S]q -> q).
+s16: [Ought]p & ~p -> <S>[Ought]p.
+ImNotBonkers: [Ought]p.
+
+s8_lhs: [I]p & ~p.
+s8_rhs: <S>~p.
+s9_lhs: [I]p & [S]p.
+s9_rhs: p.
+s10_lhs: [I]p & ~p.
+s10_rhs: ([S]q -> q).
+s16_lhs: [Ought]p & ~p.
+s16_rhs: <S>[Ought]p.
+
+ctd1: [I]~s.
+ctd2: s.
+ctd3_nice: s -> [I]p.
+ctd4_nice: ~s -> [I]~p.
+ctd3_bad: [I](s -> p).
+ctd4_bad: [I](~s -> ~p).
+
+jp_1: [Ought]~s.
+jp_2: [I](s -> [Ought]p) & [S](s -> [Ought]p).
+jp_3: [I](~s -> [Ought]~p) & [S](~s -> [Ought]~p).
+jp_4: s.
+
+test_a1: [I]~s.
+test_a2: s -> [S]p.
+test_a3: [I](~s -> ~p).
+test_a4: s.
+
+
+N1 = ctd1 & ctd2 & ctd3_nice & ctd4_bad.
+N2 = ctd1 & ctd2 & ctd3_bad & ctd4_bad.
+N2_1 = ctd1 & ctd2 & ctd4_bad.
+N3 = ctd1 & ctd2 & ctd3_nice & ctd4_nice.
+N3_1 = ctd1 & ctd2 & ctd3_nice.
+N4 = ctd1 & ctd2 & ctd3_bad & ctd4_nice.
+JP = jp_1 & jp_2 & jp_3 & jp_4.

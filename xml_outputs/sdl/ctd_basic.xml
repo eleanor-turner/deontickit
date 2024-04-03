@@ -1,0 +1,226 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="ctd_basic.xml"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="ctd_basic.xml">
+    <Prefix name="" IRI="ctd_basic.xml#"/>
+    <Prefix name="dc" IRI="http://purl.org/dc/elements/1.1/"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+      <Declaration>
+        <Class abbreviatedIRI=":p"/>
+    </Declaration>
+  <Declaration>
+        <Class abbreviatedIRI=":s"/>
+    </Declaration>
+    
+        <EquivalentClasses>
+            <Class abbreviatedIRI=":N1"/> 
+            
+        <ObjectIntersectionOf>
+            
+        <ObjectIntersectionOf>
+            
+        <ObjectIntersectionOf>
+            
+    <ObjectAllValuesFrom>
+        <ObjectProperty abbreviatedIRI=":r"/>
+        
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":s"/>
+        </ObjectComplementOf>
+    </ObjectAllValuesFrom>
+            <Class abbreviatedIRI=":s"/>
+        </ObjectIntersectionOf>
+            
+    <ObjectUnionOf>
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":s"/>
+        </ObjectComplementOf>
+        
+    <ObjectAllValuesFrom>
+        <ObjectProperty abbreviatedIRI=":r"/>
+        <Class abbreviatedIRI=":p"/>
+    </ObjectAllValuesFrom>
+    </ObjectUnionOf>
+        </ObjectIntersectionOf>
+            
+    <ObjectAllValuesFrom>
+        <ObjectProperty abbreviatedIRI=":r"/>
+        
+    <ObjectUnionOf>
+        <ObjectComplementOf>
+            
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":s"/>
+        </ObjectComplementOf>
+        </ObjectComplementOf>
+        
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectComplementOf>
+    </ObjectUnionOf>
+    </ObjectAllValuesFrom>
+        </ObjectIntersectionOf>
+        </EquivalentClasses>
+    <EquivalentClasses>
+            <Class abbreviatedIRI=":N2"/> 
+            
+        <ObjectIntersectionOf>
+            
+        <ObjectIntersectionOf>
+            
+        <ObjectIntersectionOf>
+            
+    <ObjectAllValuesFrom>
+        <ObjectProperty abbreviatedIRI=":r"/>
+        
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":s"/>
+        </ObjectComplementOf>
+    </ObjectAllValuesFrom>
+            <Class abbreviatedIRI=":s"/>
+        </ObjectIntersectionOf>
+            
+    <ObjectAllValuesFrom>
+        <ObjectProperty abbreviatedIRI=":r"/>
+        
+    <ObjectUnionOf>
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":s"/>
+        </ObjectComplementOf>
+        <Class abbreviatedIRI=":p"/>
+    </ObjectUnionOf>
+    </ObjectAllValuesFrom>
+        </ObjectIntersectionOf>
+            
+    <ObjectAllValuesFrom>
+        <ObjectProperty abbreviatedIRI=":r"/>
+        
+    <ObjectUnionOf>
+        <ObjectComplementOf>
+            
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":s"/>
+        </ObjectComplementOf>
+        </ObjectComplementOf>
+        
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectComplementOf>
+    </ObjectUnionOf>
+    </ObjectAllValuesFrom>
+        </ObjectIntersectionOf>
+        </EquivalentClasses>
+    <EquivalentClasses>
+            <Class abbreviatedIRI=":N3"/> 
+            
+        <ObjectIntersectionOf>
+            
+        <ObjectIntersectionOf>
+            
+        <ObjectIntersectionOf>
+            
+    <ObjectAllValuesFrom>
+        <ObjectProperty abbreviatedIRI=":r"/>
+        
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":s"/>
+        </ObjectComplementOf>
+    </ObjectAllValuesFrom>
+            <Class abbreviatedIRI=":s"/>
+        </ObjectIntersectionOf>
+            
+    <ObjectUnionOf>
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":s"/>
+        </ObjectComplementOf>
+        
+    <ObjectAllValuesFrom>
+        <ObjectProperty abbreviatedIRI=":r"/>
+        <Class abbreviatedIRI=":p"/>
+    </ObjectAllValuesFrom>
+    </ObjectUnionOf>
+        </ObjectIntersectionOf>
+            
+    <ObjectUnionOf>
+        <ObjectComplementOf>
+            
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":s"/>
+        </ObjectComplementOf>
+        </ObjectComplementOf>
+        
+    <ObjectAllValuesFrom>
+        <ObjectProperty abbreviatedIRI=":r"/>
+        
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectComplementOf>
+    </ObjectAllValuesFrom>
+    </ObjectUnionOf>
+        </ObjectIntersectionOf>
+        </EquivalentClasses>
+    <EquivalentClasses>
+            <Class abbreviatedIRI=":N4"/> 
+            
+        <ObjectIntersectionOf>
+            
+        <ObjectIntersectionOf>
+            
+        <ObjectIntersectionOf>
+            
+    <ObjectAllValuesFrom>
+        <ObjectProperty abbreviatedIRI=":r"/>
+        
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":s"/>
+        </ObjectComplementOf>
+    </ObjectAllValuesFrom>
+            <Class abbreviatedIRI=":s"/>
+        </ObjectIntersectionOf>
+            
+    <ObjectAllValuesFrom>
+        <ObjectProperty abbreviatedIRI=":r"/>
+        
+    <ObjectUnionOf>
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":s"/>
+        </ObjectComplementOf>
+        <Class abbreviatedIRI=":p"/>
+    </ObjectUnionOf>
+    </ObjectAllValuesFrom>
+        </ObjectIntersectionOf>
+            
+    <ObjectUnionOf>
+        <ObjectComplementOf>
+            
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":s"/>
+        </ObjectComplementOf>
+        </ObjectComplementOf>
+        
+    <ObjectAllValuesFrom>
+        <ObjectProperty abbreviatedIRI=":r"/>
+        
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectComplementOf>
+    </ObjectAllValuesFrom>
+    </ObjectUnionOf>
+        </ObjectIntersectionOf>
+        </EquivalentClasses>
+<SubClassOf>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r"/>
+            <Class abbreviatedIRI="owl:Thing"/>
+        </ObjectSomeValuesFrom>
+</SubClassOf>
+</Ontology>

@@ -1,0 +1,21 @@
+Name: ctd j_p
+Source:
+Comment: 
+Logic: jp
+Author: 
+----
+
+s8: [I]p & ~p -> <S>~p.
+s9: [I]p & [S]p -> p.
+s10: [I]p & ~p -> ([S]q -> q).
+s16: [Ought]p & ~p -> <S>[Ought]p.
+ImNotBonkers: [Ought]p.
+
+s8_lhs: [I]p & ~p.
+s8_rhs: <S>~p.
+s9_lhs: [I]p & [S]p.
+s9_rhs: p.
+s10_lhs: [I]p & ~p.
+s10_rhs: ([S]q -> q).
+s16_lhs: [Ought]p & ~p.
+s16_rhs: <S>[Ought]p.
