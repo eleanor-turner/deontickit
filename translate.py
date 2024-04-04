@@ -64,14 +64,15 @@ def ground_ctd(operators: set, flc: set) -> list:
     return axioms
 
 def ground_aaia(agents: set, flc: set) -> list:
+    agents = sorted(agents)
+    #E.g. agents = ['r_1','r_2','r_3']
     '''Hacking an OWL/XML file To Be Imported'''
     axioms = [s5('r')]
     axioms.extend([s5(a) for a in agents])
     axioms.extend([subprop(a, 'r') for a in agents])
     if len(agents) == 1:
         return axioms
-    
-    
+
     kschema = list()
     lhs = '''
             <ObjectSomeValuesFrom>
@@ -79,41 +80,43 @@ def ground_aaia(agents: set, flc: set) -> list:
                 %(alpha)s
             </ObjectSomeValuesFrom>
     '''
-
+    #E.g. lhs = "<r>cake"
 
     # We always need at least two agents for a grounding
     # (0<=i<k for k>=1, so minimum is 0 and 1)
     # So we pop one agent to be the "seed" on the rhs
     # and we pop another agent to be the kth agent
 
-    kth = agents.pop()
-    
-    #len(kagents) == k-1
-    kagents = [(a, f'''
+    for i in range(len(agents)-1):
+        kth = agents.pop()
+        #E.g. kth = r_3
+
+        #len(kagents) == k-1
+        kagents = [(a, f'''
             <ObjectSomeValuesFrom>
                 <ObjectProperty abbreviatedIRI=":{a}"/>
                 %(alpha)s
             </ObjectSomeValuesFrom>
-    ''') for a in agents]
-    
-    
-    for a, _ in kagents:
+        ''') for a in agents]
+        #E.g. kagents = [(r_1, "<r_1>cake"), (r_2, "<r_2>cake")]
+
         con = kconj(kagents)
+        #E.g. con = "<r_1>cake & <r_2>cake"
+
         krhs = f'''
             <ObjectSomeValuesFrom>
                 <ObjectProperty abbreviatedIRI=":{kth}"/>
                 {con}
             </ObjectSomeValuesFrom>
-    '''  
+        '''  
+        #E.g. krhs = "<r_3>(<r_1>cake & <r_2>cake)"
+
         kschema.append(f'''
         <SubClassOf>
             {lhs}
             {krhs}
         </SubClassOf>
-        ''')
-        kagents.pop(0)
-        kth = a
-        
+        ''')        
 
     for f in flc:
         for k in kschema:
@@ -511,7 +514,7 @@ if __name__=='__main__':
                 print(f'Overriding file metadata which specifies {meta["logic"]} for your command to use {args.logic}')
     if args.logic == 'cstit':
         transformer = OWLXMLTransformer()
-        axioms = transformer.transform(tree)        
+        axioms = transformer.transform(tree)
         grounding = ground_aaia(transformer.roles, transformer.flc)
         axioms.extend(grounding)
     elif args.logic == 'jp':

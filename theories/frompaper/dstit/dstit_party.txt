@@ -1,0 +1,10 @@
+Name: dstit party
+Source:
+Comment: 
+Logic: dstit
+Author: Eleanor Turner
+----
+s1: ~[]cake.
+s2: []water.
+s3: [1]cake.
+s4: [1]water.
