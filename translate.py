@@ -402,6 +402,69 @@ class OWLXMLTransformer(Transformer):
         
         return items
 
+class OWLXMLDSTITTransformer(OWLXMLTransformer):
+    def __init__(self):
+        super().__init__()
+    
+    def box(self, items):
+        if len(items) == 1:
+            d = self.r
+            wff = items[0]
+
+            return self.to_flc(f'''
+            <ObjectAllValuesFrom>
+                {d}
+                {wff}
+            </ObjectAllValuesFrom>''' )
+
+        else:
+            d = items[0]
+            wff = items[1]
+
+            return self.to_flc(f'''
+            <ObjectIntersectionOf>
+                <ObjectAllValuesFrom>
+                    {d}
+                    {wff}
+                </ObjectAllValuesFrom>
+                <ObjectComplementOf>
+                    <ObjectAllValuesFrom>
+                        {self.r}
+                        {wff}
+                    </ObjectAllValuesFrom>
+                </ObjectComplementOf>
+            </ObjectIntersectionOf>''')
+
+    
+    def diamond(self, items):
+        if len(items) == 1:
+            d = self.r
+            wff = items[0]
+
+            return self.to_flc(f'''
+            <ObjectSomeValuesFrom>
+                {d}
+                {wff}
+            </ObjectSomeValuesFrom>''' )
+
+        else:
+            d = items[0]
+            wff = items[1]
+
+            return self.to_flc(f'''
+            <ObjectUnionOf>
+                <ObjectSomeValuesFrom>
+                    {d}
+                    {wff}
+                </ObjectSomeValuesFrom>
+                <ObjectComplementOf>
+                    <ObjectSomeValuesFrom>
+                        {self.r}
+                        {wff}
+                    </ObjectSomeValuesFrom>
+                </ObjectComplementOf>
+            </ObjectUnionOf>''')
+
 class OWLXMLCTDTransformer(OWLXMLTransformer):
     def __init__(self):
         super().__init__()
@@ -512,6 +575,11 @@ if __name__=='__main__':
     if args.logic == 'cstit':
         transformer = OWLXMLTransformer()
         axioms = transformer.transform(tree)        
+        grounding = ground_aaia(transformer.roles, transformer.flc)
+        axioms.extend(grounding)
+    elif args.logic == 'dstit':
+        transformer = OWLXMLDSTITTransformer()
+        axioms = transformer.transform(tree)
         grounding = ground_aaia(transformer.roles, transformer.flc)
         axioms.extend(grounding)
     elif args.logic == 'jp':

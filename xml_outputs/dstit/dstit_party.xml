@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="dstit_party.xml"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="dstit_party.xml">
+    <Prefix name="" IRI="dstit_party.xml#"/>
+    <Prefix name="dc" IRI="http://purl.org/dc/elements/1.1/"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+      <Declaration>
+        <Class abbreviatedIRI=":cake"/>
+    </Declaration>
+  <Declaration>
+        <Class abbreviatedIRI=":water"/>
+    </Declaration>
+      <Declaration>
+        <ObjectProperty abbreviatedIRI=":r_1"/>
+    </Declaration>
+        <EquivalentClasses>
+            <Class abbreviatedIRI=":s1"/> 
+            
+        <ObjectComplementOf>
+            
+            <ObjectAllValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                <Class abbreviatedIRI=":cake"/>
+            </ObjectAllValuesFrom>
+        </ObjectComplementOf>
+        </EquivalentClasses>
+    <EquivalentClasses>
+            <Class abbreviatedIRI=":s2"/> 
+            
+            <ObjectAllValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                <Class abbreviatedIRI=":water"/>
+            </ObjectAllValuesFrom>
+        </EquivalentClasses>
+    <EquivalentClasses>
+            <Class abbreviatedIRI=":s3"/> 
+            
+            <ObjectIntersectionOf>
+                <ObjectAllValuesFrom>
+                    <ObjectProperty abbreviatedIRI=":r_1"/>
+                    <Class abbreviatedIRI=":cake"/>
+                </ObjectAllValuesFrom>
+                <ObjectComplementOf>
+                    <ObjectAllValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r"/>
+                        <Class abbreviatedIRI=":cake"/>
+                    </ObjectAllValuesFrom>
+                </ObjectComplementOf>
+            </ObjectIntersectionOf>
+        </EquivalentClasses>
+    <EquivalentClasses>
+            <Class abbreviatedIRI=":s4"/> 
+            
+            <ObjectIntersectionOf>
+                <ObjectAllValuesFrom>
+                    <ObjectProperty abbreviatedIRI=":r_1"/>
+                    <Class abbreviatedIRI=":water"/>
+                </ObjectAllValuesFrom>
+                <ObjectComplementOf>
+                    <ObjectAllValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r"/>
+                        <Class abbreviatedIRI=":water"/>
+                    </ObjectAllValuesFrom>
+                </ObjectComplementOf>
+            </ObjectIntersectionOf>
+        </EquivalentClasses>
+    <SymmetricObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r"/>
+    </SymmetricObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r"/>
+    </TransitiveObjectProperty>
+    <ReflexiveObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r"/>
+    </ReflexiveObjectProperty>
+    <SymmetricObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r_1"/>
+    </SymmetricObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r_1"/>
+    </TransitiveObjectProperty>
+    <ReflexiveObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r_1"/>
+    </ReflexiveObjectProperty>
+
+        <SubObjectPropertyOf>
+            <ObjectProperty abbreviatedIRI=":r_1"/>
+            <ObjectProperty abbreviatedIRI=":r"/>
+        </SubObjectPropertyOf>
+</Ontology>
