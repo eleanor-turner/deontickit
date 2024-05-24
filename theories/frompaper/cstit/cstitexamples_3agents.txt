@@ -1,0 +1,10 @@
+Name: Testing cstit with 3 agents
+Source:
+Comment: Some v. simple examples of  mult-agent cstit formulae, mostly about ensuring there is cake.
+Logic: cstit
+Author: Eleanor Turner
+----
+s1: []cake.
+s2: [1]cake.
+s3: [1][2]cake.
+s4: [1][2][3]cake.
