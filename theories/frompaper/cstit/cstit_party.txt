@@ -1,0 +1,10 @@
+Name: cstit party
+Source:
+Comment: 
+Logic: cstit
+Author: Eleanor Turner
+----
+s1: ~[]cake.
+s2: []water.
+s3: [1]cake.
+s4: [1]water.
