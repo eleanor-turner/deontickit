@@ -64,6 +64,7 @@ def ground_ctd(operators: set, flc: set) -> list:
     return axioms
 
 def ground_aaia(agents: set, flc: set) -> list:
+    print(f'FLC - {flc}')
     agents = sorted(agents)
     #E.g. agents = ['r_1','r_2','r_3']
     '''Hacking an OWL/XML file To Be Imported'''
@@ -364,10 +365,10 @@ class OWLXMLTransformer(Transformer):
     def box(self, items):
         d, wff = self.normalise_role_expression(items)
         return self.to_flc(f'''
-    <ObjectAllValuesFrom>
-        {d}
-        {wff}
-    </ObjectAllValuesFrom>'''  )
+        <ObjectAllValuesFrom>
+            {d}
+            {wff}
+        </ObjectAllValuesFrom>'''  )
     
     def diamond(self, items):
         d, wff = self.normalise_role_expression(items)
@@ -410,63 +411,60 @@ class OWLXMLDSTITTransformer(OWLXMLTransformer):
         super().__init__()
     
     def box(self, items):
-        if len(items) == 1:
-            d = self.r
-            wff = items[0]
+        d, wff = self.normalise_role_expression(items)
 
-            return self.to_flc(f'''
+        box = self.to_flc(f'''
+            <ObjectAllValuesFrom>
+                {self.r}
+                {wff}
+            </ObjectAllValuesFrom>''')
+
+        if len(items) == 1:
+            return box
+
+        else:
+            # For dstit agency, we transform into cstit agency by the following rule:
+            # [a dstit p] = [a cstit p] & ~[]p
+            # E.g. [1]p = [1]p & ~[]p
+
+            print(f'wff - {wff}')
+
+            cstit_box = self.to_flc(f'''
             <ObjectAllValuesFrom>
                 {d}
                 {wff}
-            </ObjectAllValuesFrom>''' )
+            </ObjectAllValuesFrom>''')
 
-        else:
-            d = items[0]
-            wff = items[1]
+            neg_box = self.negation(box)
 
-            return self.to_flc(f'''
-            <ObjectIntersectionOf>
-                <ObjectAllValuesFrom>
-                    {d}
-                    {wff}
-                </ObjectAllValuesFrom>
-                <ObjectComplementOf>
-                    <ObjectAllValuesFrom>
-                        {self.r}
-                        {wff}
-                    </ObjectAllValuesFrom>
-                </ObjectComplementOf>
-            </ObjectIntersectionOf>''')
-
+            return self.conjunction([cstit_box, neg_box])
     
     def diamond(self, items):
-        if len(items) == 1:
-            d = self.r
-            wff = items[0]
+        d, wff = self.normalise_role_expression(items)
 
-            return self.to_flc(f'''
+        diamond = self.to_flc(f'''
+            <ObjectSomeValuesFrom>
+                {self.r}
+                {wff}
+            </ObjectSomeValuesFrom>''')
+
+        if len(items) == 1:
+            return diamond
+
+        else:
+            # For dstit agency, we transform into cstit agency by the following rule:
+            # <a dstit p> = <a cstit p> v ~<>p
+            # E.g. <1>p = <1>p v ~<>p
+
+            cstit_diamond = self.to_flc(f'''
             <ObjectSomeValuesFrom>
                 {d}
                 {wff}
-            </ObjectSomeValuesFrom>''' )
+            </ObjectSomeValuesFrom>''')
 
-        else:
-            d = items[0]
-            wff = items[1]
+            neg_diamond = self.negation(diamond)
 
-            return self.to_flc(f'''
-            <ObjectUnionOf>
-                <ObjectSomeValuesFrom>
-                    {d}
-                    {wff}
-                </ObjectSomeValuesFrom>
-                <ObjectComplementOf>
-                    <ObjectSomeValuesFrom>
-                        {self.r}
-                        {wff}
-                    </ObjectSomeValuesFrom>
-                </ObjectComplementOf>
-            </ObjectUnionOf>''')
+            return self.disjunction([cstit_diamond, neg_diamond])
 
 class OWLXMLCTDTransformer(OWLXMLTransformer):
     def __init__(self):
@@ -540,6 +538,42 @@ class OWLXMLCTDTransformer(OWLXMLTransformer):
             {wff}
         </ObjectSomeValuesFrom>''' ) 
 
+def dstit_substitution(formulae):
+    # Box substitution
+    amendments = []
+    for i, ltr in enumerate(formulae):
+        if ltr == '[' and formulae[i+1] != ']':
+            box_end = formulae.index(']', i)
+            if formulae[box_end+1] == '(':
+                wff_end = formulae.index(')', box_end)
+            else: 
+                wff_end = min(formulae.index(' ', box_end)-1, formulae.index('.', box_end)-1, formulae.index(')', box_end)-1)
+            wff = formulae[box_end+1: wff_end+1]
+            amendments.insert(0, [wff_end+1, f" & ~[]{wff}"])
+
+    for i, add_string in amendments:    
+        f = list(formulae)
+        f.insert(i, add_string)
+        formulae = ''.join(f)
+
+    # Diamond substitution
+    amendments = []
+    for i, ltr in enumerate(formulae):
+        if ltr == '<' and formulae[i+1] != '>':
+            diamond_end = formulae.index('>', i)
+            if formulae[diamond_end+1] == '(':
+                wff_end = formulae.index(')', diamond_end)
+            else: 
+                wff_end = min(formulae.index(' ', diamond_end)-1, formulae.index('.', diamond_end)-1, formulae.index(')', diamond_end)-1)
+            wff = formulae[diamond_end+1: wff_end+1]
+            amendments.insert(0, [wff_end+1, f" v ~<>{wff}"])
+
+    for i, add_string in amendments:    
+        f = list(formulae)
+        f.insert(i, add_string)
+        formulae = ''.join(f)
+
+    return formulae
 
 
 if __name__=='__main__':
@@ -561,8 +595,7 @@ if __name__=='__main__':
     meta, formulae = re.split('---*', s)
     meta = meta.strip().split('\n')
     meta = {m[0].strip().lower():m[1].strip().lower() for m in [n.split(':') for n in meta]}
-    parser = Lark(g, parser='earley')
-    tree = parser.parse(formulae)
+
     name = 'test' if not args.output else args.output.name
     if not args.logic:
         if 'logic' in meta.keys():
@@ -575,13 +608,16 @@ if __name__=='__main__':
                 print(f'You specified the logic ({args.logic}) in both file metadata and at the command line.')
             else:
                 print(f'Overriding file metadata which specifies {meta["logic"]} for your command to use {args.logic}')
-    if args.logic == 'cstit':
+    
+    if args.logic == 'dstit':
+        formulae = dstit_substitution(formulae)
+        print(formulae)
+
+    parser = Lark(g, parser='earley')
+    tree = parser.parse(formulae)
+
+    if args.logic == 'cstit' or args.logic == 'dstit':
         transformer = OWLXMLTransformer()
-        axioms = transformer.transform(tree)
-        grounding = ground_aaia(transformer.roles, transformer.flc)
-        axioms.extend(grounding)
-    elif args.logic == 'dstit':
-        transformer = OWLXMLDSTITTransformer()
         axioms = transformer.transform(tree)
         grounding = ground_aaia(transformer.roles, transformer.flc)
         axioms.extend(grounding)

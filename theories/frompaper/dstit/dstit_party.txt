@@ -8,3 +8,5 @@ s1: ~[]cake.
 s2: []water.
 s3: [1]cake.
 s4: [1]water.
+
+N1 = s1 & s2 & s3 & s4.
