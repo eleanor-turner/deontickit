@@ -406,137 +406,22 @@ class OWLXMLTransformer(Transformer):
         
         return items
 
-class OWLXMLDSTITTransformer(OWLXMLTransformer):
-    def __init__(self):
-        super().__init__()
-    
-    def box(self, items):
-        d, wff = self.normalise_role_expression(items)
-
-        box = self.to_flc(f'''
-            <ObjectAllValuesFrom>
-                {self.r}
-                {wff}
-            </ObjectAllValuesFrom>''')
-
-        if len(items) == 1:
-            return box
-
-        else:
-            # For dstit agency, we transform into cstit agency by the following rule:
-            # [a dstit p] = [a cstit p] & ~[]p
-            # E.g. [1]p = [1]p & ~[]p
-
-            print(f'wff - {wff}')
-
-            cstit_box = self.to_flc(f'''
-            <ObjectAllValuesFrom>
-                {d}
-                {wff}
-            </ObjectAllValuesFrom>''')
-
-            neg_box = self.negation(box)
-
-            return self.conjunction([cstit_box, neg_box])
-    
-    def diamond(self, items):
-        d, wff = self.normalise_role_expression(items)
-
-        diamond = self.to_flc(f'''
-            <ObjectSomeValuesFrom>
-                {self.r}
-                {wff}
-            </ObjectSomeValuesFrom>''')
-
-        if len(items) == 1:
-            return diamond
-
-        else:
-            # For dstit agency, we transform into cstit agency by the following rule:
-            # <a dstit p> = <a cstit p> v ~<>p
-            # E.g. <1>p = <1>p v ~<>p
-
-            cstit_diamond = self.to_flc(f'''
-            <ObjectSomeValuesFrom>
-                {d}
-                {wff}
-            </ObjectSomeValuesFrom>''')
-
-            neg_diamond = self.negation(diamond)
-
-            return self.disjunction([cstit_diamond, neg_diamond])
-
 class OWLXMLCTDTransformer(OWLXMLTransformer):
     def __init__(self):
         super().__init__()
      
     def arole(self, items):
         d = items[0]
-        assert d in ['I','S','Ought'], 'Permitted operators are [I], [S], [Ought]'
+        assert d in ['I','S'], 'Permitted operators are [I], [S]'
         d = f'r_{d}'
-        if d == 'r_I' or d == 'r_S':
-            self.roles.add(d)
+        self.roles.add(d)
         return f'<ObjectProperty abbreviatedIRI=":{d}"/>'
-
-    def replace_ought_operator(self, wff, box):
-        Ideal = self.arole(['I'])
-        Subideal = self.arole(['S'])
-        if box:
-            return self.to_flc(f'''
-                <ObjectIntersectionOf>
-                    <ObjectAllValuesFrom>
-                        {Ideal}
-                        {wff}
-                    </ObjectAllValuesFrom>
-                    <ObjectSomeValuesFrom>
-                        {Subideal}
-                        <ObjectComplementOf>
-                            {wff}
-                        </ObjectComplementOf>
-                    </ObjectSomeValuesFrom>
-                </ObjectIntersectionOf>''')
-        else:
-            return self.to_flc(f'''
-                <ObjectUnionOf>
-                    <ObjectSomeValuesFrom>
-                        {Ideal}
-                        {wff}
-                    </ObjectSomeValuesFrom>
-                    <ObjectAllValuesFrom>
-                        {Subideal}
-                        <ObjectComplementOf>
-                            {wff}
-                        </ObjectComplementOf>
-                    </ObjectAllValuesFrom>
-                </ObjectUnionOf>''')
     
     def normalise_role_expression(self, items):
         assert len(items) > 1, 'Boxes and Diamonds cannot be empty'
         d = items[0]
         wff = items[1]
         return (d, wff)
-    
-    def box(self, items):
-        d, wff = self.normalise_role_expression(items)
-        if 'r_Ought' in d:
-            replacement = self.replace_ought_operator(wff, box=True)
-            return replacement
-        return self.to_flc(f'''
-            <ObjectAllValuesFrom>
-                {d}
-                {wff}
-            </ObjectAllValuesFrom>'''  )
-    
-    def diamond(self, items):
-        d, wff = self.normalise_role_expression(items)
-        if 'r_Ought' in d:
-            replacement = self.replace_ought_operator(wff, box=False)
-            return replacement
-        return self.to_flc(
-        f'''<ObjectSomeValuesFrom>
-            {d}
-            {wff}
-        </ObjectSomeValuesFrom>''' ) 
 
 def dstit_substitution(formulae):
     # Box substitution
@@ -547,9 +432,12 @@ def dstit_substitution(formulae):
             if formulae[box_end+1] == '(':
                 wff_end = formulae.index(')', box_end)
             else: 
-                wff_end = min(formulae.index(' ', box_end)-1, formulae.index('.', box_end)-1, formulae.index(')', box_end)-1)
-            wff = formulae[box_end+1: wff_end+1]
-            amendments.insert(0, [wff_end+1, f" & ~[]{wff}"])
+                try:
+                    wff_end = min(formulae.index(' ', box_end), formulae.index('.', box_end), formulae.index(')', box_end))
+                except:
+                    wff_end = min(formulae.index(' ', box_end), formulae.index('.', box_end))
+                wff = formulae[box_end+1: wff_end]
+            amendments.insert(0, [wff_end, f" & ~[]{wff}"])
 
     for i, add_string in amendments:    
         f = list(formulae)
@@ -564,13 +452,53 @@ def dstit_substitution(formulae):
             if formulae[diamond_end+1] == '(':
                 wff_end = formulae.index(')', diamond_end)
             else: 
-                wff_end = min(formulae.index(' ', diamond_end)-1, formulae.index('.', diamond_end)-1, formulae.index(')', diamond_end)-1)
-            wff = formulae[diamond_end+1: wff_end+1]
-            amendments.insert(0, [wff_end+1, f" v ~<>{wff}"])
+                try:
+                    wff_end = min(formulae.index(' ', diamond_end), formulae.index('.', diamond_end), formulae.index(')', diamond_end))
+                except:
+                    wff_end = min(formulae.index(' ', diamond_end), formulae.index('.', diamond_end))
+            wff = formulae[diamond_end+1: wff_end]
+            amendments.insert(0, [wff_end, f" v ~<>{wff}"])
 
     for i, add_string in amendments:    
         f = list(formulae)
         f.insert(i, add_string)
+        formulae = ''.join(f)
+
+    return formulae
+
+def jp_substitution(formulae):
+    # Replace [Ought]p with '[I]p & <S>~p'
+    amendments = []
+    inds = [[m.start(), m.end()] for m in re.finditer('\[Ought\]', formulae)]
+    for st, end in inds:
+        if formulae[end] == '(':
+            wff_end = formulae.index(')', end)+1
+        else:
+            wff_end = min(formulae.index(' ', end), formulae.index('.', end), formulae.index(')', end))
+        wff = formulae[end: wff_end]
+        amendments.insert(0, [[st, end], wff_end, f"([I]{wff} & <S>~{wff})"])
+
+    for inds, wff_end, replacement in amendments:
+        formulae = formulae[:inds[0]] + formulae[wff_end:]  
+        f = list(formulae)
+        f.insert(inds[0], replacement)
+        formulae = ''.join(f)
+
+    # Replace <Ought>p with '<I>p v [S]~p'
+    amendments = []
+    inds = [[m.start(), m.end()] for m in re.finditer('<Ought>', formulae)]
+    for st, end in inds:
+        if formulae[end] == '(':
+            wff_end = formulae.index(')', end)+1
+        else:
+            wff_end = min(formulae.index(' ', end), formulae.index('.', end), formulae.index(')', end))
+        wff = formulae[end: wff_end]
+        amendments.insert(0, [[st, end], wff_end, f"(<I>{wff} v [S]~{wff})"])
+
+    for inds, wff_end, replacement in amendments:
+        formulae = formulae[:inds[0]] + formulae[wff_end:]  
+        f = list(formulae)
+        f.insert(inds[0], replacement)
         formulae = ''.join(f)
 
     return formulae
@@ -608,9 +536,13 @@ if __name__=='__main__':
                 print(f'You specified the logic ({args.logic}) in both file metadata and at the command line.')
             else:
                 print(f'Overriding file metadata which specifies {meta["logic"]} for your command to use {args.logic}')
-    
+
     if args.logic == 'dstit':
         formulae = dstit_substitution(formulae)
+        print(formulae)
+    
+    if args.logic == 'jp':
+        formulae = jp_substitution(formulae)
         print(formulae)
 
     parser = Lark(g, parser='earley')
