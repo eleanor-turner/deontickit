@@ -425,43 +425,57 @@ class OWLXMLCTDTransformer(OWLXMLTransformer):
 
 def dstit_substitution(formulae):
     # Box substitution
+    # For dstit agency, we transform into cstit agency by the following rule:
+            # [a dstit p] = [a cstit p] & ~[]p
+            # E.g. [1]p = [1]p & ~[]p
+
     amendments = []
     for i, ltr in enumerate(formulae):
         if ltr == '[' and formulae[i+1] != ']':
-            box_end = formulae.index(']', i)
-            if formulae[box_end+1] == '(':
-                wff_end = formulae.index(')', box_end)
+            # Find start and end indices of boxes
+            st, end = i, formulae.index(']', i)+1
+            if formulae[end] == '(':
+                wff_end = formulae.index(')', end)
             else: 
                 try:
-                    wff_end = min(formulae.index(' ', box_end), formulae.index('.', box_end), formulae.index(')', box_end))
+                    wff_end = min(formulae.index(' ', end), formulae.index('.', end), formulae.index(')', end))
                 except:
-                    wff_end = min(formulae.index(' ', box_end), formulae.index('.', box_end))
-                wff = formulae[box_end+1: wff_end]
-            amendments.insert(0, [wff_end, f" & ~[]{wff}"])
+                    wff_end = min(formulae.index(' ', end), formulae.index('.', end))
+            orig = formulae[st:wff_end]
+            wff = formulae[end: wff_end]
+            amendments.insert(0, [[st, end], wff_end, f"({orig} & ~[]{wff})"])
 
-    for i, add_string in amendments:    
+    for inds, wff_end, replacement in amendments: 
+        formulae = formulae[:inds[0]] + formulae[wff_end:]   
         f = list(formulae)
-        f.insert(i, add_string)
+        f.insert(inds[0], replacement)
         formulae = ''.join(f)
 
     # Diamond substitution
+    # For dstit agency, we transform into cstit agency by the following rule:
+            # <a dstit p> = <a cstit p> v ~<>p
+            # E.g. <1>p = <1>p v ~<>p
+
     amendments = []
     for i, ltr in enumerate(formulae):
         if ltr == '<' and formulae[i+1] != '>':
-            diamond_end = formulae.index('>', i)
-            if formulae[diamond_end+1] == '(':
-                wff_end = formulae.index(')', diamond_end)
+            # Find start and end indices of diamonds
+            st, end = i, formulae.index('>', i)+1
+            if formulae[end] == '(':
+                wff_end = formulae.index(')', end)
             else: 
                 try:
-                    wff_end = min(formulae.index(' ', diamond_end), formulae.index('.', diamond_end), formulae.index(')', diamond_end))
+                    wff_end = min(formulae.index(' ', end), formulae.index('.', end), formulae.index(')', end))
                 except:
-                    wff_end = min(formulae.index(' ', diamond_end), formulae.index('.', diamond_end))
-            wff = formulae[diamond_end+1: wff_end]
-            amendments.insert(0, [wff_end, f" v ~<>{wff}"])
+                    wff_end = min(formulae.index(' ', end), formulae.index('.', end))
+            orig = formulae[st:wff_end]
+            wff = formulae[end: wff_end]
+            amendments.insert(0, [[st, end], wff_end, f"({orig} v ~<>{wff})"])
 
-    for i, add_string in amendments:    
+    for inds, wff_end, replacement in amendments:  
+        formulae = formulae[:inds[0]] + formulae[wff_end:]  
         f = list(formulae)
-        f.insert(i, add_string)
+        f.insert(inds[0], replacement)
         formulae = ''.join(f)
 
     return formulae
