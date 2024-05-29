@@ -17,6 +17,21 @@
         <Class abbreviatedIRI=":cake"/>
     </Declaration>
   <Declaration>
+        <Class abbreviatedIRI=":s4"/>
+    </Declaration>
+  <Declaration>
+        <Class abbreviatedIRI=":s2"/>
+    </Declaration>
+  <Declaration>
+        <Class abbreviatedIRI=":s3"/>
+    </Declaration>
+  <Declaration>
+        <Class abbreviatedIRI=":N1"/>
+    </Declaration>
+  <Declaration>
+        <Class abbreviatedIRI=":s1"/>
+    </Declaration>
+  <Declaration>
         <Class abbreviatedIRI=":water"/>
     </Declaration>
       <Declaration>
@@ -72,6 +87,22 @@
                     </ObjectAllValuesFrom>
                 </ObjectComplementOf>
             </ObjectIntersectionOf>
+        </EquivalentClasses>
+    <EquivalentClasses>
+            <Class abbreviatedIRI=":N1"/> 
+            
+        <ObjectIntersectionOf>
+            
+        <ObjectIntersectionOf>
+            
+        <ObjectIntersectionOf>
+            <Class abbreviatedIRI=":s1"/>
+            <Class abbreviatedIRI=":s2"/>
+        </ObjectIntersectionOf>
+            <Class abbreviatedIRI=":s3"/>
+        </ObjectIntersectionOf>
+            <Class abbreviatedIRI=":s4"/>
+        </ObjectIntersectionOf>
         </EquivalentClasses>
     <SymmetricObjectProperty>
         <ObjectProperty abbreviatedIRI=":r"/>
