@@ -64,7 +64,6 @@ def ground_ctd(operators: set, flc: set) -> list:
     return axioms
 
 def ground_aaia(agents: set, flc: set) -> list:
-    print(f'FLC - {flc}')
     agents = sorted(agents)
     #E.g. agents = ['r_1','r_2','r_3']
     '''Hacking an OWL/XML file To Be Imported'''
@@ -429,26 +428,36 @@ def dstit_substitution(formulae):
             # [a dstit p] = [a cstit p] & ~[]p
             # E.g. [1]p = [1]p & ~[]p
 
-    amendments = []
+    boxes = []
     for i, ltr in enumerate(formulae):
         if ltr == '[' and formulae[i+1] != ']':
             # Find start and end indices of boxes
             st, end = i, formulae.index(']', i)+1
-            if formulae[end] == '(':
-                wff_end = formulae.index(')', end)
-            else: 
-                try:
-                    wff_end = min(formulae.index(' ', end), formulae.index('.', end), formulae.index(')', end))
-                except:
-                    wff_end = min(formulae.index(' ', end), formulae.index('.', end))
-            orig = formulae[st:wff_end]
-            wff = formulae[end: wff_end]
-            amendments.insert(0, [[st, end], wff_end, f"({orig} & ~[]{wff})"])
+            boxes.insert(0, [st, end])
 
-    for inds, wff_end, replacement in amendments: 
-        formulae = formulae[:inds[0]] + formulae[wff_end:]   
+    for st, end in boxes:
+        if formulae[end] == '(':
+            wff_end = formulae.index(')', end)+1
+            count = 1
+            for j, c in enumerate(formulae[end+1:]):
+                count += 1 if c == '(' else 0
+                count -= 1 if c == ')' else 0
+                if count == 0:
+                    wff_end = end+j+2
+                    break
+        else: 
+            try:
+                wff_end = min(formulae.index(' ', end), formulae.index('.', end), formulae.index(')', end))
+            except:
+                wff_end = min(formulae.index(' ', end), formulae.index('.', end))
+
+        orig = formulae[st:wff_end]
+        wff = formulae[end: wff_end]
+        replacement = f"({orig} & ~[]{wff})"
+
+        formulae = formulae[:st] + formulae[wff_end:]   
         f = list(formulae)
-        f.insert(inds[0], replacement)
+        f.insert(st, replacement)
         formulae = ''.join(f)
 
     # Diamond substitution
@@ -456,26 +465,36 @@ def dstit_substitution(formulae):
             # <a dstit p> = <a cstit p> v ~<>p
             # E.g. <1>p = <1>p v ~<>p
 
-    amendments = []
+    diamonds = []
     for i, ltr in enumerate(formulae):
         if ltr == '<' and formulae[i+1] != '>':
             # Find start and end indices of diamonds
             st, end = i, formulae.index('>', i)+1
-            if formulae[end] == '(':
-                wff_end = formulae.index(')', end)
-            else: 
-                try:
-                    wff_end = min(formulae.index(' ', end), formulae.index('.', end), formulae.index(')', end))
-                except:
-                    wff_end = min(formulae.index(' ', end), formulae.index('.', end))
-            orig = formulae[st:wff_end]
-            wff = formulae[end: wff_end]
-            amendments.insert(0, [[st, end], wff_end, f"({orig} v ~<>{wff})"])
+            diamonds.insert(0, [st, end])
 
-    for inds, wff_end, replacement in amendments:  
-        formulae = formulae[:inds[0]] + formulae[wff_end:]  
+    for st, end in diamonds:
+        if formulae[end] == '(':
+            wff_end = formulae.index(')', end)+1
+            count = 1
+            for j, c in enumerate(formulae[end+1:]):
+                count += 1 if c == '(' else 0
+                count -= 1 if c == ')' else 0
+                if count == 0:
+                    wff_end = end+j+2
+                    break
+        else: 
+            try:
+                wff_end = min(formulae.index(' ', end), formulae.index('.', end), formulae.index(')', end))
+            except:
+                wff_end = min(formulae.index(' ', end), formulae.index('.', end))
+
+        orig = formulae[st:wff_end]
+        wff = formulae[end: wff_end]
+        replacement = f"({orig} v ~<>{wff})"
+
+        formulae = formulae[:st] + formulae[wff_end:]  
         f = list(formulae)
-        f.insert(inds[0], replacement)
+        f.insert(st, replacement)
         formulae = ''.join(f)
 
     return formulae
@@ -553,11 +572,9 @@ if __name__=='__main__':
 
     if args.logic == 'dstit':
         formulae = dstit_substitution(formulae)
-        print(formulae)
     
     if args.logic == 'jp':
         formulae = jp_substitution(formulae)
-        print(formulae)
 
     parser = Lark(g, parser='earley')
     tree = parser.parse(formulae)
@@ -565,8 +582,10 @@ if __name__=='__main__':
     if args.logic == 'cstit' or args.logic == 'dstit':
         transformer = OWLXMLTransformer()
         axioms = transformer.transform(tree)
+        print(f"|FLC| = {len(transformer.flc)}")
         grounding = ground_aaia(transformer.roles, transformer.flc)
         axioms.extend(grounding)
+        print(f"|Axiom schema| = {len(axioms)}")
     elif args.logic == 'jp':
         transformer = OWLXMLCTDTransformer()
         axioms = transformer.transform(tree)
