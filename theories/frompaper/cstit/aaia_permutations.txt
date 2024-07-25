@@ -1,0 +1,17 @@
+Name: Proof that AAIA_k is invariant under agent ordering
+Source: ALTERNATIVE AXIOMATICS AND COMPLEXITY OF DELIBERATIVE STIT THEORIES
+Comment: A and B should be equivalent. 
+Logic: cstit.
+Author: Eleanor Turner
+----
+RefutationR: ~(((<>p -> <2>(<0>p & <1>p)) & (<>p -> <1><0>p)) -> ((<>p -> <1>(<0>p & <2>p)) & (<>p -> <2><0>p))). 
+RefutationL: ~(((<>p -> <1>(<0>p & <2>p)) & (<>p -> <2><0>p)) -> ((<>p -> <2>(<0>p & <1>p)) & (<>p -> <1><0>p))). 
+
+a3: <>p -> <2>(<0>p & <1>p).
+a2: <>p -> <1><0>p.
+
+b3: <>p -> <1>(<0>p & <2>p).
+b2: <>p -> <2><0>p.
+
+A = a3 & a2.
+B = b3 & b2.

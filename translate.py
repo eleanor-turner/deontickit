@@ -80,24 +80,23 @@ def ground_aaia(agents: set, flc: set) -> list:
                 %(alpha)s
             </ObjectSomeValuesFrom>
     '''
-    #E.g. lhs = "<r>cake"
+    # E.g. lhs = "<r>cake"
 
     # We always need at least two agents for a grounding
     # (0<=i<k for k>=1, so minimum is 0 and 1)
     # So we pop one agent to be the "seed" on the rhs
     # and we pop another agent to be the kth agent
 
-    for i in range(len(agents)-1):
-        kth = agents.pop()
+    for kth in agents:
         #E.g. kth = r_3
+        remainder = [a for a in agents if a != kth]
 
-        #len(kagents) == k-1
         kagents = [(a, f'''
             <ObjectSomeValuesFrom>
                 <ObjectProperty abbreviatedIRI=":{a}"/>
                 %(alpha)s
             </ObjectSomeValuesFrom>
-        ''') for a in agents]
+        ''') for a in remainder]
         #E.g. kagents = [(r_1, "<r_1>cake"), (r_2, "<r_2>cake")]
 
         con = kconj(kagents)
