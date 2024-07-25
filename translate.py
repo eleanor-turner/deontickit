@@ -364,10 +364,10 @@ class OWLXMLTransformer(Transformer):
     def box(self, items):
         d, wff = self.normalise_role_expression(items)
         return self.to_flc(f'''
-    <ObjectAllValuesFrom>
-        {d}
-        {wff}
-    </ObjectAllValuesFrom>'''  )
+        <ObjectAllValuesFrom>
+            {d}
+            {wff}
+        </ObjectAllValuesFrom>'''  )
     
     def diamond(self, items):
         d, wff = self.normalise_role_expression(items)
@@ -405,141 +405,136 @@ class OWLXMLTransformer(Transformer):
         
         return items
 
-class OWLXMLDSTITTransformer(OWLXMLTransformer):
-    def __init__(self):
-        super().__init__()
-    
-    def box(self, items):
-        if len(items) == 1:
-            d = self.r
-            wff = items[0]
-
-            return self.to_flc(f'''
-            <ObjectAllValuesFrom>
-                {d}
-                {wff}
-            </ObjectAllValuesFrom>''' )
-
-        else:
-            d = items[0]
-            wff = items[1]
-
-            return self.to_flc(f'''
-            <ObjectIntersectionOf>
-                <ObjectAllValuesFrom>
-                    {d}
-                    {wff}
-                </ObjectAllValuesFrom>
-                <ObjectComplementOf>
-                    <ObjectAllValuesFrom>
-                        {self.r}
-                        {wff}
-                    </ObjectAllValuesFrom>
-                </ObjectComplementOf>
-            </ObjectIntersectionOf>''')
-
-    
-    def diamond(self, items):
-        if len(items) == 1:
-            d = self.r
-            wff = items[0]
-
-            return self.to_flc(f'''
-            <ObjectSomeValuesFrom>
-                {d}
-                {wff}
-            </ObjectSomeValuesFrom>''' )
-
-        else:
-            d = items[0]
-            wff = items[1]
-
-            return self.to_flc(f'''
-            <ObjectUnionOf>
-                <ObjectSomeValuesFrom>
-                    {d}
-                    {wff}
-                </ObjectSomeValuesFrom>
-                <ObjectComplementOf>
-                    <ObjectSomeValuesFrom>
-                        {self.r}
-                        {wff}
-                    </ObjectSomeValuesFrom>
-                </ObjectComplementOf>
-            </ObjectUnionOf>''')
-
 class OWLXMLCTDTransformer(OWLXMLTransformer):
     def __init__(self):
         super().__init__()
      
     def arole(self, items):
         d = items[0]
-        assert d in ['I','S','Ought'], 'Permitted operators are [I], [S], [Ought]'
+        assert d in ['I','S'], 'Permitted operators are [I], [S]'
         d = f'r_{d}'
-        if d == 'r_I' or d == 'r_S':
-            self.roles.add(d)
+        self.roles.add(d)
         return f'<ObjectProperty abbreviatedIRI=":{d}"/>'
-
-    def replace_ought_operator(self, wff, box):
-        Ideal = self.arole(['I'])
-        Subideal = self.arole(['S'])
-        if box:
-            return self.to_flc(f'''
-                <ObjectIntersectionOf>
-                    <ObjectAllValuesFrom>
-                        {Ideal}
-                        {wff}
-                    </ObjectAllValuesFrom>
-                    <ObjectSomeValuesFrom>
-                        {Subideal}
-                        <ObjectComplementOf>
-                            {wff}
-                        </ObjectComplementOf>
-                    </ObjectSomeValuesFrom>
-                </ObjectIntersectionOf>''')
-        else:
-            return self.to_flc(f'''
-                <ObjectUnionOf>
-                    <ObjectSomeValuesFrom>
-                        {Ideal}
-                        {wff}
-                    </ObjectSomeValuesFrom>
-                    <ObjectAllValuesFrom>
-                        {Subideal}
-                        <ObjectComplementOf>
-                            {wff}
-                        </ObjectComplementOf>
-                    </ObjectAllValuesFrom>
-                </ObjectUnionOf>''')
     
     def normalise_role_expression(self, items):
         assert len(items) > 1, 'Boxes and Diamonds cannot be empty'
         d = items[0]
         wff = items[1]
         return (d, wff)
-    
-    def box(self, items):
-        d, wff = self.normalise_role_expression(items)
-        if 'r_Ought' in d:
-            replacement = self.replace_ought_operator(wff, box=True)
-            return replacement
-        return self.to_flc(f'''
-            <ObjectAllValuesFrom>
-                {d}
-                {wff}
-            </ObjectAllValuesFrom>'''  )
-    
-    def diamond(self, items):
-        d, wff = self.normalise_role_expression(items)
-        if 'r_Ought' in d:
-            replacement = self.replace_ought_operator(wff, box=False)
-            return replacement
-        return self.to_flc(
-        f'''<ObjectSomeValuesFrom>
-            {d}
-            {wff}
-        </ObjectSomeValuesFrom>''' ) 
 
+def dstit_substitution(formulae):
+    # Box substitution
+    # For dstit agency, we transform into cstit agency by the following rule:
+            # [a dstit p] = [a cstit p] & ~[]p
+            # E.g. [1]p = [1]p & ~[]p
+
+    boxes = []
+    for i, ltr in enumerate(formulae):
+        if ltr == '[' and formulae[i+1] != ']':
+            # Find start and end indices of boxes
+            st, end = i, formulae.index(']', i)+1
+            boxes.insert(0, [st, end])
+
+    for st, end in boxes:
+        if formulae[end] == '(':
+            wff_end = formulae.index(')', end)+1
+            count = 1
+            for j, c in enumerate(formulae[end+1:]):
+                count += 1 if c == '(' else 0
+                count -= 1 if c == ')' else 0
+                if count == 0:
+                    wff_end = end+j+2
+                    break
+        else: 
+            try:
+                wff_end = min(formulae.index(' ', end), formulae.index('.', end), formulae.index(')', end))
+            except:
+                wff_end = min(formulae.index(' ', end), formulae.index('.', end))
+
+        orig = formulae[st:wff_end]
+        wff = formulae[end: wff_end]
+        replacement = f"({orig} & ~[]{wff})"
+
+        formulae = formulae[:st] + formulae[wff_end:]   
+        f = list(formulae)
+        f.insert(st, replacement)
+        formulae = ''.join(f)
+
+    # Diamond substitution
+    # For dstit agency, we transform into cstit agency by the following rule:
+            # <a dstit p> = <a cstit p> v ~<>p
+            # E.g. <1>p = <1>p v ~<>p
+
+    diamonds = []
+    for i, ltr in enumerate(formulae):
+        if ltr == '<' and formulae[i+1] != '>':
+            # Find start and end indices of diamonds
+            st, end = i, formulae.index('>', i)+1
+            diamonds.insert(0, [st, end])
+
+    for st, end in diamonds:
+        if formulae[end] == '(':
+            wff_end = formulae.index(')', end)+1
+            count = 1
+            for j, c in enumerate(formulae[end+1:]):
+                count += 1 if c == '(' else 0
+                count -= 1 if c == ')' else 0
+                if count == 0:
+                    wff_end = end+j+2
+                    break
+        else: 
+            try:
+                wff_end = min(formulae.index(' ', end), formulae.index('.', end), formulae.index(')', end))
+            except:
+                wff_end = min(formulae.index(' ', end), formulae.index('.', end))
+
+        orig = formulae[st:wff_end]
+        wff = formulae[end: wff_end]
+        replacement = f"({orig} v ~<>{wff})"
+
+        formulae = formulae[:st] + formulae[wff_end:]  
+        f = list(formulae)
+        f.insert(st, replacement)
+        formulae = ''.join(f)
+
+    return formulae
+
+def jp_substitution(formulae):
+    # Replace [Ought]p with '[I]p & <S>~p'
+    amendments = []
+    inds = [[m.start(), m.end()] for m in re.finditer('\[Ought\]', formulae)]
+    for st, end in inds:
+        if formulae[end] == '(':
+            wff_end = formulae.index(')', end)+1
+        else:
+            wff_end = min(formulae.index(' ', end), formulae.index('.', end), formulae.index(')', end))
+        wff = formulae[end: wff_end]
+        amendments.insert(0, [[st, end], wff_end, f"([I]{wff} & <S>~{wff})"])
+
+    for inds, wff_end, replacement in amendments:
+        formulae = formulae[:inds[0]] + formulae[wff_end:]  
+        f = list(formulae)
+        f.insert(inds[0], replacement)
+        formulae = ''.join(f)
+
+    # Replace <Ought>p with '<I>p v [S]~p'
+    amendments = []
+    inds = [[m.start(), m.end()] for m in re.finditer('<Ought>', formulae)]
+    for st, end in inds:
+        if formulae[end] == '(':
+            wff_end = formulae.index(')', end)+1
+        else:
+            wff_end = min(formulae.index(' ', end), formulae.index('.', end), formulae.index(')', end))
+        wff = formulae[end: wff_end]
+        amendments.insert(0, [[st, end], wff_end, f"(<I>{wff} v [S]~{wff})"])
+
+    for inds, wff_end, replacement in amendments:
+        formulae = formulae[:inds[0]] + formulae[wff_end:]  
+        f = list(formulae)
+        f.insert(inds[0], replacement)
+        formulae = ''.join(f)
+
+    return formulae
 
 
 if __name__=='__main__':
@@ -561,8 +556,7 @@ if __name__=='__main__':
     meta, formulae = re.split('---*', s)
     meta = meta.strip().split('\n')
     meta = {m[0].strip().lower():m[1].strip().lower() for m in [n.split(':') for n in meta]}
-    parser = Lark(g, parser='earley')
-    tree = parser.parse(formulae)
+
     name = 'test' if not args.output else args.output.name
     if not args.logic:
         if 'logic' in meta.keys():
@@ -575,16 +569,23 @@ if __name__=='__main__':
                 print(f'You specified the logic ({args.logic}) in both file metadata and at the command line.')
             else:
                 print(f'Overriding file metadata which specifies {meta["logic"]} for your command to use {args.logic}')
-    if args.logic == 'cstit':
+
+    if args.logic == 'dstit':
+        formulae = dstit_substitution(formulae)
+    
+    if args.logic == 'jp':
+        formulae = jp_substitution(formulae)
+
+    parser = Lark(g, parser='earley')
+    tree = parser.parse(formulae)
+
+    if args.logic == 'cstit' or args.logic == 'dstit':
         transformer = OWLXMLTransformer()
         axioms = transformer.transform(tree)
+        print(f"|FLC| = {len(transformer.flc)}")
         grounding = ground_aaia(transformer.roles, transformer.flc)
         axioms.extend(grounding)
-    elif args.logic == 'dstit':
-        transformer = OWLXMLDSTITTransformer()
-        axioms = transformer.transform(tree)
-        grounding = ground_aaia(transformer.roles, transformer.flc)
-        axioms.extend(grounding)
+        print(f"|Axiom schema| = {len(axioms)}")
     elif args.logic == 'jp':
         transformer = OWLXMLCTDTransformer()
         axioms = transformer.transform(tree)
