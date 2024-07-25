@@ -1,0 +1,837 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="cstit_test.xml"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="cstit_test.xml">
+    <Prefix name="" IRI="cstit_test.xml#"/>
+    <Prefix name="dc" IRI="http://purl.org/dc/elements/1.1/"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+      <Declaration>
+        <Class abbreviatedIRI=":s4"/>
+    </Declaration>
+  <Declaration>
+        <Class abbreviatedIRI=":s3"/>
+    </Declaration>
+  <Declaration>
+        <Class abbreviatedIRI=":cake"/>
+    </Declaration>
+  <Declaration>
+        <Class abbreviatedIRI=":s1"/>
+    </Declaration>
+  <Declaration>
+        <Class abbreviatedIRI=":N1"/>
+    </Declaration>
+  <Declaration>
+        <Class abbreviatedIRI=":s2"/>
+    </Declaration>
+      <Declaration>
+        <ObjectProperty abbreviatedIRI=":r_3"/>
+    </Declaration>
+  <Declaration>
+        <ObjectProperty abbreviatedIRI=":r_1"/>
+    </Declaration>
+  <Declaration>
+        <ObjectProperty abbreviatedIRI=":r_2"/>
+    </Declaration>
+        <EquivalentClasses>
+            <Class abbreviatedIRI=":s1"/> 
+            
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+        </EquivalentClasses>
+    <EquivalentClasses>
+            <Class abbreviatedIRI=":s2"/> 
+            
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_1"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+        </EquivalentClasses>
+    <EquivalentClasses>
+            <Class abbreviatedIRI=":s3"/> 
+            
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+        </EquivalentClasses>
+    <EquivalentClasses>
+            <Class abbreviatedIRI=":s4"/> 
+            
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_3"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+        </EquivalentClasses>
+    <EquivalentClasses>
+            <Class abbreviatedIRI=":N1"/> 
+            
+        <ObjectIntersectionOf>
+            
+        <ObjectIntersectionOf>
+            
+        <ObjectIntersectionOf>
+            <Class abbreviatedIRI=":s1"/>
+            <Class abbreviatedIRI=":s2"/>
+        </ObjectIntersectionOf>
+            <Class abbreviatedIRI=":s3"/>
+        </ObjectIntersectionOf>
+            <Class abbreviatedIRI=":s4"/>
+        </ObjectIntersectionOf>
+        </EquivalentClasses>
+    <SymmetricObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r"/>
+    </SymmetricObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r"/>
+    </TransitiveObjectProperty>
+    <ReflexiveObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r"/>
+    </ReflexiveObjectProperty>
+    <SymmetricObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r_1"/>
+    </SymmetricObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r_1"/>
+    </TransitiveObjectProperty>
+    <ReflexiveObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r_1"/>
+    </ReflexiveObjectProperty>
+    <SymmetricObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r_2"/>
+    </SymmetricObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r_2"/>
+    </TransitiveObjectProperty>
+    <ReflexiveObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r_2"/>
+    </ReflexiveObjectProperty>
+    <SymmetricObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r_3"/>
+    </SymmetricObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r_3"/>
+    </TransitiveObjectProperty>
+    <ReflexiveObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r_3"/>
+    </ReflexiveObjectProperty>
+
+        <SubObjectPropertyOf>
+            <ObjectProperty abbreviatedIRI=":r_1"/>
+            <ObjectProperty abbreviatedIRI=":r"/>
+        </SubObjectPropertyOf>
+
+        <SubObjectPropertyOf>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <ObjectProperty abbreviatedIRI=":r"/>
+        </SubObjectPropertyOf>
+
+        <SubObjectPropertyOf>
+            <ObjectProperty abbreviatedIRI=":r_3"/>
+            <ObjectProperty abbreviatedIRI=":r"/>
+        </SubObjectPropertyOf>
+
+        <SubClassOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectComplementOf>
+            
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+    
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_3"/>
+                
+        <ObjectIntersectionOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_1"/>
+                
+        <ObjectComplementOf>
+            
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+        
+
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_2"/>
+                
+        <ObjectComplementOf>
+            
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+        
+        </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+        
+        </SubClassOf>
+        
+
+        <SubClassOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectComplementOf>
+            
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+    
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_2"/>
+                ('r_1', '\n            <ObjectSomeValuesFrom>\n                <ObjectProperty abbreviatedIRI=":r_1"/>\n                
+        <ObjectComplementOf>
+            
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+        </ObjectComplementOf>\n            </ObjectSomeValuesFrom>\n        ')
+            </ObjectSomeValuesFrom>
+        
+        </SubClassOf>
+        
+
+        <SubClassOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                <Class abbreviatedIRI=":cake"/>
+            </ObjectSomeValuesFrom>
+    
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_3"/>
+                
+        <ObjectIntersectionOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_1"/>
+                <Class abbreviatedIRI=":cake"/>
+            </ObjectSomeValuesFrom>
+        
+
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_2"/>
+                <Class abbreviatedIRI=":cake"/>
+            </ObjectSomeValuesFrom>
+        
+        </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+        
+        </SubClassOf>
+        
+
+        <SubClassOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                <Class abbreviatedIRI=":cake"/>
+            </ObjectSomeValuesFrom>
+    
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_2"/>
+                ('r_1', '\n            <ObjectSomeValuesFrom>\n                <ObjectProperty abbreviatedIRI=":r_1"/>\n                <Class abbreviatedIRI=":cake"/>\n            </ObjectSomeValuesFrom>\n        ')
+            </ObjectSomeValuesFrom>
+        
+        </SubClassOf>
+        
+
+        <SubClassOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_1"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+            </ObjectSomeValuesFrom>
+    
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_3"/>
+                
+        <ObjectIntersectionOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_1"/>
+                
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_1"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+            </ObjectSomeValuesFrom>
+        
+
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_2"/>
+                
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_1"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+            </ObjectSomeValuesFrom>
+        
+        </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+        
+        </SubClassOf>
+        
+
+        <SubClassOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_1"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+            </ObjectSomeValuesFrom>
+    
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_2"/>
+                ('r_1', '\n            <ObjectSomeValuesFrom>\n                <ObjectProperty abbreviatedIRI=":r_1"/>\n                
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_1"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>\n            </ObjectSomeValuesFrom>\n        ')
+            </ObjectSomeValuesFrom>
+        
+        </SubClassOf>
+        
+
+        <SubClassOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectComplementOf>
+            
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_3"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+    
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_3"/>
+                
+        <ObjectIntersectionOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_1"/>
+                
+        <ObjectComplementOf>
+            
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_3"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+        
+
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_2"/>
+                
+        <ObjectComplementOf>
+            
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_3"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+        
+        </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+        
+        </SubClassOf>
+        
+
+        <SubClassOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectComplementOf>
+            
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_3"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+    
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_2"/>
+                ('r_1', '\n            <ObjectSomeValuesFrom>\n                <ObjectProperty abbreviatedIRI=":r_1"/>\n                
+        <ObjectComplementOf>
+            
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_3"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+        </ObjectComplementOf>\n            </ObjectSomeValuesFrom>\n        ')
+            </ObjectSomeValuesFrom>
+        
+        </SubClassOf>
+        
+
+        <SubClassOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_3"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+            </ObjectSomeValuesFrom>
+    
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_3"/>
+                
+        <ObjectIntersectionOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_1"/>
+                
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_3"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+            </ObjectSomeValuesFrom>
+        
+
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_2"/>
+                
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_3"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+            </ObjectSomeValuesFrom>
+        
+        </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+        
+        </SubClassOf>
+        
+
+        <SubClassOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_3"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+            </ObjectSomeValuesFrom>
+    
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_2"/>
+                ('r_1', '\n            <ObjectSomeValuesFrom>\n                <ObjectProperty abbreviatedIRI=":r_1"/>\n                
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_3"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>\n            </ObjectSomeValuesFrom>\n        ')
+            </ObjectSomeValuesFrom>
+        
+        </SubClassOf>
+        
+
+        <SubClassOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+            </ObjectSomeValuesFrom>
+    
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_3"/>
+                
+        <ObjectIntersectionOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_1"/>
+                
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+            </ObjectSomeValuesFrom>
+        
+
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_2"/>
+                
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+            </ObjectSomeValuesFrom>
+        
+        </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+        
+        </SubClassOf>
+        
+
+        <SubClassOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+            </ObjectSomeValuesFrom>
+    
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_2"/>
+                ('r_1', '\n            <ObjectSomeValuesFrom>\n                <ObjectProperty abbreviatedIRI=":r_1"/>\n                
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>\n            </ObjectSomeValuesFrom>\n        ')
+            </ObjectSomeValuesFrom>
+        
+        </SubClassOf>
+        
+
+        <SubClassOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectComplementOf>
+            
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_1"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+    
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_3"/>
+                
+        <ObjectIntersectionOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_1"/>
+                
+        <ObjectComplementOf>
+            
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_1"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+        
+
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_2"/>
+                
+        <ObjectComplementOf>
+            
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_1"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+        
+        </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+        
+        </SubClassOf>
+        
+
+        <SubClassOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectComplementOf>
+            
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_1"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+    
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_2"/>
+                ('r_1', '\n            <ObjectSomeValuesFrom>\n                <ObjectProperty abbreviatedIRI=":r_1"/>\n                
+        <ObjectComplementOf>
+            
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_1"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+        </ObjectComplementOf>\n            </ObjectSomeValuesFrom>\n        ')
+            </ObjectSomeValuesFrom>
+        
+        </SubClassOf>
+        
+
+        <SubClassOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectComplementOf>
+            
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+    
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_3"/>
+                
+        <ObjectIntersectionOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_1"/>
+                
+        <ObjectComplementOf>
+            
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+        
+
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_2"/>
+                
+        <ObjectComplementOf>
+            
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+        
+        </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+        
+        </SubClassOf>
+        
+
+        <SubClassOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectComplementOf>
+            
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+    
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_2"/>
+                ('r_1', '\n            <ObjectSomeValuesFrom>\n                <ObjectProperty abbreviatedIRI=":r_1"/>\n                
+        <ObjectComplementOf>
+            
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+        </ObjectComplementOf>\n            </ObjectSomeValuesFrom>\n        ')
+            </ObjectSomeValuesFrom>
+        
+        </SubClassOf>
+        
+
+        <SubClassOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+            </ObjectSomeValuesFrom>
+    
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_3"/>
+                
+        <ObjectIntersectionOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_1"/>
+                
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+            </ObjectSomeValuesFrom>
+        
+
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_2"/>
+                
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+            </ObjectSomeValuesFrom>
+        
+        </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+        
+        </SubClassOf>
+        
+
+        <SubClassOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>
+            </ObjectSomeValuesFrom>
+    
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_2"/>
+                ('r_1', '\n            <ObjectSomeValuesFrom>\n                <ObjectProperty abbreviatedIRI=":r_1"/>\n                
+        <ObjectAllValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r"/>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectAllValuesFrom>\n            </ObjectSomeValuesFrom>\n        ')
+            </ObjectSomeValuesFrom>
+        
+        </SubClassOf>
+        
+
+        <SubClassOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+    
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_3"/>
+                
+        <ObjectIntersectionOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_1"/>
+                
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+        
+
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_2"/>
+                
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+        
+        </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+        
+        </SubClassOf>
+        
+
+        <SubClassOf>
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+    
+            
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r_2"/>
+                ('r_1', '\n            <ObjectSomeValuesFrom>\n                <ObjectProperty abbreviatedIRI=":r_1"/>\n                
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":cake"/>
+        </ObjectComplementOf>\n            </ObjectSomeValuesFrom>\n        ')
+            </ObjectSomeValuesFrom>
+        
+        </SubClassOf>
+        
+</Ontology>

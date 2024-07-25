@@ -1,0 +1,11 @@
+Name: Simple cstit examples
+Source:
+Comment: Some v. simple examples of  mult-agent cstit formulae, mostly about ensuring there is cake.
+Logic: cstit
+Author: Bijan Parsia
+----
+s1: []cake.
+s2: [1]cake.
+s3: [2]cake.
+s4: [3]cake.
+N1 = s1 & s2 & s3 & s4.
