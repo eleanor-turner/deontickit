@@ -63,7 +63,7 @@ def ground_ctd(operators: set, flc: set) -> list:
         axioms.extend([reflexive_prop('r_I','r_S')])
     return axioms
 
-def ground_aaia(agents: set, flc: set) -> list:
+def ground_aaia(grounding: str, agents: set, flc: set) -> list:
     agents = sorted(agents)
     #E.g. agents = ['r_1','r_2','r_3']
     '''Hacking an OWL/XML file To Be Imported'''
@@ -87,35 +87,126 @@ def ground_aaia(agents: set, flc: set) -> list:
     # So we pop one agent to be the "seed" on the rhs
     # and we pop another agent to be the kth agent
 
-    for kth in agents:
-        #E.g. kth = r_3
-        remainder = [a for a in agents if a != kth]
+    match grounding:
+        case 'aaia_big':
+            print('aaia_big')
+            for kth in agents:
+                #E.g. kth = r_3
+                remainder = [a for a in agents if a != kth]
 
-        kagents = [(a, f'''
-            <ObjectSomeValuesFrom>
-                <ObjectProperty abbreviatedIRI=":{a}"/>
-                %(alpha)s
-            </ObjectSomeValuesFrom>
-        ''') for a in remainder]
-        #E.g. kagents = [(r_1, "<r_1>cake"), (r_2, "<r_2>cake")]
+                kagents = [(a, f'''
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":{a}"/>
+                        %(alpha)s
+                    </ObjectSomeValuesFrom>
+                ''') for a in remainder]
+                #E.g. kagents = [(r_1, "<r_1>cake"), (r_2, "<r_2>cake")]
+                print(f'r -> {kth}({[a for a in remainder]})')
 
-        con = kconj(kagents)
-        #E.g. con = "<r_1>cake & <r_2>cake"
+                con = kconj(kagents)
+                #E.g. con = "<r_1>cake & <r_2>cake"
 
-        krhs = f'''
-            <ObjectSomeValuesFrom>
-                <ObjectProperty abbreviatedIRI=":{kth}"/>
-                {con}
-            </ObjectSomeValuesFrom>
-        '''  
-        #E.g. krhs = "<r_3>(<r_1>cake & <r_2>cake)"
+                krhs = f'''
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":{kth}"/>
+                        {con}
+                    </ObjectSomeValuesFrom>
+                '''  
+                #E.g. krhs = "<r_3>(<r_1>cake & <r_2>cake)"
 
-        kschema.append(f'''
-        <SubClassOf>
-            {lhs}
-            {krhs}
-        </SubClassOf>
-        ''')        
+                kschema.append(f'''
+                <SubClassOf>
+                    {lhs}
+                    {krhs}
+                </SubClassOf>
+                ''')       
+
+        case 'aaia':
+            print('aaia_normal')
+            for i in range(len(agents)-1):
+                #E.g. kth = r_3
+                kth = agents.pop()
+
+                #len(kagents) == k-1
+                kagents = [(a, f'''
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":{a}"/>
+                        %(alpha)s
+                    </ObjectSomeValuesFrom>
+                ''') for a in agents]
+                #E.g. kagents = [(r_1, "<r_1>cake"), (r_2, "<r_2>cake")]
+                print(f'r -> {kth}({[a for a in agents]})')
+
+                con = kconj(kagents)
+                #E.g. con = "<r_1>cake & <r_2>cake"
+
+                krhs = f'''
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":{kth}"/>
+                        {con}
+                    </ObjectSomeValuesFrom>
+                '''  
+                #E.g. krhs = "<r_3>(<r_1>cake & <r_2>cake)"
+
+                kschema.append(f'''
+                <SubClassOf>
+                    {lhs}
+                    {krhs}
+                </SubClassOf>
+                ''')       
+
+        case 'aaia_small':
+            print('aaia_small')
+            kth = agents.pop()
+
+            #len(kagents) == k-1
+            kagents = [(a, f'''
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty abbreviatedIRI=":{a}"/>
+                    %(alpha)s
+                </ObjectSomeValuesFrom>
+            ''') for a in agents]
+
+            #E.g. kagents = [(r_1, "<r_1>cake"), (r_2, "<r_2>cake")]
+            print(f'r -> {kth}({[a for a in agents]})')
+
+            con = kconj(kagents)
+            #E.g. con = "<r_1>cake & <r_2>cake"
+
+            krhs = f'''
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty abbreviatedIRI=":{kth}"/>
+                    {con}
+                </ObjectSomeValuesFrom>
+            '''  
+            #E.g. krhs = "<r_3>(<r_1>cake & <r_2>cake)"
+
+            kschema.append(f'''
+            <SubClassOf>
+                {lhs}
+                {krhs}
+            </SubClassOf>
+            ''')
+
+            for a in agents:
+                krhs = f'''
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":{a}"/>
+                        <ObjectSomeValuesFrom>
+                            <ObjectProperty abbreviatedIRI=":{kth}"/>
+                            %(alpha)s
+                        </ObjectSomeValuesFrom>
+                    </ObjectSomeValuesFrom>
+                '''  
+    
+                print(f'r -> {a}({kth})')
+
+                kschema.append(f'''
+                <SubClassOf>
+                    {lhs}
+                    {krhs}
+                </SubClassOf>
+                ''')
 
     for f in flc:
         for k in kschema:
@@ -541,10 +632,12 @@ if __name__=='__main__':
     parser.add_argument('source', type=Path,
                     help='input file')
     parser.add_argument('-o', '--output', type=Path, 
-                    help='output file (defaulst to input file stem + .owl')
-    parser.add_argument('-l', '--logic', type=str, help='name of logic (sdl, cstit, jp)')
+                    help='output file (default to input file stem + .owl')
+    parser.add_argument('-l', '--logic', type=str,
+                    help='name of logic (sdl, jp, cstit, dstit)')
 
     args = parser.parse_args()
+    print(args)
     
     if not args.output:
         args.output = args.source.with_suffix('.owl')
@@ -579,17 +672,56 @@ if __name__=='__main__':
     tree = parser.parse(formulae)
 
     if args.logic == 'cstit' or args.logic == 'dstit':
+        filename = str(args.output)
         transformer = OWLXMLTransformer()
         axioms = transformer.transform(tree)
         print(f"|FLC| = {len(transformer.flc)}")
-        grounding = ground_aaia(transformer.roles, transformer.flc)
-        axioms.extend(grounding)
-        print(f"|Axiom schema| = {len(axioms)}")
+
+        grounding = ground_aaia('aaia_big', transformer.roles, transformer.flc)
+        axioms_aaiabig = axioms + grounding
+        print(f"|AAIA Big Axiom Schema| = {len(axioms_aaiabig)}")
+        cnames = transformer.atomics - transformer.declared
+        ont = owlxml_ont(name, axioms_aaiabig, cnames, transformer.roles)
+        if not args.output:
+            print(ont)
+        else:
+            filename = str(args.output) 
+            Path(f'{filename[:-4]}_aaia_a.xml').write_text(ont)
+
+        grounding = ground_aaia('aaia', transformer.roles, transformer.flc)
+        axioms_aaia = axioms + grounding
+        print(f"|AAIA Normal Axiom Schema| = {len(axioms_aaia)}")
+        cnames = transformer.atomics - transformer.declared
+        ont = owlxml_ont(name, axioms_aaia, cnames, transformer.roles)
+        if not args.output:
+            print(ont)
+        else:
+            filename = str(args.output) 
+            Path(f'{filename[:-4]}_aaia_b.xml').write_text(ont)
+
+        grounding = ground_aaia('aaia_small', transformer.roles, transformer.flc)
+        axioms_aaiasmall = axioms + grounding
+        print(f"|AAIA Small Axiom Schema| = {len(axioms_aaiasmall)}")
+        cnames = transformer.atomics - transformer.declared
+        ont = owlxml_ont(name, axioms_aaiasmall, cnames, transformer.roles)
+        if not args.output:
+            print(ont)
+        else:
+            filename = str(args.output) 
+            Path(f'{filename[:-4]}_aaia_c.xml').write_text(ont)
+
     elif args.logic == 'jp':
         transformer = OWLXMLCTDTransformer()
         axioms = transformer.transform(tree)
         grounding = ground_ctd(transformer.roles, transformer.flc)
         axioms.extend(grounding)
+        cnames = transformer.atomics - transformer.declared
+        ont = owlxml_ont(name, axioms, cnames, transformer.roles)
+        if not args.output:
+            print(ont)
+        else:
+            args.output.write_text(ont)
+
     elif args.logic == 'sdl':
         transformer = OWLXMLTransformer()
         axioms = transformer.transform(tree)        
@@ -599,12 +731,13 @@ if __name__=='__main__':
             <ObjectProperty abbreviatedIRI=":r"/>
             <Class abbreviatedIRI="owl:Thing"/>
         </ObjectSomeValuesFrom>
-</SubClassOf>''')
+        </SubClassOf>''')
+        cnames = transformer.atomics - transformer.declared
+        ont = owlxml_ont(name, axioms, cnames, transformer.roles)
+        if not args.output:
+            print(ont)
+        else:
+            args.output.write_text(ont)
+
     else:
         print('I do not know how to translate {args.logic}.')
-    cnames = transformer.atomics - transformer.declared
-    ont = owlxml_ont(name, axioms, cnames, transformer.roles)
-    if not args.output:
-        print(ont)
-    else:
-        args.output.write_text(ont)
