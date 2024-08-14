@@ -1,0 +1,26 @@
+Name: cstit aaia versions
+Source:
+Comment: Comparing alternative readings of aaia axiom schema.
+Logic: cstit
+Author: 
+----
+
+big3: <>p -> <3>(<2>phi & <1>phi & <0>phi).
+big2: <>p -> <2>(<3>phi & <1>phi & <0>phi).
+big1: <>p -> <1>(<3>phi & <2>phi & <0>phi).
+big0: <>p -> <0>(<3>phi & <2>phi & <1>phi).
+
+AAIA_big = big3 & big2 & big1 & big0.
+
+mid3: <>p -> <3>(<2>phi & <1>phi & <0>phi).
+mid2: <>p -> <2>(<1>phi & <0>phi).
+mid1: <>p -> <1><0>phi.
+
+AAIA_mid = mid3 & mid2 & mid1.
+
+sml3: <>p -> <3>(<2>phi & <1>phi & <0>phi).
+sml2: <>p -> <2><3>phi.
+sml1: <>p -> <1><3>phi.
+sml0: <>p -> <0><3>phi.
+
+AAIA_sml = sml3 & sml2 & sml1 & sml0.
