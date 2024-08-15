@@ -90,7 +90,7 @@ def ground_aaia(grounding: str, agents: set, flc: set) -> list:
 
     match grounding:
         case 'aaia_big':
-            print('aaia_big')
+            #print('aaia_big')
             for kth in agents:
                 #E.g. kth = r_3
                 remainder = [a for a in agents if a != kth]
@@ -102,7 +102,7 @@ def ground_aaia(grounding: str, agents: set, flc: set) -> list:
                     </ObjectSomeValuesFrom>
                 ''') for a in remainder]
                 #E.g. kagents = [(r_1, "<r_1>cake"), (r_2, "<r_2>cake")]
-                print(f'r -> {kth}({[a for a in remainder]})')
+                # print(f'r -> {kth}({[a for a in remainder]})')
 
                 con = kconj(kagents)
                 #E.g. con = "<r_1>cake & <r_2>cake"
@@ -123,7 +123,7 @@ def ground_aaia(grounding: str, agents: set, flc: set) -> list:
                 ''')       
 
         case 'aaia':
-            print('aaia_normal')
+            #print('aaia_normal')
             for i in range(len(agents)-1):
                 #E.g. kth = r_3
                 kth = agents.pop()
@@ -136,7 +136,7 @@ def ground_aaia(grounding: str, agents: set, flc: set) -> list:
                     </ObjectSomeValuesFrom>
                 ''') for a in agents]
                 #E.g. kagents = [(r_1, "<r_1>cake"), (r_2, "<r_2>cake")]
-                print(f'r -> {kth}({[a for a in agents]})')
+                #print(f'r -> {kth}({[a for a in agents]})')
 
                 con = kconj(kagents)
                 #E.g. con = "<r_1>cake & <r_2>cake"
@@ -612,7 +612,7 @@ if __name__=='__main__':
                     help='name of logic (sdl, jp, cstit, dstit)')
 
     args = parser.parse_args()
-    print(args)
+    #print(args)
     
     if not args.output:
         args.output = args.source.with_suffix('.owl')
@@ -650,19 +650,20 @@ if __name__=='__main__':
         filename = str(args.output)
         transformer = OWLXMLTransformer()
         axioms = transformer.transform(tree)
-        print(f"|FLC| = {len(transformer.flc)}")
+        #print(f"|FLC| = {len(transformer.flc)}")
 
-        grounding = ground_aaia('aaia_big', transformer.roles, transformer.flc)
+        grounding = ground_aaia('aaia', transformer.roles, transformer.flc)
         # grounding = ground_aaia('plain', transformer.roles, transformer.flc)
         axioms_aaiabig = axioms + grounding
-        print(f"|AAIA Big Axiom Schema| = {len(axioms_aaiabig)}")
+        print(f'''{{'flc': {len(transformer.flc)}, 'non_aaia_axioms': {len(axioms)},'aaia_saturation': {2*len(transformer.flc)}}}''')
+        #print(f"|AAIA Big Axiom Schema| = {len(axioms_aaiabig)}")
         cnames = transformer.atomics - transformer.declared
         ont = owlxml_ont(name, axioms_aaiabig, cnames, transformer.roles)
         if not args.output:
             print(ont)
         else:
             filename = str(args.output) 
-            Path(f'{filename[:-4]}_aaia_min.owl').write_text(ont)
+            Path(f'{filename[:-4]}.owl').write_text(ont)
 
         # grounding = ground_aaia('aaia', transformer.roles, transformer.flc)
 #         axioms_aaia = axioms + grounding

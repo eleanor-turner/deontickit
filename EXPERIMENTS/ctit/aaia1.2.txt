@@ -1,0 +1,8 @@
+Name: AIAA Tests
+Source:
+Comment: Testing groundings.
+Logic: cstit
+Author: Bijan Parsia
+----
+phi0: c v <>d.
+AIA_1: <>[0]phi0 & <>[1]phi1 -> <>([0]phi0 & [1]phi1).
