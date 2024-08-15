@@ -196,12 +196,12 @@ def generate_obligations(facts, consequents, num_levels):
 	for i, fact in enumerate(facts):
 		conseq = consequents[i] # p_1
 
-		obs.append(f'{i+1}_1a: {fact}.')
-		obs.append(f'{i+1}_1b: []~{fact}.')
-		obs.append(f'{i+1}_1c: []({fact} -> {conseq}_1).')
-		obs.append(f'{i+1}_1d: [](~{fact} -> ~{conseq}_1).')
+		obs.append(f'n{i+1}_1a: {fact}.')
+		obs.append(f'n{i+1}_1b: []~{fact}.')
+		obs.append(f'n{i+1}_1c: []({fact} -> {conseq}_1).')
+		obs.append(f'n{i+1}_1d: [](~{fact} -> ~{conseq}_1).')
 
-		system_conj = f'{i+1}_1a & {i+1}_1b & {i+1}_1c & {i+1}_1d'
+		system_conj = f'n{i+1}_1a & n{i+1}_1b & n{i+1}_1c & n{i+1}_1d'
 
 		sys.append(f'N{i+1}_1 = {system_conj}.')
 
@@ -210,12 +210,12 @@ def generate_obligations(facts, consequents, num_levels):
 
 			for l in range(2, num_levels+1):
 				cons = conseqs[:l]
-				obs.append(f'{i+1}_{l}a: {conseq}_{l-1}.')
-				obs.append(f'{i+1}_{l}b: []~{conseq}_{l-1}.')
-				obs.append(f'{i+1}_{l}c: []({fact} -> {gen_c_box(cons)}.')
-				obs.append(f'{i+1}_{l}d: [](~{fact} -> {gen_d_box(cons)}.')
+				obs.append(f'n{i+1}_{l}a: {conseq}_{l-1}.')
+				obs.append(f'n{i+1}_{l}b: []~{conseq}_{l-1}.')
+				obs.append(f'n{i+1}_{l}c: []({fact} -> {gen_c_box(cons)}.')
+				obs.append(f'n{i+1}_{l}d: [](~{fact} -> {gen_d_box(cons)}.')
 
-				system_conj += f' & {i+1}_{l}a & {i+1}_{l}b & {i+1}_{l}c & {i+1}_{l}d'
+				system_conj += f' & n{i+1}_{l}a & n{i+1}_{l}b & n{i+1}_{l}c & n{i+1}_{l}d'
 
 				sys.append(f'N{i+1}_{l} = {system_conj}.')
 
