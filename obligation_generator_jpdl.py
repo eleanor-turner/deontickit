@@ -5,18 +5,18 @@ from pathlib import Path
 def gen_c_box(props):
 	new_box = ''
 	if len(props) == 2:
-		new_box = f'[]({props[0]} -> {props[1]})'
+		new_box = f'[I]({props[0]} -> [Ought]{props[1]}) & [S]({props[0]} -> [Ought]{props[1]})'
 	if len(props) > 2: 
-		new_box = f'[]({props[0]} -> {gen_c_box(props[1:])})'
+		new_box = f'[I]({props[0]} -> {gen_c_box(props[1:])}) & [S]({props[0]} -> {gen_c_box(props[1:])})'
 	return new_box
 
 #props = [p1,p2,p3,p4]
 def gen_d_box(props):
 	new_box = ''
 	if len(props) == 2:
-		new_box = f'[](~{props[0]} -> ~{props[1]})'
+		new_box = f'[I](~{props[0]} -> [Ought]~{props[1]}) & [S](~{props[0]} -> [Ought]~{props[1]})'
 	elif len(props) > 2: 
-		new_box = f'[](~{props[0]} -> {gen_c_box(props[1:])})'
+		new_box = f'[I](~{props[0]} -> {gen_c_box(props[1:])}) & [S](~{props[0]} -> {gen_c_box(props[1:])})'
 	return new_box
 
 # facts = [f_1, f_2, ...]
@@ -30,9 +30,9 @@ def generate_obligations(facts, consequents, num_levels):
 		conseq = consequents[i] # p_1
 
 		obs.append(f'n{i+1}_1a: {fact}.')
-		obs.append(f'n{i+1}_1b: []~{fact}.')
-		obs.append(f'n{i+1}_1c: []({fact} -> {conseq}_1).')
-		obs.append(f'n{i+1}_1d: [](~{fact} -> ~{conseq}_1).')
+		obs.append(f'n{i+1}_1b: [Ought]~{fact}.')
+		obs.append(f'n{i+1}_1c: [I]({fact} -> [Ought]{conseq}_1) & [S]({fact} -> [Ought]{conseq}_1).')
+		obs.append(f'n{i+1}_1d: [I](~{fact} -> [Ought]~{conseq}_1) & [S](~{fact} -> [Ought]~{conseq}_1).')
 
 		system_conj = f'n{i+1}_1a & n{i+1}_1b & n{i+1}_1c & n{i+1}_1d'
 
@@ -44,9 +44,9 @@ def generate_obligations(facts, consequents, num_levels):
 			for l in range(2, num_levels+1):
 				cons = conseqs[:l]
 				obs.append(f'n{i+1}_{l}a: {conseq}_{l-1}.')
-				obs.append(f'n{i+1}_{l}b: []~{conseq}_{l-1}.')
-				obs.append(f'n{i+1}_{l}c: []({fact} -> {gen_c_box(cons)}.')
-				obs.append(f'n{i+1}_{l}d: [](~{fact} -> {gen_d_box(cons)}.')
+				obs.append(f'n{i+1}_{l}b: [Ought]~{conseq}_{l-1}.')
+				obs.append(f'n{i+1}_{l}c: [I]({fact} -> {gen_c_box(cons)}) & [S]({fact} -> {gen_c_box(cons)}.')
+				obs.append(f'n{i+1}_{l}d: [I](~{fact} -> {gen_d_box(cons)}) & [S](~{fact} -> {gen_d_box(cons)}).')
 
 				system_conj += f' & n{i+1}_{l}a & n{i+1}_{l}b & n{i+1}_{l}c & n{i+1}_{l}d'
 
@@ -59,7 +59,7 @@ def write_obligations(command, obligation_list, system_list, file_name):
 		file.write(f'Name: {file_name}\n')
 		file.write(f'Source: \n')
 		file.write(f'Command: {command}\n')
-		file.write(f'Logic: sdl\n')
+		file.write(f'Logic: jp\n')
 		file.write(f'Author: Auto generator\n')
 		file.write(f'----\n')
 		for prop in obligation_list:
