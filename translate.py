@@ -620,7 +620,7 @@ if __name__=='__main__':
     #g = Path('grammars/modal.g').read_text()
     
     s = args.source.read_text()
-    meta, formulae = re.split('---*', s)
+    meta, formulae = re.split('----+', s)
     meta = meta.strip().split('\n')
     meta = {m[0].strip().lower():m[1].strip().lower() for m in [n.split(':') for n in meta]}
 
