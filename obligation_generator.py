@@ -8,20 +8,6 @@ import random
 import graphviz
 from string import ascii_lowercase
 
-def write_obligations(obligation_list, file_name):
-	with open(f'{file_name}.txt', 'w') as file: 
-		file.write(f'Name: {file_name}\n')
-		file.write(f'Source: \n')
-		file.write(f'Comment: \n')
-		file.write(f'Logic: SDL\n')
-		file.write(f'Author: \n')
-		file.write(f'----\n')
-		full_prop = 'SDL: '
-		for ind, prop in enumerate(obligation_list):
-			file.write(f's{ind+1}: {prop}.\n')
-			full_prop += f's{ind+1} & '
-		file.write(f'{full_prop[:-3]}.')
-
 def graph_generation(worlds, output_path):
 	f = graphviz.Digraph(str(output_path))
 	world_list = list(worlds.keys())
@@ -65,6 +51,61 @@ def check_for_infinite_loops(prop, neg, consequents, obligation_list):
 	# How to avoid loops like 'r -> []s', 's -> []q', 'q -> []r'?
 
 	return conseqs
+
+def recursive_world_creation(worlds, world_num, proposition_list):
+	""" This function tells us what variables exist in each world, given a list of propositions. 
+		E.g. With a proposition_list = ['a', '[]a', 'b', '[]~b', 'c', '[]c', 'a -> []~t', 'b -> []p', '~b -> []t', 'c -> []~r']
+			this world would have ['a', '[]a', 'b', '[]~b', 'c', '[]c', '[]~t', '[]p', '[]~r']
+			then the next world would be ['a', '~b', 'c', '~t', 'p', '~r', '[]~t', '[]t', '[]~r']
+			and the final world would be ['~t', 't', '~r']
+	"""
+
+	""" This function tells us what variables exist in each world, given a list of propositions. 
+		E.g. With a proposition_list = ['a', '[]~a', 'a -> []p', '[](~a -> []s)', 'a -> [](p -> []q)', '[](~a -> [](s -> []~r))']
+			this world would have ['a', '[]~a', '[]p', [](p -> []q), '[](~a -> []s)', '[](~a -> [](s -> []~r))']
+			then the next world would be ['~a', 'p', 'p -> []q', '~a -> []s', '~a -> [](s -> []~r)']
+			then the next world would be ['q', 's', 's -> []~r']
+			and the final world would be ['~r']
+	"""
+
+
+	world = f'w_{world_num}' 
+	print(f'{world} proposition list', proposition_list)
+
+	states = [x for x in proposition_list if len(x) <= 3 and x[0] != '[']
+	obligations = [x for x in proposition_list if x[0] == '[']
+	conditionals = [x for x in proposition_list if '->' in x]
+	conseqs = [c[c.find(' -> ')+4:] for c in conditionals if c.split()[0] in states] 
+	# Example: If proposition_list = ['a', '[]a', 'a -> []u'] then:
+		# states = ['a']
+		# obligations = ['[]a']
+		# conditionals = ['a -> []u']
+		# conseqs = ['[]u']
+
+	# Get relevant obligations in the world
+	worlds[world] = states + obligations + conseqs 
+	# remove duplicates from the list
+	worlds[world] = list(dict.fromkeys(worlds[world]))
+	print(f'{world} list', worlds[world])
+
+	new_proposition_list = obligations + conseqs
+	if len(obligations + conseqs) > 0:
+		# Any obligations '[]a' become 'a' in the next world
+		for i, st in enumerate(new_proposition_list):
+			if st[0] == '[':
+				new_prop = st[2:]
+				if new_prop[0] == '(':
+					new_prop = new_prop[1:-1]
+				new_proposition_list[i] = new_prop
+		recursive_world_creation(worlds, world_num+1, new_proposition_list)
+
+def create_worlds(obligation_list):
+	print("World Generation")
+
+	worlds = {}
+	world_num = 0
+	recursive_world_creation(worlds, world_num, obligation_list)
+	return worlds
 
 def recursive_conditional_generation(level, num_levels, full_obligation_list, consequents):
 	# obligation_list = ['a', '[]a', 'b', '[]~b']
@@ -127,108 +168,90 @@ def recursive_conditional_generation(level, num_levels, full_obligation_list, co
 
 	return flat_obligation_list
 
-def generate_obligations(literals, consequents, num_levels):
-	prop_var_list = [] 
-	obligation_list = []
+#props = [p1,p2,p3,p4]
+def gen_c_box(props):
+	new_box = ''
+	if len(props) == 2:
+		new_box = f'[]({props[0]} -> {props[1]})'
+	if len(props) > 2: 
+		new_box = f'[]({props[0]} -> {gen_c_box(props[1:])})'
+	return new_box
+
+#props = [p1,p2,p3,p4]
+def gen_d_box(props):
+	new_box = ''
+	if len(props) == 2:
+		new_box = f'[](~{props[0]} -> ~{props[1]})'
+	elif len(props) > 2: 
+		new_box = f'[](~{props[0]} -> {gen_c_box(props[1:])})'
+	return new_box
+
+# facts = [f_1, f_2, ...]
+# consequents = [p_1, p_2, ...]
+def generate_obligations(facts, consequents, num_levels):
+	obs = []
+	sys = []
 
 	# Generate initial obligations 
-	for literal in literals:
-		prop_var_list.append(literal)
-		obligation_list.append(literal)
+	for i, fact in enumerate(facts):
+		conseq = consequents[i] # p_1
 
-		# Generate unconditional obligations
-		uncond_ob = f'[]{literal}'
-		if random.choice([True, False]):
-			uncond_ob = f'[]~{literal}'
-		obligation_list.append(uncond_ob)
+		obs.append(f'{i+1}_1a: {fact}.')
+		obs.append(f'{i+1}_1b: []~{fact}.')
+		obs.append(f'{i+1}_1c: []({fact} -> {conseq}_1).')
+		obs.append(f'{i+1}_1d: [](~{fact} -> ~{conseq}_1).')
 
-	# Generate conditional obligations
-	level = 1
-	obligation_list = recursive_conditional_generation(level, num_levels, obligation_list, consequents)
-	print("full_obligation_list", obligation_list)
-	return obligation_list
+		system_conj = f'{i+1}_1a & {i+1}_1b & {i+1}_1c & {i+1}_1d'
 
-def recursive_world_creation(worlds, world_num, proposition_list):
-	""" This function tells us what variables exist in each world, given a list of propositions. 
-		E.g. With a proposition_list = ['a', '[]a', 'b', '[]~b', 'c', '[]c', 'a -> []~t', 'b -> []p', '~b -> []t', 'c -> []~r']
-			this world would have ['a', '[]a', 'b', '[]~b', 'c', '[]c', '[]~t', '[]p', '[]~r']
-			then the next world would be ['a', '~b', 'c', '~t', 'p', '~r', '[]~t', '[]t', '[]~r']
-			and the final world would be ['~t', 't', '~r']
-	"""
+		sys.append(f'N{i+1}_1 = {system_conj}.')
 
-	""" This function tells us what variables exist in each world, given a list of propositions. 
-		E.g. With a proposition_list = ['a', '[]~a', 'a -> []p', '[](~a -> []s)', 'a -> [](p -> []q)', '[](~a -> [](s -> []~r))']
-			this world would have ['a', '[]~a', '[]p', [](p -> []q), '[](~a -> []s)', '[](~a -> [](s -> []~r))']
-			then the next world would be ['~a', 'p', 'p -> []q', '~a -> []s', '~a -> [](s -> []~r)']
-			then the next world would be ['q', 's', 's -> []~r']
-			and the final world would be ['~r']
-	"""
+		if num_levels > 1:
+			conseqs = [f'{conseq}_{l}' for l in range(1, num_levels+1)] # [p_1, p_2, ...]
 
+			for l in range(2, num_levels+1):
+				cons = conseqs[:l]
+				obs.append(f'{i+1}_{l}a: {conseq}_{l-1}.')
+				obs.append(f'{i+1}_{l}b: []~{conseq}_{l-1}.')
+				obs.append(f'{i+1}_{l}c: []({fact} -> {gen_c_box(cons)}.')
+				obs.append(f'{i+1}_{l}d: [](~{fact} -> {gen_d_box(cons)}.')
 
-	world = f'w_{world_num}' 
-	print(f'{world} proposition list', proposition_list)
+				system_conj += f' & {i+1}_{l}a & {i+1}_{l}b & {i+1}_{l}c & {i+1}_{l}d'
 
-	states = [x for x in proposition_list if len(x) <= 3 and x[0] != '[']
-	obligations = [x for x in proposition_list if x[0] == '[']
-	conditionals = [x for x in proposition_list if '->' in x]
-	conseqs = [c[c.find(' -> ')+4:] for c in conditionals if c.split()[0] in states] 
-	# Example: If proposition_list = ['a', '[]a', 'a -> []u'] then:
-		# states = ['a']
-		# obligations = ['[]a']
-		# conditionals = ['a -> []u']
-		# conseqs = ['[]u']
+				sys.append(f'N{i+1}_{l} = {system_conj}.')
 
-	# Get relevant obligations in the world
-	worlds[world] = states + obligations + conseqs 
-	# remove duplicates from the list
-	worlds[world] = list(dict.fromkeys(worlds[world]))
-	print(f'{world} list', worlds[world])
+	return obs, sys
 
-	new_proposition_list = obligations + conseqs
-	if len(obligations + conseqs) > 0:
-		# Any obligations '[]a' become 'a' in the next world
-		for i, st in enumerate(new_proposition_list):
-			if st[0] == '[':
-				new_prop = st[2:]
-				if new_prop[0] == '(':
-					new_prop = new_prop[1:-1]
-				new_proposition_list[i] = new_prop
-		recursive_world_creation(worlds, world_num+1, new_proposition_list)
-
-def create_worlds(obligation_list):
-	print("World Generation")
-
-	worlds = {}
-	world_num = 0
-	recursive_world_creation(worlds, world_num, obligation_list)
-	return worlds
+def write_obligations(command, obligation_list, system_list, file_name):
+	with open(f'{file_name}.txt', 'w') as file: 
+		file.write(f'Name: {file_name}\n')
+		file.write(f'Source: \n')
+		file.write(f'Command: {command}\n')
+		file.write(f'Logic: SDL\n')
+		file.write(f'Author: \n')
+		file.write(f'----\n')
+		for prop in obligation_list:
+			file.write(f'{prop}\n')
+		file.write('\n')
+		for sys in system_list:
+			file.write(f'{sys}\n')
 
 if __name__ == '__main__':
-	literal_list = ascii_lowercase[:8] #[a,b,c,d,e,f,g,h]
-	conseq_list = ascii_lowercase[15:] #[p,q,r,s,t,u,v,w,x,y,z]
-
 	parser = argparse.ArgumentParser()
-	parser.add_argument('-o', '--output', type=Path, help='output file')
-	parser.add_argument('-l', '--num_levels', type=int, help='number of levels to generate')
-	parser.add_argument('-w', '--world_gen', help='do you want to generate worlds?')
+	parser.add_argument('-o', '--output_folder', type=str, help='output folder')
+	parser.add_argument('-f', '--num_facts', type=int, help='number of facts to initialise')
+	parser.add_argument('-l', '--num_levels', type=int, help='number of ctd levels to generate')
 	args = parser.parse_args()
 
-	num_atomics = 3
-	num_conditionals = 6
+	command = f'--num_facts={args.num_facts}, --num_levels={args.num_levels}'
 
-	literals = literal_list[:num_atomics]
-	consequents = conseq_list[:num_conditionals]
-	print(f'literals: {literals}, consequents: {consequents}, num_levels: {args.num_levels}')
-	consequents = [x for x in consequents] + [f'~{x}' for x in consequents]
-	print(f'consequents: {consequents}')
+	literals = [f'f_{i}' for i in range(1, args.num_facts+1)]
+	consequents = [f'p_{i}' for i in range(1, args.num_facts+1)]
  
-	obligation_list = generate_obligations(literals, consequents, args.num_levels)
-	write_obligations(obligation_list, args.output)
-	if args.world_gen.lower() in ['true','yes','y']:
-		worlds = create_worlds(obligation_list)
-		graph_generation(worlds, args.output)
-		print('Worlds')
-		print(worlds)
+	obligation_list, system_list = generate_obligations(literals, consequents, args.num_levels)
+	file_path = f"{args.output_folder}/ctd_{args.num_facts}facts_{args.num_levels}levels"
+
+	write_obligations(command, obligation_list, system_list, Path(file_path))
+	print(f"Done. Output at {file_path}.")
 
 # To call function:
 # obligation_generator.py --output=outputs\graph3 --num_levels=2 --world_gen=False
