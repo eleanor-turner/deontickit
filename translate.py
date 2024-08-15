@@ -72,7 +72,8 @@ def ground_aaia(grounding: str, agents: set, flc: set) -> list:
     axioms.extend([subprop(a, 'r') for a in agents])
     if len(agents) == 1:
         return axioms
-
+    if grounding == 'plain':
+        return axioms
     kschema = list()
     lhs = '''
             <ObjectSomeValuesFrom>
@@ -278,84 +279,55 @@ Class: owl:Thing SubClassOf: r some owl:Thing
 {body}
 '''
 
-g ='''?start: worksheet
-worksheet: axioms
+g = '''?start: worksheet
+?worksheet: axioms
 axioms: axiom* 
-?axiom: mlf | subclassof
+?axiom: mlf | subclassof | equiv
 
-mlf: ((NAME? ":")? (wff "."))
-       
-?wff: atomic
+mlf: ((NAME? ":")? (implication "."))
+
+?implication: binary | implication  "->" (binary | unary)
+?binary : unary | disjunction | conjunction
+disjunction: binary "v" unary
+conjunction: binary "&" unary
+
+?unary:  basic 
     | box
     | diamond
     | negation
-    | implication
-    | disjunction
-    | conjunction
+negation: "~" unary
+box: "[" arole? "]" unary
+diamond: "<" arole? ">" unary
+?parenswff: "(" implication ")"
+?basic: atomic
     | parenswff
-
-subclassof: wff "=>" wff "."
-?parenswff: "(" wff ")"
-negation: "~" wff
-box: "[" role? "]" wff
-implication: wff "->" wff
-diamond: "<" role? ">" wff
-
-disjunction: wff "v" wff
-conjunction: wff "&" wff
+subclassof: implication "=>" implication "."
+equiv: implication "=" implication "."
 atomic: NAME
-role: NAME
-%import common.CNAME -> NAME
+arole: NAME | NUMBER
+
+LCASE_LETTER: "a".."z"
+UCASE_LETTER: "A".."Z"
+SYMBOL:  "ϕ"
+DIGIT: "0".."9"
+LETTER: UCASE_LETTER | LCASE_LETTER | SYMBOL
+
+NAME: ("_"|LETTER) ("_"|LETTER|DIGIT)*
+
 %import common.NUMBER -> NUMBER
 %import common.WS_INLINE
 
 %ignore WS_INLINE
 %import common.WS
-%ignore WS'''
-
-text = '''
-s1: (<>[0]A) -> (<1><0>[0]A).
-s2: (<>[0]A) -> (<1>[0]A).
-s3: ((<>[0]A) & ([1]A)) -> ((<1>[0]A) & ([1][1]A)).
-s4: ((<>[0]A) & ([1]A)) -> (<1>(([0]A) & ([1]A))).
-s5: (<>((<>[0]A) & ([1]A))) -> (<><1>(([0]A) & ([1]A))).
-s6: ((<>[0]A) & (<>[1]A)) -> (<><1>(([0]A) & ([1]A))).
-s7: ((<>[0]A) & (<>[1]A)) -> (<>(([0]A) & ([1]A))).
-
-nec20: ([]A) -> ([0]A).
-nec21: ([]A) -> ([1]A).
-s6r: (<><1>(([0]A) & ([1]A))).
-s7r:  (<>(([0]A) & ([1]A))).'''
-
-t2 ='''
-s1: <>[0]A -> <1><0>[0]A.
-s2: <>[0]A -> <1>[0]A.
-s3: <>[0]A & [1]A -> <1>[0]A & [1][1]A.
-s4: <>[0]A & [1]A -> <1>([0]A & [1]A).
-s4N:[](<>[0]A & [1]A -> <1>([0]A & [1]A)).
-s5: <>(<>[0]A & [1]A) -> <><1>([0]A & [1]A).
-s6: <>[0]A & <>[1]A -> <><1>([0]A & [1]A).
-s7: <>[0]A & <>[1]A -> <>([0]A & [1]A).
+%ignore WS
 '''
-text1 = '''
-s1lhs: (<>([0]A)).
-s1rhs: (<1><0>[0]A).
-s2hls: (<>[0]A).
-s2rhs: (<1>[0]A).
-GForm: ((<>A) & (<> B)) -> (<>(A & B)).
-t1_2: (<1><0>[0]A) -> (<1>[0]A).
-s1r: (<1><0>[0]A).
-s2r: (<1>[0]A).
-s6r: (<><1>(([0]A) & ([1]A))).
-s7r:  (<>(([0]A) & ([1]A))).
-s4n: []((<>[0]A) & ([1]A)) -> (<1>(([0]A) & ([1]A))).
-s4nd: <>((<>[0]A) & ([1]A)) -> (<1>(([0]A) & ([1]A))).
-'''
-
-text = '''P1: <1>([1](party & <1>[1]cake)).
-cake => bake.
-P3: ~[1]bake.'''
-
+# %import common.CNAME -> NAME
+# %import common.NUMBER -> NUMBER
+# %import common.WS_INLINE
+# 
+# %ignore WS_INLINE
+# %import common.WS
+# %ignore WS
 r = 'r'
 class ClassAtom:
     def __init__(self, name):
@@ -398,8 +370,11 @@ class OWLXMLTransformer(Transformer):
 
     def atomic(self, a):
         (a,) = a
-        self.atomics.add(a)
-        return self.to_flc(f'<Class abbreviatedIRI=":{a}"/>')
+        if a == 'owlThing':
+            return '<Class IRI="http://www.w3.org/2002/07/owl#Thing"/>'
+        else:
+            self.atomics.add(a)
+            return self.to_flc(f'<Class abbreviatedIRI=":{a}"/>')
 
     def NUMBER(self, n):
         return n.value
@@ -642,7 +617,7 @@ if __name__=='__main__':
     if not args.output:
         args.output = args.source.with_suffix('.owl')
     
-    g = Path('grammars/modal.g').read_text()
+    #g = Path('grammars/modal.g').read_text()
     
     s = args.source.read_text()
     meta, formulae = re.split('---*', s)
@@ -678,6 +653,7 @@ if __name__=='__main__':
         print(f"|FLC| = {len(transformer.flc)}")
 
         grounding = ground_aaia('aaia_big', transformer.roles, transformer.flc)
+        # grounding = ground_aaia('plain', transformer.roles, transformer.flc)
         axioms_aaiabig = axioms + grounding
         print(f"|AAIA Big Axiom Schema| = {len(axioms_aaiabig)}")
         cnames = transformer.atomics - transformer.declared
@@ -686,29 +662,29 @@ if __name__=='__main__':
             print(ont)
         else:
             filename = str(args.output) 
-            Path(f'{filename[:-4]}_aaia_a.xml').write_text(ont)
+            Path(f'{filename[:-4]}_aaia_min.owl').write_text(ont)
 
-        grounding = ground_aaia('aaia', transformer.roles, transformer.flc)
-        axioms_aaia = axioms + grounding
-        print(f"|AAIA Normal Axiom Schema| = {len(axioms_aaia)}")
-        cnames = transformer.atomics - transformer.declared
-        ont = owlxml_ont(name, axioms_aaia, cnames, transformer.roles)
-        if not args.output:
-            print(ont)
-        else:
-            filename = str(args.output) 
-            Path(f'{filename[:-4]}_aaia_b.xml').write_text(ont)
-
-        grounding = ground_aaia('aaia_small', transformer.roles, transformer.flc)
-        axioms_aaiasmall = axioms + grounding
-        print(f"|AAIA Small Axiom Schema| = {len(axioms_aaiasmall)}")
-        cnames = transformer.atomics - transformer.declared
-        ont = owlxml_ont(name, axioms_aaiasmall, cnames, transformer.roles)
-        if not args.output:
-            print(ont)
-        else:
-            filename = str(args.output) 
-            Path(f'{filename[:-4]}_aaia_c.xml').write_text(ont)
+        # grounding = ground_aaia('aaia', transformer.roles, transformer.flc)
+#         axioms_aaia = axioms + grounding
+#         print(f"|AAIA Normal Axiom Schema| = {len(axioms_aaia)}")
+#         cnames = transformer.atomics - transformer.declared
+#         ont = owlxml_ont(name, axioms_aaia, cnames, transformer.roles)
+#         if not args.output:
+#             print(ont)
+#         else:
+#             filename = str(args.output) 
+#             Path(f'{filename[:-4]}_aaia_b.xml').write_text(ont)
+# 
+#         grounding = ground_aaia('aaia_small', transformer.roles, transformer.flc)
+#         axioms_aaiasmall = axioms + grounding
+#         print(f"|AAIA Small Axiom Schema| = {len(axioms_aaiasmall)}")
+#         cnames = transformer.atomics - transformer.declared
+#         ont = owlxml_ont(name, axioms_aaiasmall, cnames, transformer.roles)
+#         if not args.output:
+#             print(ont)
+#         else:
+#             filename = str(args.output) 
+#             Path(f'{filename[:-4]}_aaia_c.xml').write_text(ont)
 
     elif args.logic == 'jp':
         transformer = OWLXMLCTDTransformer()
