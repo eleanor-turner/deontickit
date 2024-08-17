@@ -1,0 +1,10 @@
+Name: AIAA Tests
+Source:
+Comment: Trying to violate AAIA
+Logic: cstit
+Author: Bijan Parsia
+----
+s0: <>p.
+s1: <2><0>p.
+s2: <1>(<0>p & <2>p).
+

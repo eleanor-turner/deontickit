@@ -1,0 +1,18 @@
+Name: AIAA Tests
+Source:
+Comment: Testing groundings.
+Logic: cstit
+Author: Bijan Parsia
+----
+
+P = [0]phi0 & [1]phi1.
+s1: <>P -> <2>(<0>P & <1>P).
+s2: <>P -> <1>(<0>P & <2>P).
+s3: <>P -> <0>(<1>P & <2>P).
+
+square_regime = s1 & s2 & s3.
+
+AIA_2: <>[0]phi0 & <>[1]phi1 & <>[2]phi2 -> <>([0]phi0 & [1]phi1 & [2]phi2).
+
+owlThing => square_regime.
+

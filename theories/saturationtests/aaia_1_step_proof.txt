@@ -1,0 +1,11 @@
+Name: AIAA Tests
+Source:
+Comment: Testing groundings.
+Logic: cstit
+Author: Bijan Parsia
+----
+
+line_1: <>[0]phi0 -> <1><0>[0]phi0.
+line_7: <>[0]phi0 & <>[1]phi1 -> <>([0]phi0 & [1]phi1).
+
+owlThing => line_1.

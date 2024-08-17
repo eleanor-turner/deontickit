@@ -1,0 +1,1242 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="cstit_sat.owl"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="cstit_sat.owl">
+    <Prefix name="" IRI="cstit_sat.owl#"/>
+    <Prefix name="dc" IRI="http://purl.org/dc/elements/1.1/"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+      <Declaration>
+        <Class abbreviatedIRI=":p"/>
+    </Declaration>
+      <Declaration>
+        <ObjectProperty abbreviatedIRI=":r_2"/>
+    </Declaration>
+  <Declaration>
+        <ObjectProperty abbreviatedIRI=":r_1"/>
+    </Declaration>
+  <Declaration>
+        <ObjectProperty abbreviatedIRI=":r_0"/>
+    </Declaration>
+        <EquivalentClasses>
+            <Class abbreviatedIRI=":s0"/> 
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </EquivalentClasses>
+    <EquivalentClasses>
+            <Class abbreviatedIRI=":s1"/> 
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectSomeValuesFrom>
+        </EquivalentClasses>
+    <EquivalentClasses>
+            <Class abbreviatedIRI=":s2"/> 
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_1"/>
+            
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+        </EquivalentClasses>
+    <SymmetricObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r"/>
+    </SymmetricObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r"/>
+    </TransitiveObjectProperty>
+    <ReflexiveObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r"/>
+    </ReflexiveObjectProperty>
+    <SymmetricObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r_0"/>
+    </SymmetricObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r_0"/>
+    </TransitiveObjectProperty>
+    <ReflexiveObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r_0"/>
+    </ReflexiveObjectProperty>
+    <SymmetricObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r_1"/>
+    </SymmetricObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r_1"/>
+    </TransitiveObjectProperty>
+    <ReflexiveObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r_1"/>
+    </ReflexiveObjectProperty>
+    <SymmetricObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r_2"/>
+    </SymmetricObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r_2"/>
+    </TransitiveObjectProperty>
+    <ReflexiveObjectProperty>
+        <ObjectProperty abbreviatedIRI=":r_2"/>
+    </ReflexiveObjectProperty>
+
+        <SubObjectPropertyOf>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <ObjectProperty abbreviatedIRI=":r"/>
+        </SubObjectPropertyOf>
+
+        <SubObjectPropertyOf>
+            <ObjectProperty abbreviatedIRI=":r_1"/>
+            <ObjectProperty abbreviatedIRI=":r"/>
+        </SubObjectPropertyOf>
+
+        <SubObjectPropertyOf>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <ObjectProperty abbreviatedIRI=":r"/>
+        </SubObjectPropertyOf>
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectComplementOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectSomeValuesFrom>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_2"/>
+                        
+        <ObjectIntersectionOf>
+            
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_0"/>
+                        
+        <ObjectComplementOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectSomeValuesFrom>
+        </ObjectComplementOf>
+                    </ObjectSomeValuesFrom>
+                
+
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        
+        <ObjectComplementOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectSomeValuesFrom>
+        </ObjectComplementOf>
+                    </ObjectSomeValuesFrom>
+                
+        </ObjectIntersectionOf>
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectComplementOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectSomeValuesFrom>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        ('r_0', '\n                    <ObjectSomeValuesFrom>\n                        <ObjectProperty abbreviatedIRI=":r_0"/>\n                        
+        <ObjectComplementOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectSomeValuesFrom>
+        </ObjectComplementOf>\n                    </ObjectSomeValuesFrom>\n                ')
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectComplementOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_2"/>
+                        
+        <ObjectIntersectionOf>
+            
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_0"/>
+                        
+        <ObjectComplementOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectComplementOf>
+                    </ObjectSomeValuesFrom>
+                
+
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        
+        <ObjectComplementOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectComplementOf>
+                    </ObjectSomeValuesFrom>
+                
+        </ObjectIntersectionOf>
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectComplementOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        ('r_0', '\n                    <ObjectSomeValuesFrom>\n                        <ObjectProperty abbreviatedIRI=":r_0"/>\n                        
+        <ObjectComplementOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectComplementOf>\n                    </ObjectSomeValuesFrom>\n                ')
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectComplementOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_2"/>
+                        
+        <ObjectIntersectionOf>
+            
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_0"/>
+                        
+        <ObjectComplementOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectComplementOf>
+                    </ObjectSomeValuesFrom>
+                
+
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        
+        <ObjectComplementOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectComplementOf>
+                    </ObjectSomeValuesFrom>
+                
+        </ObjectIntersectionOf>
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectComplementOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        ('r_0', '\n                    <ObjectSomeValuesFrom>\n                        <ObjectProperty abbreviatedIRI=":r_0"/>\n                        
+        <ObjectComplementOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectComplementOf>\n                    </ObjectSomeValuesFrom>\n                ')
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectComplementOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_1"/>
+            
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_2"/>
+                        
+        <ObjectIntersectionOf>
+            
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_0"/>
+                        
+        <ObjectComplementOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_1"/>
+            
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+        </ObjectComplementOf>
+                    </ObjectSomeValuesFrom>
+                
+
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        
+        <ObjectComplementOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_1"/>
+            
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+        </ObjectComplementOf>
+                    </ObjectSomeValuesFrom>
+                
+        </ObjectIntersectionOf>
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectComplementOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_1"/>
+            
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        ('r_0', '\n                    <ObjectSomeValuesFrom>\n                        <ObjectProperty abbreviatedIRI=":r_0"/>\n                        
+        <ObjectComplementOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_1"/>
+            
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+        </ObjectComplementOf>\n                    </ObjectSomeValuesFrom>\n                ')
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_2"/>
+                        
+        <ObjectIntersectionOf>
+            
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_0"/>
+                        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+                    </ObjectSomeValuesFrom>
+                
+
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+                    </ObjectSomeValuesFrom>
+                
+        </ObjectIntersectionOf>
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        ('r_0', '\n                    <ObjectSomeValuesFrom>\n                        <ObjectProperty abbreviatedIRI=":r_0"/>\n                        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>\n                    </ObjectSomeValuesFrom>\n                ')
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectComplementOf>
+            
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_2"/>
+                        
+        <ObjectIntersectionOf>
+            
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_0"/>
+                        
+        <ObjectComplementOf>
+            
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+        </ObjectComplementOf>
+                    </ObjectSomeValuesFrom>
+                
+
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        
+        <ObjectComplementOf>
+            
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+        </ObjectComplementOf>
+                    </ObjectSomeValuesFrom>
+                
+        </ObjectIntersectionOf>
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectComplementOf>
+            
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        ('r_0', '\n                    <ObjectSomeValuesFrom>\n                        <ObjectProperty abbreviatedIRI=":r_0"/>\n                        
+        <ObjectComplementOf>
+            
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+        </ObjectComplementOf>\n                    </ObjectSomeValuesFrom>\n                ')
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                <Class abbreviatedIRI=":p"/>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_2"/>
+                        
+        <ObjectIntersectionOf>
+            
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_0"/>
+                        <Class abbreviatedIRI=":p"/>
+                    </ObjectSomeValuesFrom>
+                
+
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        <Class abbreviatedIRI=":p"/>
+                    </ObjectSomeValuesFrom>
+                
+        </ObjectIntersectionOf>
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                <Class abbreviatedIRI=":p"/>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        ('r_0', '\n                    <ObjectSomeValuesFrom>\n                        <ObjectProperty abbreviatedIRI=":r_0"/>\n                        <Class abbreviatedIRI=":p"/>\n                    </ObjectSomeValuesFrom>\n                ')
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_2"/>
+                        
+        <ObjectIntersectionOf>
+            
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_0"/>
+                        
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectComplementOf>
+                    </ObjectSomeValuesFrom>
+                
+
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectComplementOf>
+                    </ObjectSomeValuesFrom>
+                
+        </ObjectIntersectionOf>
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        ('r_0', '\n                    <ObjectSomeValuesFrom>\n                        <ObjectProperty abbreviatedIRI=":r_0"/>\n                        
+        <ObjectComplementOf>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectComplementOf>\n                    </ObjectSomeValuesFrom>\n                ')
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_2"/>
+                        
+        <ObjectIntersectionOf>
+            
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_0"/>
+                        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+                    </ObjectSomeValuesFrom>
+                
+
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+                    </ObjectSomeValuesFrom>
+                
+        </ObjectIntersectionOf>
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        ('r_0', '\n                    <ObjectSomeValuesFrom>\n                        <ObjectProperty abbreviatedIRI=":r_0"/>\n                        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>\n                    </ObjectSomeValuesFrom>\n                ')
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectComplementOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_2"/>
+                        
+        <ObjectIntersectionOf>
+            
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_0"/>
+                        
+        <ObjectComplementOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectComplementOf>
+                    </ObjectSomeValuesFrom>
+                
+
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        
+        <ObjectComplementOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectComplementOf>
+                    </ObjectSomeValuesFrom>
+                
+        </ObjectIntersectionOf>
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectComplementOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectComplementOf>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        ('r_0', '\n                    <ObjectSomeValuesFrom>\n                        <ObjectProperty abbreviatedIRI=":r_0"/>\n                        
+        <ObjectComplementOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectComplementOf>\n                    </ObjectSomeValuesFrom>\n                ')
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_1"/>
+            
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_2"/>
+                        
+        <ObjectIntersectionOf>
+            
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_0"/>
+                        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_1"/>
+            
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+                    </ObjectSomeValuesFrom>
+                
+
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_1"/>
+            
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+                    </ObjectSomeValuesFrom>
+                
+        </ObjectIntersectionOf>
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_1"/>
+            
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        ('r_0', '\n                    <ObjectSomeValuesFrom>\n                        <ObjectProperty abbreviatedIRI=":r_0"/>\n                        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_1"/>
+            
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>\n                    </ObjectSomeValuesFrom>\n                ')
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_2"/>
+                        
+        <ObjectIntersectionOf>
+            
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_0"/>
+                        
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+                    </ObjectSomeValuesFrom>
+                
+
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+                    </ObjectSomeValuesFrom>
+                
+        </ObjectIntersectionOf>
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        ('r_0', '\n                    <ObjectSomeValuesFrom>\n                        <ObjectProperty abbreviatedIRI=":r_0"/>\n                        
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>\n                    </ObjectSomeValuesFrom>\n                ')
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_2"/>
+                        
+        <ObjectIntersectionOf>
+            
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_0"/>
+                        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+                    </ObjectSomeValuesFrom>
+                
+
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+                    </ObjectSomeValuesFrom>
+                
+        </ObjectIntersectionOf>
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        ('r_0', '\n                    <ObjectSomeValuesFrom>\n                        <ObjectProperty abbreviatedIRI=":r_0"/>\n                        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>\n                    </ObjectSomeValuesFrom>\n                ')
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectSomeValuesFrom>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_2"/>
+                        
+        <ObjectIntersectionOf>
+            
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_0"/>
+                        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectSomeValuesFrom>
+                    </ObjectSomeValuesFrom>
+                
+
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectSomeValuesFrom>
+                    </ObjectSomeValuesFrom>
+                
+        </ObjectIntersectionOf>
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+
+                <SubClassOf>
+                    
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":r"/>
+                <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectSomeValuesFrom>
+            </ObjectSomeValuesFrom>
+    
+                    
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty abbreviatedIRI=":r_1"/>
+                        ('r_0', '\n                    <ObjectSomeValuesFrom>\n                        <ObjectProperty abbreviatedIRI=":r_0"/>\n                        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_2"/>
+            <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI=":r_0"/>
+            <Class abbreviatedIRI=":p"/>
+        </ObjectSomeValuesFrom>
+        </ObjectSomeValuesFrom>\n                    </ObjectSomeValuesFrom>\n                ')
+                    </ObjectSomeValuesFrom>
+                
+                </SubClassOf>
+                
+</Ontology>

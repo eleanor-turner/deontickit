@@ -1,0 +1,19 @@
+Name: AIAA Tests
+Source:
+Comment: Testing groundings.
+Logic: cstit
+Author: Bijan Parsia
+----
+s1: <>p -> <2>(<0>p & <1>p).
+s2: <>p -> <1>(<0>p & <2>p).
+s3: <>p -> <0>(<1>p & <2>p).
+
+t1: <>p -> <1><0>p.
+
+l1: <>p -> <0><2>p.
+l2: <>p -> <1><2>p.
+
+square_regime = s1 & s2 & s3.
+triangle_regime = s1 & t1.
+leg_regime = s1 & l1 & l2.
+

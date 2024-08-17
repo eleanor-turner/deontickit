@@ -1,0 +1,507 @@
+Name: EXPERIMENTS/JPDL/ctd_100facts_1levels
+Source: 
+Command: --num_facts=100, --num_levels=1
+Logic: jp
+Author: Auto generator
+----
+n1_1a: f_1.
+n1_1b: [Ought]~f_1.
+n1_1c: [I](f_1 -> [Ought]p_1_1) & [S](f_1 -> [Ought]p_1_1).
+n1_1d: [I](~f_1 -> [Ought]~p_1_1) & [S](~f_1 -> [Ought]~p_1_1).
+n2_1a: f_2.
+n2_1b: [Ought]~f_2.
+n2_1c: [I](f_2 -> [Ought]p_2_1) & [S](f_2 -> [Ought]p_2_1).
+n2_1d: [I](~f_2 -> [Ought]~p_2_1) & [S](~f_2 -> [Ought]~p_2_1).
+n3_1a: f_3.
+n3_1b: [Ought]~f_3.
+n3_1c: [I](f_3 -> [Ought]p_3_1) & [S](f_3 -> [Ought]p_3_1).
+n3_1d: [I](~f_3 -> [Ought]~p_3_1) & [S](~f_3 -> [Ought]~p_3_1).
+n4_1a: f_4.
+n4_1b: [Ought]~f_4.
+n4_1c: [I](f_4 -> [Ought]p_4_1) & [S](f_4 -> [Ought]p_4_1).
+n4_1d: [I](~f_4 -> [Ought]~p_4_1) & [S](~f_4 -> [Ought]~p_4_1).
+n5_1a: f_5.
+n5_1b: [Ought]~f_5.
+n5_1c: [I](f_5 -> [Ought]p_5_1) & [S](f_5 -> [Ought]p_5_1).
+n5_1d: [I](~f_5 -> [Ought]~p_5_1) & [S](~f_5 -> [Ought]~p_5_1).
+n6_1a: f_6.
+n6_1b: [Ought]~f_6.
+n6_1c: [I](f_6 -> [Ought]p_6_1) & [S](f_6 -> [Ought]p_6_1).
+n6_1d: [I](~f_6 -> [Ought]~p_6_1) & [S](~f_6 -> [Ought]~p_6_1).
+n7_1a: f_7.
+n7_1b: [Ought]~f_7.
+n7_1c: [I](f_7 -> [Ought]p_7_1) & [S](f_7 -> [Ought]p_7_1).
+n7_1d: [I](~f_7 -> [Ought]~p_7_1) & [S](~f_7 -> [Ought]~p_7_1).
+n8_1a: f_8.
+n8_1b: [Ought]~f_8.
+n8_1c: [I](f_8 -> [Ought]p_8_1) & [S](f_8 -> [Ought]p_8_1).
+n8_1d: [I](~f_8 -> [Ought]~p_8_1) & [S](~f_8 -> [Ought]~p_8_1).
+n9_1a: f_9.
+n9_1b: [Ought]~f_9.
+n9_1c: [I](f_9 -> [Ought]p_9_1) & [S](f_9 -> [Ought]p_9_1).
+n9_1d: [I](~f_9 -> [Ought]~p_9_1) & [S](~f_9 -> [Ought]~p_9_1).
+n10_1a: f_10.
+n10_1b: [Ought]~f_10.
+n10_1c: [I](f_10 -> [Ought]p_10_1) & [S](f_10 -> [Ought]p_10_1).
+n10_1d: [I](~f_10 -> [Ought]~p_10_1) & [S](~f_10 -> [Ought]~p_10_1).
+n11_1a: f_11.
+n11_1b: [Ought]~f_11.
+n11_1c: [I](f_11 -> [Ought]p_11_1) & [S](f_11 -> [Ought]p_11_1).
+n11_1d: [I](~f_11 -> [Ought]~p_11_1) & [S](~f_11 -> [Ought]~p_11_1).
+n12_1a: f_12.
+n12_1b: [Ought]~f_12.
+n12_1c: [I](f_12 -> [Ought]p_12_1) & [S](f_12 -> [Ought]p_12_1).
+n12_1d: [I](~f_12 -> [Ought]~p_12_1) & [S](~f_12 -> [Ought]~p_12_1).
+n13_1a: f_13.
+n13_1b: [Ought]~f_13.
+n13_1c: [I](f_13 -> [Ought]p_13_1) & [S](f_13 -> [Ought]p_13_1).
+n13_1d: [I](~f_13 -> [Ought]~p_13_1) & [S](~f_13 -> [Ought]~p_13_1).
+n14_1a: f_14.
+n14_1b: [Ought]~f_14.
+n14_1c: [I](f_14 -> [Ought]p_14_1) & [S](f_14 -> [Ought]p_14_1).
+n14_1d: [I](~f_14 -> [Ought]~p_14_1) & [S](~f_14 -> [Ought]~p_14_1).
+n15_1a: f_15.
+n15_1b: [Ought]~f_15.
+n15_1c: [I](f_15 -> [Ought]p_15_1) & [S](f_15 -> [Ought]p_15_1).
+n15_1d: [I](~f_15 -> [Ought]~p_15_1) & [S](~f_15 -> [Ought]~p_15_1).
+n16_1a: f_16.
+n16_1b: [Ought]~f_16.
+n16_1c: [I](f_16 -> [Ought]p_16_1) & [S](f_16 -> [Ought]p_16_1).
+n16_1d: [I](~f_16 -> [Ought]~p_16_1) & [S](~f_16 -> [Ought]~p_16_1).
+n17_1a: f_17.
+n17_1b: [Ought]~f_17.
+n17_1c: [I](f_17 -> [Ought]p_17_1) & [S](f_17 -> [Ought]p_17_1).
+n17_1d: [I](~f_17 -> [Ought]~p_17_1) & [S](~f_17 -> [Ought]~p_17_1).
+n18_1a: f_18.
+n18_1b: [Ought]~f_18.
+n18_1c: [I](f_18 -> [Ought]p_18_1) & [S](f_18 -> [Ought]p_18_1).
+n18_1d: [I](~f_18 -> [Ought]~p_18_1) & [S](~f_18 -> [Ought]~p_18_1).
+n19_1a: f_19.
+n19_1b: [Ought]~f_19.
+n19_1c: [I](f_19 -> [Ought]p_19_1) & [S](f_19 -> [Ought]p_19_1).
+n19_1d: [I](~f_19 -> [Ought]~p_19_1) & [S](~f_19 -> [Ought]~p_19_1).
+n20_1a: f_20.
+n20_1b: [Ought]~f_20.
+n20_1c: [I](f_20 -> [Ought]p_20_1) & [S](f_20 -> [Ought]p_20_1).
+n20_1d: [I](~f_20 -> [Ought]~p_20_1) & [S](~f_20 -> [Ought]~p_20_1).
+n21_1a: f_21.
+n21_1b: [Ought]~f_21.
+n21_1c: [I](f_21 -> [Ought]p_21_1) & [S](f_21 -> [Ought]p_21_1).
+n21_1d: [I](~f_21 -> [Ought]~p_21_1) & [S](~f_21 -> [Ought]~p_21_1).
+n22_1a: f_22.
+n22_1b: [Ought]~f_22.
+n22_1c: [I](f_22 -> [Ought]p_22_1) & [S](f_22 -> [Ought]p_22_1).
+n22_1d: [I](~f_22 -> [Ought]~p_22_1) & [S](~f_22 -> [Ought]~p_22_1).
+n23_1a: f_23.
+n23_1b: [Ought]~f_23.
+n23_1c: [I](f_23 -> [Ought]p_23_1) & [S](f_23 -> [Ought]p_23_1).
+n23_1d: [I](~f_23 -> [Ought]~p_23_1) & [S](~f_23 -> [Ought]~p_23_1).
+n24_1a: f_24.
+n24_1b: [Ought]~f_24.
+n24_1c: [I](f_24 -> [Ought]p_24_1) & [S](f_24 -> [Ought]p_24_1).
+n24_1d: [I](~f_24 -> [Ought]~p_24_1) & [S](~f_24 -> [Ought]~p_24_1).
+n25_1a: f_25.
+n25_1b: [Ought]~f_25.
+n25_1c: [I](f_25 -> [Ought]p_25_1) & [S](f_25 -> [Ought]p_25_1).
+n25_1d: [I](~f_25 -> [Ought]~p_25_1) & [S](~f_25 -> [Ought]~p_25_1).
+n26_1a: f_26.
+n26_1b: [Ought]~f_26.
+n26_1c: [I](f_26 -> [Ought]p_26_1) & [S](f_26 -> [Ought]p_26_1).
+n26_1d: [I](~f_26 -> [Ought]~p_26_1) & [S](~f_26 -> [Ought]~p_26_1).
+n27_1a: f_27.
+n27_1b: [Ought]~f_27.
+n27_1c: [I](f_27 -> [Ought]p_27_1) & [S](f_27 -> [Ought]p_27_1).
+n27_1d: [I](~f_27 -> [Ought]~p_27_1) & [S](~f_27 -> [Ought]~p_27_1).
+n28_1a: f_28.
+n28_1b: [Ought]~f_28.
+n28_1c: [I](f_28 -> [Ought]p_28_1) & [S](f_28 -> [Ought]p_28_1).
+n28_1d: [I](~f_28 -> [Ought]~p_28_1) & [S](~f_28 -> [Ought]~p_28_1).
+n29_1a: f_29.
+n29_1b: [Ought]~f_29.
+n29_1c: [I](f_29 -> [Ought]p_29_1) & [S](f_29 -> [Ought]p_29_1).
+n29_1d: [I](~f_29 -> [Ought]~p_29_1) & [S](~f_29 -> [Ought]~p_29_1).
+n30_1a: f_30.
+n30_1b: [Ought]~f_30.
+n30_1c: [I](f_30 -> [Ought]p_30_1) & [S](f_30 -> [Ought]p_30_1).
+n30_1d: [I](~f_30 -> [Ought]~p_30_1) & [S](~f_30 -> [Ought]~p_30_1).
+n31_1a: f_31.
+n31_1b: [Ought]~f_31.
+n31_1c: [I](f_31 -> [Ought]p_31_1) & [S](f_31 -> [Ought]p_31_1).
+n31_1d: [I](~f_31 -> [Ought]~p_31_1) & [S](~f_31 -> [Ought]~p_31_1).
+n32_1a: f_32.
+n32_1b: [Ought]~f_32.
+n32_1c: [I](f_32 -> [Ought]p_32_1) & [S](f_32 -> [Ought]p_32_1).
+n32_1d: [I](~f_32 -> [Ought]~p_32_1) & [S](~f_32 -> [Ought]~p_32_1).
+n33_1a: f_33.
+n33_1b: [Ought]~f_33.
+n33_1c: [I](f_33 -> [Ought]p_33_1) & [S](f_33 -> [Ought]p_33_1).
+n33_1d: [I](~f_33 -> [Ought]~p_33_1) & [S](~f_33 -> [Ought]~p_33_1).
+n34_1a: f_34.
+n34_1b: [Ought]~f_34.
+n34_1c: [I](f_34 -> [Ought]p_34_1) & [S](f_34 -> [Ought]p_34_1).
+n34_1d: [I](~f_34 -> [Ought]~p_34_1) & [S](~f_34 -> [Ought]~p_34_1).
+n35_1a: f_35.
+n35_1b: [Ought]~f_35.
+n35_1c: [I](f_35 -> [Ought]p_35_1) & [S](f_35 -> [Ought]p_35_1).
+n35_1d: [I](~f_35 -> [Ought]~p_35_1) & [S](~f_35 -> [Ought]~p_35_1).
+n36_1a: f_36.
+n36_1b: [Ought]~f_36.
+n36_1c: [I](f_36 -> [Ought]p_36_1) & [S](f_36 -> [Ought]p_36_1).
+n36_1d: [I](~f_36 -> [Ought]~p_36_1) & [S](~f_36 -> [Ought]~p_36_1).
+n37_1a: f_37.
+n37_1b: [Ought]~f_37.
+n37_1c: [I](f_37 -> [Ought]p_37_1) & [S](f_37 -> [Ought]p_37_1).
+n37_1d: [I](~f_37 -> [Ought]~p_37_1) & [S](~f_37 -> [Ought]~p_37_1).
+n38_1a: f_38.
+n38_1b: [Ought]~f_38.
+n38_1c: [I](f_38 -> [Ought]p_38_1) & [S](f_38 -> [Ought]p_38_1).
+n38_1d: [I](~f_38 -> [Ought]~p_38_1) & [S](~f_38 -> [Ought]~p_38_1).
+n39_1a: f_39.
+n39_1b: [Ought]~f_39.
+n39_1c: [I](f_39 -> [Ought]p_39_1) & [S](f_39 -> [Ought]p_39_1).
+n39_1d: [I](~f_39 -> [Ought]~p_39_1) & [S](~f_39 -> [Ought]~p_39_1).
+n40_1a: f_40.
+n40_1b: [Ought]~f_40.
+n40_1c: [I](f_40 -> [Ought]p_40_1) & [S](f_40 -> [Ought]p_40_1).
+n40_1d: [I](~f_40 -> [Ought]~p_40_1) & [S](~f_40 -> [Ought]~p_40_1).
+n41_1a: f_41.
+n41_1b: [Ought]~f_41.
+n41_1c: [I](f_41 -> [Ought]p_41_1) & [S](f_41 -> [Ought]p_41_1).
+n41_1d: [I](~f_41 -> [Ought]~p_41_1) & [S](~f_41 -> [Ought]~p_41_1).
+n42_1a: f_42.
+n42_1b: [Ought]~f_42.
+n42_1c: [I](f_42 -> [Ought]p_42_1) & [S](f_42 -> [Ought]p_42_1).
+n42_1d: [I](~f_42 -> [Ought]~p_42_1) & [S](~f_42 -> [Ought]~p_42_1).
+n43_1a: f_43.
+n43_1b: [Ought]~f_43.
+n43_1c: [I](f_43 -> [Ought]p_43_1) & [S](f_43 -> [Ought]p_43_1).
+n43_1d: [I](~f_43 -> [Ought]~p_43_1) & [S](~f_43 -> [Ought]~p_43_1).
+n44_1a: f_44.
+n44_1b: [Ought]~f_44.
+n44_1c: [I](f_44 -> [Ought]p_44_1) & [S](f_44 -> [Ought]p_44_1).
+n44_1d: [I](~f_44 -> [Ought]~p_44_1) & [S](~f_44 -> [Ought]~p_44_1).
+n45_1a: f_45.
+n45_1b: [Ought]~f_45.
+n45_1c: [I](f_45 -> [Ought]p_45_1) & [S](f_45 -> [Ought]p_45_1).
+n45_1d: [I](~f_45 -> [Ought]~p_45_1) & [S](~f_45 -> [Ought]~p_45_1).
+n46_1a: f_46.
+n46_1b: [Ought]~f_46.
+n46_1c: [I](f_46 -> [Ought]p_46_1) & [S](f_46 -> [Ought]p_46_1).
+n46_1d: [I](~f_46 -> [Ought]~p_46_1) & [S](~f_46 -> [Ought]~p_46_1).
+n47_1a: f_47.
+n47_1b: [Ought]~f_47.
+n47_1c: [I](f_47 -> [Ought]p_47_1) & [S](f_47 -> [Ought]p_47_1).
+n47_1d: [I](~f_47 -> [Ought]~p_47_1) & [S](~f_47 -> [Ought]~p_47_1).
+n48_1a: f_48.
+n48_1b: [Ought]~f_48.
+n48_1c: [I](f_48 -> [Ought]p_48_1) & [S](f_48 -> [Ought]p_48_1).
+n48_1d: [I](~f_48 -> [Ought]~p_48_1) & [S](~f_48 -> [Ought]~p_48_1).
+n49_1a: f_49.
+n49_1b: [Ought]~f_49.
+n49_1c: [I](f_49 -> [Ought]p_49_1) & [S](f_49 -> [Ought]p_49_1).
+n49_1d: [I](~f_49 -> [Ought]~p_49_1) & [S](~f_49 -> [Ought]~p_49_1).
+n50_1a: f_50.
+n50_1b: [Ought]~f_50.
+n50_1c: [I](f_50 -> [Ought]p_50_1) & [S](f_50 -> [Ought]p_50_1).
+n50_1d: [I](~f_50 -> [Ought]~p_50_1) & [S](~f_50 -> [Ought]~p_50_1).
+n51_1a: f_51.
+n51_1b: [Ought]~f_51.
+n51_1c: [I](f_51 -> [Ought]p_51_1) & [S](f_51 -> [Ought]p_51_1).
+n51_1d: [I](~f_51 -> [Ought]~p_51_1) & [S](~f_51 -> [Ought]~p_51_1).
+n52_1a: f_52.
+n52_1b: [Ought]~f_52.
+n52_1c: [I](f_52 -> [Ought]p_52_1) & [S](f_52 -> [Ought]p_52_1).
+n52_1d: [I](~f_52 -> [Ought]~p_52_1) & [S](~f_52 -> [Ought]~p_52_1).
+n53_1a: f_53.
+n53_1b: [Ought]~f_53.
+n53_1c: [I](f_53 -> [Ought]p_53_1) & [S](f_53 -> [Ought]p_53_1).
+n53_1d: [I](~f_53 -> [Ought]~p_53_1) & [S](~f_53 -> [Ought]~p_53_1).
+n54_1a: f_54.
+n54_1b: [Ought]~f_54.
+n54_1c: [I](f_54 -> [Ought]p_54_1) & [S](f_54 -> [Ought]p_54_1).
+n54_1d: [I](~f_54 -> [Ought]~p_54_1) & [S](~f_54 -> [Ought]~p_54_1).
+n55_1a: f_55.
+n55_1b: [Ought]~f_55.
+n55_1c: [I](f_55 -> [Ought]p_55_1) & [S](f_55 -> [Ought]p_55_1).
+n55_1d: [I](~f_55 -> [Ought]~p_55_1) & [S](~f_55 -> [Ought]~p_55_1).
+n56_1a: f_56.
+n56_1b: [Ought]~f_56.
+n56_1c: [I](f_56 -> [Ought]p_56_1) & [S](f_56 -> [Ought]p_56_1).
+n56_1d: [I](~f_56 -> [Ought]~p_56_1) & [S](~f_56 -> [Ought]~p_56_1).
+n57_1a: f_57.
+n57_1b: [Ought]~f_57.
+n57_1c: [I](f_57 -> [Ought]p_57_1) & [S](f_57 -> [Ought]p_57_1).
+n57_1d: [I](~f_57 -> [Ought]~p_57_1) & [S](~f_57 -> [Ought]~p_57_1).
+n58_1a: f_58.
+n58_1b: [Ought]~f_58.
+n58_1c: [I](f_58 -> [Ought]p_58_1) & [S](f_58 -> [Ought]p_58_1).
+n58_1d: [I](~f_58 -> [Ought]~p_58_1) & [S](~f_58 -> [Ought]~p_58_1).
+n59_1a: f_59.
+n59_1b: [Ought]~f_59.
+n59_1c: [I](f_59 -> [Ought]p_59_1) & [S](f_59 -> [Ought]p_59_1).
+n59_1d: [I](~f_59 -> [Ought]~p_59_1) & [S](~f_59 -> [Ought]~p_59_1).
+n60_1a: f_60.
+n60_1b: [Ought]~f_60.
+n60_1c: [I](f_60 -> [Ought]p_60_1) & [S](f_60 -> [Ought]p_60_1).
+n60_1d: [I](~f_60 -> [Ought]~p_60_1) & [S](~f_60 -> [Ought]~p_60_1).
+n61_1a: f_61.
+n61_1b: [Ought]~f_61.
+n61_1c: [I](f_61 -> [Ought]p_61_1) & [S](f_61 -> [Ought]p_61_1).
+n61_1d: [I](~f_61 -> [Ought]~p_61_1) & [S](~f_61 -> [Ought]~p_61_1).
+n62_1a: f_62.
+n62_1b: [Ought]~f_62.
+n62_1c: [I](f_62 -> [Ought]p_62_1) & [S](f_62 -> [Ought]p_62_1).
+n62_1d: [I](~f_62 -> [Ought]~p_62_1) & [S](~f_62 -> [Ought]~p_62_1).
+n63_1a: f_63.
+n63_1b: [Ought]~f_63.
+n63_1c: [I](f_63 -> [Ought]p_63_1) & [S](f_63 -> [Ought]p_63_1).
+n63_1d: [I](~f_63 -> [Ought]~p_63_1) & [S](~f_63 -> [Ought]~p_63_1).
+n64_1a: f_64.
+n64_1b: [Ought]~f_64.
+n64_1c: [I](f_64 -> [Ought]p_64_1) & [S](f_64 -> [Ought]p_64_1).
+n64_1d: [I](~f_64 -> [Ought]~p_64_1) & [S](~f_64 -> [Ought]~p_64_1).
+n65_1a: f_65.
+n65_1b: [Ought]~f_65.
+n65_1c: [I](f_65 -> [Ought]p_65_1) & [S](f_65 -> [Ought]p_65_1).
+n65_1d: [I](~f_65 -> [Ought]~p_65_1) & [S](~f_65 -> [Ought]~p_65_1).
+n66_1a: f_66.
+n66_1b: [Ought]~f_66.
+n66_1c: [I](f_66 -> [Ought]p_66_1) & [S](f_66 -> [Ought]p_66_1).
+n66_1d: [I](~f_66 -> [Ought]~p_66_1) & [S](~f_66 -> [Ought]~p_66_1).
+n67_1a: f_67.
+n67_1b: [Ought]~f_67.
+n67_1c: [I](f_67 -> [Ought]p_67_1) & [S](f_67 -> [Ought]p_67_1).
+n67_1d: [I](~f_67 -> [Ought]~p_67_1) & [S](~f_67 -> [Ought]~p_67_1).
+n68_1a: f_68.
+n68_1b: [Ought]~f_68.
+n68_1c: [I](f_68 -> [Ought]p_68_1) & [S](f_68 -> [Ought]p_68_1).
+n68_1d: [I](~f_68 -> [Ought]~p_68_1) & [S](~f_68 -> [Ought]~p_68_1).
+n69_1a: f_69.
+n69_1b: [Ought]~f_69.
+n69_1c: [I](f_69 -> [Ought]p_69_1) & [S](f_69 -> [Ought]p_69_1).
+n69_1d: [I](~f_69 -> [Ought]~p_69_1) & [S](~f_69 -> [Ought]~p_69_1).
+n70_1a: f_70.
+n70_1b: [Ought]~f_70.
+n70_1c: [I](f_70 -> [Ought]p_70_1) & [S](f_70 -> [Ought]p_70_1).
+n70_1d: [I](~f_70 -> [Ought]~p_70_1) & [S](~f_70 -> [Ought]~p_70_1).
+n71_1a: f_71.
+n71_1b: [Ought]~f_71.
+n71_1c: [I](f_71 -> [Ought]p_71_1) & [S](f_71 -> [Ought]p_71_1).
+n71_1d: [I](~f_71 -> [Ought]~p_71_1) & [S](~f_71 -> [Ought]~p_71_1).
+n72_1a: f_72.
+n72_1b: [Ought]~f_72.
+n72_1c: [I](f_72 -> [Ought]p_72_1) & [S](f_72 -> [Ought]p_72_1).
+n72_1d: [I](~f_72 -> [Ought]~p_72_1) & [S](~f_72 -> [Ought]~p_72_1).
+n73_1a: f_73.
+n73_1b: [Ought]~f_73.
+n73_1c: [I](f_73 -> [Ought]p_73_1) & [S](f_73 -> [Ought]p_73_1).
+n73_1d: [I](~f_73 -> [Ought]~p_73_1) & [S](~f_73 -> [Ought]~p_73_1).
+n74_1a: f_74.
+n74_1b: [Ought]~f_74.
+n74_1c: [I](f_74 -> [Ought]p_74_1) & [S](f_74 -> [Ought]p_74_1).
+n74_1d: [I](~f_74 -> [Ought]~p_74_1) & [S](~f_74 -> [Ought]~p_74_1).
+n75_1a: f_75.
+n75_1b: [Ought]~f_75.
+n75_1c: [I](f_75 -> [Ought]p_75_1) & [S](f_75 -> [Ought]p_75_1).
+n75_1d: [I](~f_75 -> [Ought]~p_75_1) & [S](~f_75 -> [Ought]~p_75_1).
+n76_1a: f_76.
+n76_1b: [Ought]~f_76.
+n76_1c: [I](f_76 -> [Ought]p_76_1) & [S](f_76 -> [Ought]p_76_1).
+n76_1d: [I](~f_76 -> [Ought]~p_76_1) & [S](~f_76 -> [Ought]~p_76_1).
+n77_1a: f_77.
+n77_1b: [Ought]~f_77.
+n77_1c: [I](f_77 -> [Ought]p_77_1) & [S](f_77 -> [Ought]p_77_1).
+n77_1d: [I](~f_77 -> [Ought]~p_77_1) & [S](~f_77 -> [Ought]~p_77_1).
+n78_1a: f_78.
+n78_1b: [Ought]~f_78.
+n78_1c: [I](f_78 -> [Ought]p_78_1) & [S](f_78 -> [Ought]p_78_1).
+n78_1d: [I](~f_78 -> [Ought]~p_78_1) & [S](~f_78 -> [Ought]~p_78_1).
+n79_1a: f_79.
+n79_1b: [Ought]~f_79.
+n79_1c: [I](f_79 -> [Ought]p_79_1) & [S](f_79 -> [Ought]p_79_1).
+n79_1d: [I](~f_79 -> [Ought]~p_79_1) & [S](~f_79 -> [Ought]~p_79_1).
+n80_1a: f_80.
+n80_1b: [Ought]~f_80.
+n80_1c: [I](f_80 -> [Ought]p_80_1) & [S](f_80 -> [Ought]p_80_1).
+n80_1d: [I](~f_80 -> [Ought]~p_80_1) & [S](~f_80 -> [Ought]~p_80_1).
+n81_1a: f_81.
+n81_1b: [Ought]~f_81.
+n81_1c: [I](f_81 -> [Ought]p_81_1) & [S](f_81 -> [Ought]p_81_1).
+n81_1d: [I](~f_81 -> [Ought]~p_81_1) & [S](~f_81 -> [Ought]~p_81_1).
+n82_1a: f_82.
+n82_1b: [Ought]~f_82.
+n82_1c: [I](f_82 -> [Ought]p_82_1) & [S](f_82 -> [Ought]p_82_1).
+n82_1d: [I](~f_82 -> [Ought]~p_82_1) & [S](~f_82 -> [Ought]~p_82_1).
+n83_1a: f_83.
+n83_1b: [Ought]~f_83.
+n83_1c: [I](f_83 -> [Ought]p_83_1) & [S](f_83 -> [Ought]p_83_1).
+n83_1d: [I](~f_83 -> [Ought]~p_83_1) & [S](~f_83 -> [Ought]~p_83_1).
+n84_1a: f_84.
+n84_1b: [Ought]~f_84.
+n84_1c: [I](f_84 -> [Ought]p_84_1) & [S](f_84 -> [Ought]p_84_1).
+n84_1d: [I](~f_84 -> [Ought]~p_84_1) & [S](~f_84 -> [Ought]~p_84_1).
+n85_1a: f_85.
+n85_1b: [Ought]~f_85.
+n85_1c: [I](f_85 -> [Ought]p_85_1) & [S](f_85 -> [Ought]p_85_1).
+n85_1d: [I](~f_85 -> [Ought]~p_85_1) & [S](~f_85 -> [Ought]~p_85_1).
+n86_1a: f_86.
+n86_1b: [Ought]~f_86.
+n86_1c: [I](f_86 -> [Ought]p_86_1) & [S](f_86 -> [Ought]p_86_1).
+n86_1d: [I](~f_86 -> [Ought]~p_86_1) & [S](~f_86 -> [Ought]~p_86_1).
+n87_1a: f_87.
+n87_1b: [Ought]~f_87.
+n87_1c: [I](f_87 -> [Ought]p_87_1) & [S](f_87 -> [Ought]p_87_1).
+n87_1d: [I](~f_87 -> [Ought]~p_87_1) & [S](~f_87 -> [Ought]~p_87_1).
+n88_1a: f_88.
+n88_1b: [Ought]~f_88.
+n88_1c: [I](f_88 -> [Ought]p_88_1) & [S](f_88 -> [Ought]p_88_1).
+n88_1d: [I](~f_88 -> [Ought]~p_88_1) & [S](~f_88 -> [Ought]~p_88_1).
+n89_1a: f_89.
+n89_1b: [Ought]~f_89.
+n89_1c: [I](f_89 -> [Ought]p_89_1) & [S](f_89 -> [Ought]p_89_1).
+n89_1d: [I](~f_89 -> [Ought]~p_89_1) & [S](~f_89 -> [Ought]~p_89_1).
+n90_1a: f_90.
+n90_1b: [Ought]~f_90.
+n90_1c: [I](f_90 -> [Ought]p_90_1) & [S](f_90 -> [Ought]p_90_1).
+n90_1d: [I](~f_90 -> [Ought]~p_90_1) & [S](~f_90 -> [Ought]~p_90_1).
+n91_1a: f_91.
+n91_1b: [Ought]~f_91.
+n91_1c: [I](f_91 -> [Ought]p_91_1) & [S](f_91 -> [Ought]p_91_1).
+n91_1d: [I](~f_91 -> [Ought]~p_91_1) & [S](~f_91 -> [Ought]~p_91_1).
+n92_1a: f_92.
+n92_1b: [Ought]~f_92.
+n92_1c: [I](f_92 -> [Ought]p_92_1) & [S](f_92 -> [Ought]p_92_1).
+n92_1d: [I](~f_92 -> [Ought]~p_92_1) & [S](~f_92 -> [Ought]~p_92_1).
+n93_1a: f_93.
+n93_1b: [Ought]~f_93.
+n93_1c: [I](f_93 -> [Ought]p_93_1) & [S](f_93 -> [Ought]p_93_1).
+n93_1d: [I](~f_93 -> [Ought]~p_93_1) & [S](~f_93 -> [Ought]~p_93_1).
+n94_1a: f_94.
+n94_1b: [Ought]~f_94.
+n94_1c: [I](f_94 -> [Ought]p_94_1) & [S](f_94 -> [Ought]p_94_1).
+n94_1d: [I](~f_94 -> [Ought]~p_94_1) & [S](~f_94 -> [Ought]~p_94_1).
+n95_1a: f_95.
+n95_1b: [Ought]~f_95.
+n95_1c: [I](f_95 -> [Ought]p_95_1) & [S](f_95 -> [Ought]p_95_1).
+n95_1d: [I](~f_95 -> [Ought]~p_95_1) & [S](~f_95 -> [Ought]~p_95_1).
+n96_1a: f_96.
+n96_1b: [Ought]~f_96.
+n96_1c: [I](f_96 -> [Ought]p_96_1) & [S](f_96 -> [Ought]p_96_1).
+n96_1d: [I](~f_96 -> [Ought]~p_96_1) & [S](~f_96 -> [Ought]~p_96_1).
+n97_1a: f_97.
+n97_1b: [Ought]~f_97.
+n97_1c: [I](f_97 -> [Ought]p_97_1) & [S](f_97 -> [Ought]p_97_1).
+n97_1d: [I](~f_97 -> [Ought]~p_97_1) & [S](~f_97 -> [Ought]~p_97_1).
+n98_1a: f_98.
+n98_1b: [Ought]~f_98.
+n98_1c: [I](f_98 -> [Ought]p_98_1) & [S](f_98 -> [Ought]p_98_1).
+n98_1d: [I](~f_98 -> [Ought]~p_98_1) & [S](~f_98 -> [Ought]~p_98_1).
+n99_1a: f_99.
+n99_1b: [Ought]~f_99.
+n99_1c: [I](f_99 -> [Ought]p_99_1) & [S](f_99 -> [Ought]p_99_1).
+n99_1d: [I](~f_99 -> [Ought]~p_99_1) & [S](~f_99 -> [Ought]~p_99_1).
+n100_1a: f_100.
+n100_1b: [Ought]~f_100.
+n100_1c: [I](f_100 -> [Ought]p_100_1) & [S](f_100 -> [Ought]p_100_1).
+n100_1d: [I](~f_100 -> [Ought]~p_100_1) & [S](~f_100 -> [Ought]~p_100_1).
+
+N1_1 = n1_1a & n1_1b & n1_1c & n1_1d.
+N2_1 = n2_1a & n2_1b & n2_1c & n2_1d.
+N3_1 = n3_1a & n3_1b & n3_1c & n3_1d.
+N4_1 = n4_1a & n4_1b & n4_1c & n4_1d.
+N5_1 = n5_1a & n5_1b & n5_1c & n5_1d.
+N6_1 = n6_1a & n6_1b & n6_1c & n6_1d.
+N7_1 = n7_1a & n7_1b & n7_1c & n7_1d.
+N8_1 = n8_1a & n8_1b & n8_1c & n8_1d.
+N9_1 = n9_1a & n9_1b & n9_1c & n9_1d.
+N10_1 = n10_1a & n10_1b & n10_1c & n10_1d.
+N11_1 = n11_1a & n11_1b & n11_1c & n11_1d.
+N12_1 = n12_1a & n12_1b & n12_1c & n12_1d.
+N13_1 = n13_1a & n13_1b & n13_1c & n13_1d.
+N14_1 = n14_1a & n14_1b & n14_1c & n14_1d.
+N15_1 = n15_1a & n15_1b & n15_1c & n15_1d.
+N16_1 = n16_1a & n16_1b & n16_1c & n16_1d.
+N17_1 = n17_1a & n17_1b & n17_1c & n17_1d.
+N18_1 = n18_1a & n18_1b & n18_1c & n18_1d.
+N19_1 = n19_1a & n19_1b & n19_1c & n19_1d.
+N20_1 = n20_1a & n20_1b & n20_1c & n20_1d.
+N21_1 = n21_1a & n21_1b & n21_1c & n21_1d.
+N22_1 = n22_1a & n22_1b & n22_1c & n22_1d.
+N23_1 = n23_1a & n23_1b & n23_1c & n23_1d.
+N24_1 = n24_1a & n24_1b & n24_1c & n24_1d.
+N25_1 = n25_1a & n25_1b & n25_1c & n25_1d.
+N26_1 = n26_1a & n26_1b & n26_1c & n26_1d.
+N27_1 = n27_1a & n27_1b & n27_1c & n27_1d.
+N28_1 = n28_1a & n28_1b & n28_1c & n28_1d.
+N29_1 = n29_1a & n29_1b & n29_1c & n29_1d.
+N30_1 = n30_1a & n30_1b & n30_1c & n30_1d.
+N31_1 = n31_1a & n31_1b & n31_1c & n31_1d.
+N32_1 = n32_1a & n32_1b & n32_1c & n32_1d.
+N33_1 = n33_1a & n33_1b & n33_1c & n33_1d.
+N34_1 = n34_1a & n34_1b & n34_1c & n34_1d.
+N35_1 = n35_1a & n35_1b & n35_1c & n35_1d.
+N36_1 = n36_1a & n36_1b & n36_1c & n36_1d.
+N37_1 = n37_1a & n37_1b & n37_1c & n37_1d.
+N38_1 = n38_1a & n38_1b & n38_1c & n38_1d.
+N39_1 = n39_1a & n39_1b & n39_1c & n39_1d.
+N40_1 = n40_1a & n40_1b & n40_1c & n40_1d.
+N41_1 = n41_1a & n41_1b & n41_1c & n41_1d.
+N42_1 = n42_1a & n42_1b & n42_1c & n42_1d.
+N43_1 = n43_1a & n43_1b & n43_1c & n43_1d.
+N44_1 = n44_1a & n44_1b & n44_1c & n44_1d.
+N45_1 = n45_1a & n45_1b & n45_1c & n45_1d.
+N46_1 = n46_1a & n46_1b & n46_1c & n46_1d.
+N47_1 = n47_1a & n47_1b & n47_1c & n47_1d.
+N48_1 = n48_1a & n48_1b & n48_1c & n48_1d.
+N49_1 = n49_1a & n49_1b & n49_1c & n49_1d.
+N50_1 = n50_1a & n50_1b & n50_1c & n50_1d.
+N51_1 = n51_1a & n51_1b & n51_1c & n51_1d.
+N52_1 = n52_1a & n52_1b & n52_1c & n52_1d.
+N53_1 = n53_1a & n53_1b & n53_1c & n53_1d.
+N54_1 = n54_1a & n54_1b & n54_1c & n54_1d.
+N55_1 = n55_1a & n55_1b & n55_1c & n55_1d.
+N56_1 = n56_1a & n56_1b & n56_1c & n56_1d.
+N57_1 = n57_1a & n57_1b & n57_1c & n57_1d.
+N58_1 = n58_1a & n58_1b & n58_1c & n58_1d.
+N59_1 = n59_1a & n59_1b & n59_1c & n59_1d.
+N60_1 = n60_1a & n60_1b & n60_1c & n60_1d.
+N61_1 = n61_1a & n61_1b & n61_1c & n61_1d.
+N62_1 = n62_1a & n62_1b & n62_1c & n62_1d.
+N63_1 = n63_1a & n63_1b & n63_1c & n63_1d.
+N64_1 = n64_1a & n64_1b & n64_1c & n64_1d.
+N65_1 = n65_1a & n65_1b & n65_1c & n65_1d.
+N66_1 = n66_1a & n66_1b & n66_1c & n66_1d.
+N67_1 = n67_1a & n67_1b & n67_1c & n67_1d.
+N68_1 = n68_1a & n68_1b & n68_1c & n68_1d.
+N69_1 = n69_1a & n69_1b & n69_1c & n69_1d.
+N70_1 = n70_1a & n70_1b & n70_1c & n70_1d.
+N71_1 = n71_1a & n71_1b & n71_1c & n71_1d.
+N72_1 = n72_1a & n72_1b & n72_1c & n72_1d.
+N73_1 = n73_1a & n73_1b & n73_1c & n73_1d.
+N74_1 = n74_1a & n74_1b & n74_1c & n74_1d.
+N75_1 = n75_1a & n75_1b & n75_1c & n75_1d.
+N76_1 = n76_1a & n76_1b & n76_1c & n76_1d.
+N77_1 = n77_1a & n77_1b & n77_1c & n77_1d.
+N78_1 = n78_1a & n78_1b & n78_1c & n78_1d.
+N79_1 = n79_1a & n79_1b & n79_1c & n79_1d.
+N80_1 = n80_1a & n80_1b & n80_1c & n80_1d.
+N81_1 = n81_1a & n81_1b & n81_1c & n81_1d.
+N82_1 = n82_1a & n82_1b & n82_1c & n82_1d.
+N83_1 = n83_1a & n83_1b & n83_1c & n83_1d.
+N84_1 = n84_1a & n84_1b & n84_1c & n84_1d.
+N85_1 = n85_1a & n85_1b & n85_1c & n85_1d.
+N86_1 = n86_1a & n86_1b & n86_1c & n86_1d.
+N87_1 = n87_1a & n87_1b & n87_1c & n87_1d.
+N88_1 = n88_1a & n88_1b & n88_1c & n88_1d.
+N89_1 = n89_1a & n89_1b & n89_1c & n89_1d.
+N90_1 = n90_1a & n90_1b & n90_1c & n90_1d.
+N91_1 = n91_1a & n91_1b & n91_1c & n91_1d.
+N92_1 = n92_1a & n92_1b & n92_1c & n92_1d.
+N93_1 = n93_1a & n93_1b & n93_1c & n93_1d.
+N94_1 = n94_1a & n94_1b & n94_1c & n94_1d.
+N95_1 = n95_1a & n95_1b & n95_1c & n95_1d.
+N96_1 = n96_1a & n96_1b & n96_1c & n96_1d.
+N97_1 = n97_1a & n97_1b & n97_1c & n97_1d.
+N98_1 = n98_1a & n98_1b & n98_1c & n98_1d.
+N99_1 = n99_1a & n99_1b & n99_1c & n99_1d.
+N100_1 = n100_1a & n100_1b & n100_1c & n100_1d.

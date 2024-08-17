@@ -1,0 +1,18 @@
+Name: AIAA Tests
+Source:
+Comment: Testing groundings.
+Logic: cstit
+Author: Bijan Parsia
+----
+P1 = [0]phi0.
+P2 = [0]phi0 & [1]phi1.
+
+aaia_2: <>P2 -> <2>(<0>P2 & <1>P2).
+aaia_1: <>P2 -> <1><0>P2.
+
+triangle: aaia_1 & aaia_2.
+
+AIA_2: <>[0]phi0 & <>[1]phi1 & <>[2]phi2 -> <>([0]phi0 & [1]phi1 & [2]phi2).
+
+owlThing => triangle.
+

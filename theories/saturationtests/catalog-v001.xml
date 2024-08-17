@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
+        <uri id="Automatically generated entry, Timestamp=1723657570649" name="aaia2_svt_proof.owl" uri="aaia2_svt_proof_aaia_min.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723657570649" name="aaia_1_step_proof.owl" uri="aaia_1_step_proof_aaia_min.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723657570649" name="aaia_BP_triangle_proof.owl" uri="aaia_BP_triangle_proof_aaia_min.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723657570649" name="aaia_ET_triangle_proof.owl" uri="aaia_ET_triangle_proof_aaia_min.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723657570649" name="aaia_proof.owl" uri="aaia_proof_aaia_min.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723657570649" name="aaia_square_proof.owl" uri="aaia_square_proof_aaia_min.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723657570649" name="duplicate:cstit_sat.owl" uri="cstit_sat_aaia_a.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723657570649" name="duplicate:cstit_sat.owl" uri="cstit_sat_aaia_a.xml"/>
+        <uri id="Automatically generated entry, Timestamp=1723657570649" name="duplicate:cstit_sat.owl" uri="cstit_sat_aaia_b.xml"/>
+        <uri id="Automatically generated entry, Timestamp=1723657570649" name="duplicate:cstit_sat.owl" uri="cstit_sat_aaia_c.xml"/>
+        <uri id="Automatically generated entry, Timestamp=1723657570649" name="duplicate:cstit_sat2.owl" uri="cstit_sat2_aaia_c.xml"/>
+        <uri id="Automatically generated entry, Timestamp=1723657570649" name="duplicate:cstit_sat2.owl" uri="cstit_sat2_aaia_b.xml"/>
+        <uri id="Automatically generated entry, Timestamp=1723657570649" name="duplicate:cstit_sat2.owl" uri="cstit_sat2_aaia_a.xml"/>
+        <uri id="Automatically generated entry, Timestamp=1723657570649" name="duplicate:everything.owl" uri="everything_aaia.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723657570649" name="duplicate:everything.owl" uri="everything_aaia.xml"/>
+        <uri id="Automatically generated entry, Timestamp=1723657570649" name="duplicate:everything.owl" uri="everything_aaia_min.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723657570649" name="duplicate:everything.owl" uri="everything_aaia_min.xml"/>
+        <uri id="Automatically generated entry, Timestamp=1723657570649" name="duplicate:leg.owl" uri="leg_aaia_a.xml"/>
+        <uri id="Automatically generated entry, Timestamp=1723657570649" name="duplicate:leg.owl" uri="leg.xml"/>
+        <uri id="Automatically generated entry, Timestamp=1723657570649" name="triangle.owl" uri="triangle_aaia_a.xml"/>
+    </group>
+</catalog>

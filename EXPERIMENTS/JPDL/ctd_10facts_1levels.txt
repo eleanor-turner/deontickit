@@ -1,0 +1,57 @@
+Name: EXPERIMENTS/JPDL/ctd_10facts_1levels
+Source: 
+Command: --num_facts=10, --num_levels=1
+Logic: jp
+Author: Auto generator
+----
+n1_1a: f_1.
+n1_1b: [Ought]~f_1.
+n1_1c: [I](f_1 -> [Ought]p_1_1) & [S](f_1 -> [Ought]p_1_1).
+n1_1d: [I](~f_1 -> [Ought]~p_1_1) & [S](~f_1 -> [Ought]~p_1_1).
+n2_1a: f_2.
+n2_1b: [Ought]~f_2.
+n2_1c: [I](f_2 -> [Ought]p_2_1) & [S](f_2 -> [Ought]p_2_1).
+n2_1d: [I](~f_2 -> [Ought]~p_2_1) & [S](~f_2 -> [Ought]~p_2_1).
+n3_1a: f_3.
+n3_1b: [Ought]~f_3.
+n3_1c: [I](f_3 -> [Ought]p_3_1) & [S](f_3 -> [Ought]p_3_1).
+n3_1d: [I](~f_3 -> [Ought]~p_3_1) & [S](~f_3 -> [Ought]~p_3_1).
+n4_1a: f_4.
+n4_1b: [Ought]~f_4.
+n4_1c: [I](f_4 -> [Ought]p_4_1) & [S](f_4 -> [Ought]p_4_1).
+n4_1d: [I](~f_4 -> [Ought]~p_4_1) & [S](~f_4 -> [Ought]~p_4_1).
+n5_1a: f_5.
+n5_1b: [Ought]~f_5.
+n5_1c: [I](f_5 -> [Ought]p_5_1) & [S](f_5 -> [Ought]p_5_1).
+n5_1d: [I](~f_5 -> [Ought]~p_5_1) & [S](~f_5 -> [Ought]~p_5_1).
+n6_1a: f_6.
+n6_1b: [Ought]~f_6.
+n6_1c: [I](f_6 -> [Ought]p_6_1) & [S](f_6 -> [Ought]p_6_1).
+n6_1d: [I](~f_6 -> [Ought]~p_6_1) & [S](~f_6 -> [Ought]~p_6_1).
+n7_1a: f_7.
+n7_1b: [Ought]~f_7.
+n7_1c: [I](f_7 -> [Ought]p_7_1) & [S](f_7 -> [Ought]p_7_1).
+n7_1d: [I](~f_7 -> [Ought]~p_7_1) & [S](~f_7 -> [Ought]~p_7_1).
+n8_1a: f_8.
+n8_1b: [Ought]~f_8.
+n8_1c: [I](f_8 -> [Ought]p_8_1) & [S](f_8 -> [Ought]p_8_1).
+n8_1d: [I](~f_8 -> [Ought]~p_8_1) & [S](~f_8 -> [Ought]~p_8_1).
+n9_1a: f_9.
+n9_1b: [Ought]~f_9.
+n9_1c: [I](f_9 -> [Ought]p_9_1) & [S](f_9 -> [Ought]p_9_1).
+n9_1d: [I](~f_9 -> [Ought]~p_9_1) & [S](~f_9 -> [Ought]~p_9_1).
+n10_1a: f_10.
+n10_1b: [Ought]~f_10.
+n10_1c: [I](f_10 -> [Ought]p_10_1) & [S](f_10 -> [Ought]p_10_1).
+n10_1d: [I](~f_10 -> [Ought]~p_10_1) & [S](~f_10 -> [Ought]~p_10_1).
+
+N1_1 = n1_1a & n1_1b & n1_1c & n1_1d.
+N2_1 = n2_1a & n2_1b & n2_1c & n2_1d.
+N3_1 = n3_1a & n3_1b & n3_1c & n3_1d.
+N4_1 = n4_1a & n4_1b & n4_1c & n4_1d.
+N5_1 = n5_1a & n5_1b & n5_1c & n5_1d.
+N6_1 = n6_1a & n6_1b & n6_1c & n6_1d.
+N7_1 = n7_1a & n7_1b & n7_1c & n7_1d.
+N8_1 = n8_1a & n8_1b & n8_1c & n8_1d.
+N9_1 = n9_1a & n9_1b & n9_1c & n9_1d.
+N10_1 = n10_1a & n10_1b & n10_1c & n10_1d.

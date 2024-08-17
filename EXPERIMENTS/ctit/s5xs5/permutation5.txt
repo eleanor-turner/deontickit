@@ -1,0 +1,9 @@
+Name: AIAA Tests: Permutation axiom
+Source:
+Comment: Testing groundings.
+Logic: cstit
+Author: Bijan Parsia
+----
+
+P1: <i><j>P -> <j><i>P.
+P2: <j><i>P -> <i><j>P.

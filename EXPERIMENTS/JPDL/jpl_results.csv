@@ -1,0 +1,12 @@
+directaxioms,background,time,logic,file
+5,4,0.14,jpl,ctd_1facts_1levels
+1000,4,19.72,jpl,ctd_100facts_2levels
+50,4,1.78,jpl,ctd_10facts_1levels
+1500,4,52.47,jpl,ctd_100facts_3levels
+250,4,1.81,jpl,ctd_10facts_5levels
+25,4,0.19,jpl,ctd_1facts_5levels
+150,4,0.67,jpl,ctd_10facts_3levels
+200,4,0.92,jpl,ctd_10facts_4levels
+50,4,0.36,jpl,ctd_1facts_10levels
+100,4,0.36,jpl,ctd_10facts_2levels
+500,4,5.36,jpl,ctd_100facts_1levels

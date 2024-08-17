@@ -1,0 +1,12 @@
+Name: EXPERIMENTS/sdl/ctd_1facts_1levels
+Source: 
+Command: --num_facts=1, --num_levels=1
+Logic: sdl
+Author: Auto generator
+----
+n1_1a: f_1.
+n1_1b: []~f_1.
+n1_1c: [](f_1 -> p_1_1).
+n1_1d: [](~f_1 -> ~p_1_1).
+
+N1_1 = n1_1a & n1_1b & n1_1c & n1_1d.

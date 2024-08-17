@@ -46,6 +46,16 @@ def reflexive_prop(op1, op2):
             </ObjectUnionOf>
         </SubClassOf>'''
 
+def serial_prop(r):
+    return f''' 
+        <SubClassOf>
+            <Class abbreviatedIRI="owl:Thing"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty abbreviatedIRI=":{r}"/>
+                <Class abbreviatedIRI="owl:Thing"/>
+            </ObjectSomeValuesFrom>
+        </SubClassOf>'''
+        
 def kconj(kagents):
     if len(kagents) == 1:
         return kagents[0]
@@ -61,6 +71,8 @@ def ground_ctd(operators: set, flc: set) -> list:
     if 'r_I' in operators and 'r_S' in operators:
         axioms.extend([disjoint('r_I','r_S')])
         axioms.extend([reflexive_prop('r_I','r_S')])
+        axioms.append(serial_prop('r_I'))
+        axioms.append(serial_prop('r_S'))
     return axioms
 
 def ground_aaia(grounding: str, agents: set, flc: set) -> list:
@@ -286,7 +298,7 @@ axioms: axiom*
 
 mlf: ((NAME? ":")? (implication "."))
 
-?implication: binary | implication  "->" (binary | unary)
+?implication: binary | implication  "->" binary 
 ?binary : unary | disjunction | conjunction
 disjunction: binary "v" unary
 conjunction: binary "&" unary
@@ -643,7 +655,7 @@ if __name__=='__main__':
     if args.logic == 'jp':
         formulae = jp_substitution(formulae)
 
-    parser = Lark(g, parser='earley')
+    parser = Lark(g, parser='lalr')
     tree = parser.parse(formulae)
 
     if args.logic == 'cstit' or args.logic == 'dstit':
@@ -655,7 +667,9 @@ if __name__=='__main__':
         grounding = ground_aaia('aaia', transformer.roles, transformer.flc)
         # grounding = ground_aaia('plain', transformer.roles, transformer.flc)
         axioms_aaiabig = axioms + grounding
-        print(f'''{{'flc': {len(transformer.flc)}, 'non_aaia_axioms': {len(axioms)},'aaia_saturation': {2*len(transformer.flc)}}}''')
+        nrag = len(transformer.roles) - 1
+        flcsize = len(transformer.flc)
+        print(f'''{{'agents': {nrag}, 'flc': {flcsize}, 'non_aaia_axioms': {len(axioms)},'aaia_saturation': {nrag*len(transformer.flc)}}}''')
         #print(f"|AAIA Big Axiom Schema| = {len(axioms_aaiabig)}")
         cnames = transformer.atomics - transformer.declared
         ont = owlxml_ont(name, axioms_aaiabig, cnames, transformer.roles)
@@ -691,6 +705,7 @@ if __name__=='__main__':
         transformer = OWLXMLCTDTransformer()
         axioms = transformer.transform(tree)
         grounding = ground_ctd(transformer.roles, transformer.flc)
+        print(f'''{{'directaxioms': {len(axioms)}, 'background':{len(grounding)}}}''')
         axioms.extend(grounding)
         cnames = transformer.atomics - transformer.declared
         ont = owlxml_ont(name, axioms, cnames, transformer.roles)
@@ -701,7 +716,8 @@ if __name__=='__main__':
 
     elif args.logic == 'sdl':
         transformer = OWLXMLTransformer()
-        axioms = transformer.transform(tree)        
+        axioms = transformer.transform(tree) 
+        print(f'''{{'directaxioms': {len(axioms)}}}''' )      
         axioms.append('''<SubClassOf>
         <Class abbreviatedIRI="owl:Thing"/>
         <ObjectSomeValuesFrom>

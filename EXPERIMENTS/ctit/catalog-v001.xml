@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
+        <uri id="Automatically generated entry, Timestamp=1723800018335" name="aaia1.0.owl" uri="aaia1.0.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723800018335" name="aaia3.owl" uri="aia/aaia3.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723800018335" name="permutation1.owl" uri="s5xs5/permutation1.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723800018335" name="permutation2.owl" uri="s5xs5/permutation2.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723800018335" name="permutation3.owl" uri="s5xs5/permutation3.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723800018335" name="permutation4.owl" uri="s5xs5/permutation4.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723800018335" name="permutation5.owl" uri="s5xs5/permutation5.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723800018335" name="permutation6.owl" uri="s5xs5/permutation6.owl"/>
+    </group>
+</catalog>

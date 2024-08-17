@@ -1,0 +1,12 @@
+Name: AIAA Tests
+Source:
+Comment: Testing groundings.
+Logic: cstit
+Author: Bijan Parsia
+----
+s0: <>p -> <2>(<0>p & <1>p).
+s1: <>p -> <1>(<0>p & <2>p).
+b1: <0>p -> <2>p.
+b2: <1>p -> <2>p.
+
+

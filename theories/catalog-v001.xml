@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
+        <uri id="Automatically generated entry, Timestamp=1723680794534" name="aaia2_svt_proof.owl" uri="saturationtests/aaia2_svt_proof_aaia_min.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723680794534" name="aaia2aia.owl" uri="frompaper/cstit/aaia2aia.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723680794534" name="aaia2aia_ref.owl" uri="frompaper/cstit/aaia2aia_ref.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723680794534" name="aaia_1_step_proof.owl" uri="saturationtests/aaia_1_step_proof_aaia_min.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723680794534" name="aaia_BP_triangle_proof.owl" uri="saturationtests/aaia_BP_triangle_proof_aaia_min.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723680794534" name="aaia_ET_triangle_proof.owl" uri="saturationtests/aaia_ET_triangle_proof_aaia_min.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723680794534" name="aaia_proof.owl" uri="saturationtests/aaia_proof_aaia_min.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723680794534" name="aaia_square_proof.owl" uri="saturationtests/aaia_square_proof_aaia_min.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723680794534" name="duplicate:cstit_sat.owl" uri="saturationtests/cstit_sat_aaia_a.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723680794534" name="duplicate:cstit_sat.owl" uri="saturationtests/cstit_sat_aaia_a.xml"/>
+        <uri id="Automatically generated entry, Timestamp=1723680794534" name="duplicate:cstit_sat.owl" uri="saturationtests/cstit_sat_aaia_b.xml"/>
+        <uri id="Automatically generated entry, Timestamp=1723680794534" name="duplicate:cstit_sat.owl" uri="saturationtests/cstit_sat_aaia_c.xml"/>
+        <uri id="Automatically generated entry, Timestamp=1723680794534" name="duplicate:cstit_sat2.owl" uri="saturationtests/cstit_sat2_aaia_c.xml"/>
+        <uri id="Automatically generated entry, Timestamp=1723680794534" name="duplicate:cstit_sat2.owl" uri="saturationtests/cstit_sat2_aaia_b.xml"/>
+        <uri id="Automatically generated entry, Timestamp=1723680794534" name="duplicate:cstit_sat2.owl" uri="saturationtests/cstit_sat2_aaia_a.xml"/>
+        <uri id="Automatically generated entry, Timestamp=1723680794534" name="ctd_aaai.owl" uri="ctd_aaai.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723680794534" name="ctd_basic.owl" uri="frompaper/sdl/ctd_basic.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723680794534" name="ctd_ontology.owl" uri="frompaper/sdl/ctd_ontology.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723680794534" name="duplicate:everything.owl" uri="saturationtests/everything_aaia.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723680794534" name="duplicate:everything.owl" uri="saturationtests/everything_aaia.xml"/>
+        <uri id="Automatically generated entry, Timestamp=1723680794534" name="duplicate:everything.owl" uri="saturationtests/everything_aaia_min.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723680794534" name="duplicate:everything.owl" uri="saturationtests/everything_aaia_min.xml"/>
+        <uri id="Automatically generated entry, Timestamp=1723680794534" name="hn2nestedstit.owl" uri="frompaper/cstit/hn2nestedstit.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723680794534" name="duplicate:leg.owl" uri="saturationtests/leg_aaia_a.xml"/>
+        <uri id="Automatically generated entry, Timestamp=1723680794534" name="duplicate:leg.owl" uri="saturationtests/leg.xml"/>
+        <uri id="Automatically generated entry, Timestamp=1723680794534" name="nestedstit2nm.owl" uri="frompaper/cstit/nestedstit2nm.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1723680794534" name="triangle.owl" uri="saturationtests/triangle_aaia_a.xml"/>
+    </group>
+</catalog>

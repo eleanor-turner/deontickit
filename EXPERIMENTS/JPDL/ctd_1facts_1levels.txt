@@ -1,4 +1,4 @@
-Name: EXPERIMENTS\JPDL\ctd_1facts_1levels
+Name: EXPERIMENTS/JPDL/ctd_1facts_1levels
 Source: 
 Command: --num_facts=1, --num_levels=1
 Logic: jp
